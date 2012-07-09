@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'haml'
+gem 'haml-rails'
 gem 'parse_resource'
+gem 'sqlite3'
 gem 'rails', '3.2.3'
 gem 'twitter-bootstrap-rails'
 
