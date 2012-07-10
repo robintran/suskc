@@ -1,0 +1,12 @@
+%h2 Sign in
+~ form_tag signin_path(role: 'user') do
+  .field.span6
+    .span1
+      %label User Name
+    .span4= text_field_tag :username
+  .field.span6
+    .span1
+      %label Password
+    .span4= password_field_tag :password
+  .field.span5
+    .span1= submit_tag 'Sign In'

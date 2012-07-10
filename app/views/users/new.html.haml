@@ -1,0 +1,23 @@
+%h2 Sign Up
+~ form_for @user do |f|
+  .errors
+    - @user.errors.full_messages.each do |msg|
+      .span5{style: "color: red;"}= msg
+  .field.span6
+    .span1
+      %label User Name
+    .span4= f.text_field :username
+  .field.span6
+    .span1
+      %label Email
+    .span4= f.email_field :email
+  .field.span6
+    .span1
+      %label Password
+    .span4= f.password_field :password
+  .field.span6
+    .span1
+      %label Password Confirmation
+    .span4= f.password_field :password_confirmation
+  .field.span5
+    .span1= submit_tag 'Register'
