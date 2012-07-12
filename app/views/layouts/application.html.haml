@@ -13,37 +13,40 @@
     %link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72")
     %link(href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114")
 
-  %body
+  %body{style: "height: 100%"}
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.brand(href="#") StartupShopKC
-          .container.nav-collapse
-            %ul.nav
-              - if current_user
-                %li
-                  = link_to "hi #{current_user.username}"
-                %li
-                  = link_to "logout", "/signout"
-              - else
-                %li
-                  = link_to "login", "/signin"
-              %li= link_to "register", "/signup"
-    .container
-      .content
-        .row
-          .span3
-            .well.sidebar-nav
+          #logo
+            %a.brand(href="#") StartupShopKC
+          #search
+            ~ form_tag '/search', style: "margin: 0" do
+              = text_field_tag :search
+          #account
+            .container{style: "text-align: right;"}
+              .nav-collapse{style: "float: left;"}
+                %ul.nav
+                  - if current_user
+                    %li
+                      = link_to "hi #{current_user.username}"
+                    %li
+                      = link_to "Logout", "/signout"
+                    %li= link_to "Add Your Company", "#"
+                  - else
+                    %li
+                      = link_to "Login", "/signin"
+                    %li= link_to "Register", "/signup"
+    .container{style: "height: 100%"}
+      .content{style: "height: 90%; width: 100%"}
+        .row{style: "height: 100%; width: 100%"}
+          .span3{style: "height: 100%"}
+            .well.sidebar-nav{style: "min-height: 90%"}
               %h3 Sidebar
               %ul.nav.nav-list
-                %li.nav-header Sidebar
-                %li= link_to "Link 1", "#"
-                %li= link_to "Link 2", "#"
-                %li= link_to "Link 3", "#"
+                %li= link_to "All Companies", "#"
+                %li= link_to "Digital Companies", "#"
+                %li= link_to "Investors", "#"
+                %li= link_to "Co Working", "#"
           .span9
             = notice
             = yield
