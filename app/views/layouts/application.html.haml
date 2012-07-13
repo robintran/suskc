@@ -43,21 +43,24 @@
     .container{style: "height: 100%"}
       .content{style: "height: 90%; width: 100%"}
         .row{style: "height: 100%; width: 100%; min-width: 1000px; float: left;"}
-          .span{style: "height: 100%;width: 18%; min-width: 200px;"}
-            #map-side-bar.well.sidebar-nav{style: "min-height: 90%"}
-              %ul.nav.nav-list
-                .map-location(data-jmapping="{id: 5, point: {lat: 39.0997265, lng: -94.5785667}, category: 'All Companies'}")
-                  %li= link_to "All Companies", "#", class: "map-link"
-                %li= link_to "Digital Companies", "#"
-                %li= link_to "Investors", "#"
-                %li= link_to "Co Working", "#"
-          .span{style: "height: 100%; width: 77%; min-width: 500px;"}
-            = notice
-            = yield
+          - if controller_name == "home"
+            .span{style: "height: 100%;width: 18%; min-width: 200px;"}
+              #map-side-bar.well.sidebar-nav{style: "min-height: 90%"}
+                %ul.nav.nav-list
+                  .map-location(data-jmapping="{id: 5, point: {lat: 39.0997265, lng: -94.5785667}, category: 'All Companies'}")
+                    %li
+                      = link_to "All Companies", "#", class: "map-link"
+                      .info-box
+                        %p Kansas City
+                  %li= link_to "Digital Companies", "#"
+                  %li= link_to "Investors", "#"
+                  %li= link_to "Co Working", "#"
+            .span{style: "height: 100%; width: 77%; min-width: 500px;"}
+              = notice
+              = yield
+          - else
+            .span{style: "height: 100%; width: 100%; min-width: 500px;"}
+              = notice
+              = yield
       %footer
         %p &copy; Company 2012
-
-  :javascript
-    $(document).ready(function(){
-      $('#gmap').jMapping();
-    });

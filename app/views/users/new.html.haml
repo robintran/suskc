@@ -3,23 +3,18 @@
   .errors
     - unless @errors.blank?
       - @errors.each do |msg|
-        - msg = "username already be taken" if msg == 'M u'
-        - msg = "email already be taken" if msg == 'H a'
+        - msg = "email already be taken" if msg == 'M u'
         .span5{style: "color: red;"}
           = msg
-  .field.span6
-    .span1
-      %label User Name
-    .span4= f.text_field :username
-  .field.span6
+  .field.span12
     .span1
       %label Email
-    .span4= f.email_field :email
-  .field.span6
+    .span4= f.email_field :username
+  .field.span12
     .span1
       %label Password
     .span4= f.password_field :password
-  .field.span6
+  .field.span12
     .span1
       %label Password Confirmation
     .span4= password_field_tag :password_confirmation

@@ -1,2 +1,10 @@
 #gmap{style: "min-width: 100%; min-height: 96%"}
+:javascript
+  $(document).ready(function(){
+    $('#gmap').jMapping({
+      force_zoom_level: 15,
+      default_zoom_level: 15,
+      default_point: {lat: 39.0997265, lng: -94.5785667}
+    });
+  });
 

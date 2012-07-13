@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'haml-rails'
+gem 'jquery-rails'
 gem 'parse_resource'
-gem 'sqlite3'
 gem 'rails', '3.2.3'
+gem 'sqlite3'
 gem 'twitter-bootstrap-rails'
 
 group :assets do
@@ -11,5 +12,3 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
