@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'geokit'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'parse_resource'

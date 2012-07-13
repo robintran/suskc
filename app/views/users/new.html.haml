@@ -2,12 +2,8 @@
   %h2 Sign Up
 %br
 ~ form_for @user do |f|
-  .errors
-    - unless @errors.blank?
-      - @errors.each do |msg|
-        - msg = "email already be taken" if msg == 'M u'
-        .span5{style: "color: red;"}
-          = msg
+  .errors.span12{style: "margin-bottom: 20px"}
+    = render partial: "shared/errors"
   .field.span12
     .span1
       %label Email
