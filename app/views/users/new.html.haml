@@ -1,4 +1,6 @@
-%h2 Sign Up
+%p
+  %h2 Sign Up
+%br
 ~ form_for @user do |f|
   .errors
     - unless @errors.blank?
@@ -18,5 +20,5 @@
     .span1
       %label Password Confirmation
     .span4= password_field_tag :password_confirmation
-  .field.span5
+  .field.span12
     .span1= submit_tag 'Register'

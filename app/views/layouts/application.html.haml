@@ -22,7 +22,7 @@
       .navbar-inner
         .container
           #logo
-            %a.brand(href="#") StartupShopKC
+            %a.brand(href="/") StartupShopKC
           #search
             ~ form_tag '/search', style: "margin: 0" do
               = text_field_tag :search
@@ -35,7 +35,7 @@
                       = link_to "hi #{current_user.username}"
                     %li
                       = link_to "Logout", "/signout"
-                    %li= link_to "Add Your Company", "#"
+                    %li= link_to "Add Your Company", new_location_path
                   - else
                     %li
                       = link_to "Login", "/signin"

@@ -6,4 +6,5 @@ StartupShopKC::Application.routes.draw do
   get 'signout' => 'sessions#destroy'
   get 'signup' => 'users#new', as: 'signup'
   resources :users
+  resources :locations
 end

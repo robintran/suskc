@@ -1,4 +1,6 @@
-%h2 Sign in
+%p 
+  %h2 Sign in
+%br
 ~ form_tag signin_path(role: 'user') do
   .field.span12
     .span1
@@ -8,5 +10,5 @@
     .span1
       %label Password
     .span4= password_field_tag :password
-  .field.span5
+  .field.span12
     .span1= submit_tag 'Sign In'
