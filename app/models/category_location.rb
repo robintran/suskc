@@ -5,4 +5,9 @@ class CategoryLocation < ParseResource::Base
   def category
     Category.find(self.category_id)
   end
+  
+  def location
+    Location.find(self.location_id)
+  end
+  
 end

@@ -1,14 +1,15 @@
-%p 
-  %h2 Sign in
-%br
-~ form_tag signin_path(role: 'user') do
-  .field.span12
-    .span1
-      %label Email
-    .span4= text_field_tag :username
-  .field.span12
-    .span1
-      %label Password
-    .span4= password_field_tag :password
-  .field.span12
-    .span1= submit_tag 'Sign In'
+.span
+  %p 
+    %h2 Sign in
+  %br
+  ~ form_tag signin_path(role: 'user') do
+    .field.span12
+      .span1
+        %label Email
+      .span4= text_field_tag :username
+    .field.span12
+      .span1
+        %label Password
+      .span4= password_field_tag :password
+    .field.span12
+      .span1= submit_tag 'Sign In'

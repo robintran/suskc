@@ -1,11 +1,35 @@
-#gmap{style: "min-width: 100%; min-height: 96%"}
+.span{style: "height: 100%;width: 18%; min-width: 200px;"}
+  #map-side-bar.well.sidebar-nav{style: "min-height: 90%"}
+    %ul.nav.nav-list
+      #display_locations
+        = render partial: 'locations'
+    - @categories.each do |cat|
+      %li= link_to cat.name, update_map_path, rel: cat.id
+.span{style: "height: 100%; width: 77%; min-width: 500px;"}
+  #gmap{style: "min-width: 100%; min-height: 96%"}
 :javascript
   $(document).ready(function(){
+    $("#map-side-bar a").click(function(e){
+      e.preventDefault();
+      $url = $(this).attr("href");
+      cat_id = $(this).attr("rel");
+      data_obj = {category: cat_id}
+      $.ajax({
+        type: "GET",
+        url: $url,
+        data: data_obj,
+        success: function(html) {
+          $("#display_locations").html(html);
+          $('#gmap').jMapping('update');
+        }
+      });
+    });     
+		  
     $('#gmap').jMapping({
-      force_zoom_level: 12,
+      force_zoom_level: 11,
       always_show_markers: true,
       default_point: {lat: 39.0997265, lng: -94.5785667},
     });
-    
+
   });
 

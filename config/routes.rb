@@ -5,6 +5,7 @@ StartupShopKC::Application.routes.draw do
   post 'signin' => 'sessions#create'
   get 'signout' => 'sessions#destroy'
   get 'signup' => 'users#new', as: 'signup'
+  get 'update_map' => 'home#update_map'
   resources :users
   resources :locations
 end

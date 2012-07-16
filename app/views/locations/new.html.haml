@@ -1,53 +1,54 @@
-%p 
-  %h2 Create Location
-%br
-~ form_for @location do |f|
-  .errors.span12{style: "margin-bottom: 20px"}
-    = render partial: "shared/errors"
-  .field.span12
-    .span1
-      %label Company Name
-    .span4= f.text_field :name
-  .field.span12
-    .span1
-      %label Phone
-    .span4= f.text_field :phone
-  .field.span12
-    .span1
-      %label Email
-    .span4= f.email_field :email
-  .field.span12
-    .span1
-      %label Address
-    .span4= f.text_field :address
-  .field.span12
-    .span1
-      %label Website Url
-    .span4= f.text_field :url
-  .field.span12
-    .span1
-      %label Twitter
-    .span4= f.text_field :twitter
-  .field.span12
-    .span1
-      %label Facebook
-    .span4= f.text_field :facebook
-  .field.span12
-    .span1
-      %label Descriptions
-    .span7= f.text_area :description
-  .field.span12
-    .span1
-      %label Categories
-    #categories.span4
-      - Category.all.each do |cat|
-        .span4{style: "margin: 0"}
-          .span1{style: "margin: 0"}= check_box_tag "category[]", cat.id
-          .span3{style: "margin: 0"}= cat.name
-        
-  .field.span12
-    .span1= submit_tag 'Create'
-    
+.span
+  %p 
+    %h2 Create Location
+  %br
+  ~ form_for @location do |f|
+    .errors.span12{style: "margin-bottom: 20px"}
+      = render partial: "shared/errors"
+    .field.span12
+      .span1
+        %label Company Name
+      .span4= f.text_field :name
+    .field.span12
+      .span1
+        %label Phone
+      .span4= f.text_field :phone
+    .field.span12
+      .span1
+        %label Email
+      .span4= f.email_field :email
+    .field.span12
+      .span1
+        %label Address
+      .span4= f.text_field :address
+    .field.span12
+      .span1
+        %label Website Url
+      .span4= f.text_field :url
+    .field.span12
+      .span1
+        %label Twitter
+      .span4= f.text_field :twitter
+    .field.span12
+      .span1
+        %label Facebook
+      .span4= f.text_field :facebook
+    .field.span12
+      .span1
+        %label Descriptions
+      .span7= f.text_area :description
+    .field.span12
+      .span1
+        %label Categories
+      #categories.span4
+        - Category.all.each do |cat|
+          .span4{style: "margin: 0"}
+            .span1{style: "margin: 0"}= check_box_tag "category[]", cat.id
+            .span3{style: "margin: 0"}= cat.name
+          
+    .field.span12
+      .span1= submit_tag 'Create'
+      
 :javascript
   $(document).ready(function(){
     $("#categories input[type=checkbox]").click(function(){

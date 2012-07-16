@@ -1,0 +1,6 @@
+- @locations.each do |loc|
+  - cat = loc.categories.first ? loc.categories.first.name : 'all'
+  .map-location(data-jmapping="{id: '#{loc.id}', point: {lat: #{loc.latitude}, lng: #{loc.longitude}}, category: '#{cat}'}")
+    .info-box
+      %p= loc.name
+      %p= loc.email

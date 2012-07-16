@@ -42,25 +42,7 @@
                     %li= link_to "Register", "/signup"
     .container{style: "height: 100%"}
       .content{style: "height: 90%; width: 100%"}
-        .row{style: "height: 100%; width: 100%; min-width: 1000px; float: left;"}
-          - if controller_name == "home"
-            .span{style: "height: 100%;width: 18%; min-width: 200px;"}
-              #map-side-bar.well.sidebar-nav{style: "min-height: 90%"}
-                %ul.nav.nav-list
-                  - @locations.each do |loc|
-                    .map-location(data-jmapping="{id: '#{loc.id}', point: {lat: #{loc.latitude}, lng: #{loc.longitude}}, category: 'All Companies'}")
-                      .info-box
-                        %p= loc.name
-                        %p= loc.email
-                  %li= link_to "Digital Companies", "#"
-                  %li= link_to "Investors", "#"
-                  %li= link_to "Co Working", "#"
-            .span{style: "height: 100%; width: 77%; min-width: 500px;"}
-              = notice
-              = yield
-          - else
-            .span{style: "height: 100%; width: 100%; min-width: 500px;"}
-              = notice
-              = yield
+        .row{style: "height: 100%; width: 100%; min-width: 1000px; float: left; "}
+          = yield
       %footer
         %p &copy; Company 2012

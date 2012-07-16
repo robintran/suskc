@@ -9,11 +9,11 @@ class Location < ParseResource::Base
   
   def categories
     cat_locs = CategoryLocation.where(location_id: self.id)
-    locations = []
+    cats = []
     cat_locs.each do |cat_loc|
-      locations << cat_loc.category
+      cats << cat_loc.category
     end
-    return locations
+    return cats
   end
   
 end
