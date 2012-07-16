@@ -42,7 +42,7 @@
     #categories.span4
       - Category.all.each do |cat|
         .span4{style: "margin: 0"}
-          .span1{style: "margin: 0"}= check_box_tag "category[]", cat.name
+          .span1{style: "margin: 0"}= check_box_tag "category[]", cat.id
           .span3{style: "margin: 0"}= cat.name
         
   .field.span12
