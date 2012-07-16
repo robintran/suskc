@@ -37,4 +37,26 @@
       %label Descriptions
     .span7= f.text_area :description
   .field.span12
+    .span1
+      %label Categories
+    #categories.span4
+      - Category.all.each do |cat|
+        .span4{style: "margin: 0"}
+          .span1{style: "margin: 0"}= check_box_tag "category[]", cat.name
+          .span3{style: "margin: 0"}= cat.name
+        
+  .field.span12
     .span1= submit_tag 'Create'
+    
+:javascript
+  $(document).ready(function(){
+    $("#categories input[type=checkbox]").click(function(){
+      $checkeds = $("#categories").find("input:checked");
+      $uncheckeds = $("#categories").find("input:not(:checked)");
+      if($checkeds.length >= 3){
+        $uncheckeds.attr("disabled", "disabled");
+      }else{
+        $uncheckeds.removeAttr("disabled");
+      }
+    });
+  });
