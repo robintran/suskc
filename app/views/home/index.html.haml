@@ -6,41 +6,106 @@
     - @categories.each do |cat|
       %li= link_to cat.name, update_map_path, rel: cat.id
 .span{style: "height: 100%; width: 77%; min-width: 500px;"}
-  #gmap{style: "min-width: 100%; min-height: 96%"}
+  #mymap.gmap3{style: "min-width: 100%; min-height: 96%"}
 :javascript
-  $(document).ready(function(){
-    $("#map-side-bar a").click(function(e){
-      e.preventDefault();
-      $("#fading-image").show();
-      $url = $(this).attr("href");
-      cat_id = $(this).attr("rel");
-      data_obj = {category: cat_id}
-      $.ajax({
-        type: "GET",
-        url: $url,
-        data: data_obj,
-        success: function(html) {
-          $("#fading-image").hide();
-          $("#display_locations").html(html);
-          $('#gmap').jMapping('update');       
-        }
-      });
-    });     
-		  
-    $('#gmap').jMapping({
-      force_zoom_level: 11,
-      always_show_markers: true,
-      default_point: {lat: 39.0997265, lng: -94.5785667},
-      category_icon_options: function(category){
-        if (category.charAt(0).match(/[a-m]/i)){
-          return {color: '#79BF40', text: '11', type: 'poly'};
-        } else if (category.charAt(0).match(/[n-z]/i)){
-          return new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_xpin_icon&chld=pin_star|home|00FFFF|FF0000');
-        } else {
-          return {color: '#79BF40', text: '10'};
+  var cluster;  
+  $(function(){
+    $('#mymap').gmap3({ action: 'init',
+      options:{
+        center:[39.0997265, -94.5785667],
+        zoom: 12
+      },
+      callback: function(map){
+        waitForBounds(map);
+      },
+      events:{
+        click: function(map, event){
+          //addMarkerToCluster($(this), event.latLng);
+        },
+        rightclick: function(map, event){
+          //addMarkersToCluster($(this), event.latLng);
         }
       }
     });
-
   });
-
+      
+  function waitForBounds(map){
+    var ne, sw, bounds = map.getBounds();
+    if (!bounds){
+      google.maps.event.addListenerOnce(map, 'bounds_changed', 
+        function() {
+          waitForBounds(map)
+        }
+      );
+      return;
+    }
+    ne = bounds.getNorthEast();
+    sw = bounds.getSouthWest();
+    addMarkers();
+  }
+      
+  function addMarkers(){
+    list = #{Point.get_points(@locations).to_json.html_safe}
+    $('#mymap').gmap3(
+      { action: 'addMarkers',
+        radius: 100,
+        markers: list,
+        clusters:{
+      	  // This style will be used for clusters with more than 0 markers
+      		0: {
+       		  content: '<div class="cluster cluster-1">CLUSTER_COUNT</div>',
+       			width: 53,
+       			height: 52
+       		},
+       	  // This style will be used for clusters with more than 20 markers
+        	20: {
+        	  content: '<div class="cluster cluster-2">CLUSTER_COUNT</div>',
+        		width: 56,
+        		height: 55
+        	},
+          // This style will be used for clusters with more than 50 markers
+        	50: {
+            content: '<div class="cluster cluster-3">CLUSTER_COUNT</div>',
+         	  width: 66,
+          	height: 65
+          }
+        },
+        callback: function(ref){ // get the cluster reference and save it in global variable
+          cluster = ref;
+        },
+        cluster:{
+          events:{
+            mouseover: function(cluster, event, data){
+              $(cluster.getDOMElement()).css('border', '1px solid #FF0000');
+            },
+            mouseout: function(cluster, event, data){
+              $(cluster.getDOMElement()).css('border', '0px');
+            }
+       	  }
+        },
+        marker: {
+          options: {
+            icon: new google.maps.MarkerImage('http://maps.gstatic.com/mapfiles/icon_green.png')
+          },
+          events:{  
+            mouseover: function(marker, event, data){
+              $(this).gmap3(
+                { action:'clear', name:'overlay'},
+                { action:'addOverlay',
+                  latLng: marker.getPosition(),
+                  content: "<div class='marker_info'>" + data.company + "<br>" + data.email + "</div>",
+                  offset: {
+                    x:-46,
+                    y:-73
+                  }
+                }
+              );
+            },
+            mouseout: function(){
+              $(this).gmap3({action:'clear', name:'overlay'});
+            }
+          }
+        }
+      }
+    );
+  }
