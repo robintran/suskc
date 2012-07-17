@@ -1,7 +1,7 @@
 .span{style: "height: 100%;width: 18%; min-width: 200px;"}
   #map-side-bar.well.sidebar-nav{style: "min-height: 90%"}
     %ul.nav.nav-list
-      #display_locations
+      #display_locations.hidden
         = render partial: 'locations'
     - @categories.each do |cat|
       %li= link_to cat.name, update_map_path, rel: cat.id
@@ -11,6 +11,7 @@
   $(document).ready(function(){
     $("#map-side-bar a").click(function(e){
       e.preventDefault();
+      $("#fading-image").show();
       $url = $(this).attr("href");
       cat_id = $(this).attr("rel");
       data_obj = {category: cat_id}
@@ -19,8 +20,9 @@
         url: $url,
         data: data_obj,
         success: function(html) {
+          $("#fading-image").hide();
           $("#display_locations").html(html);
-          $('#gmap').jMapping('update');
+          $('#gmap').jMapping('update');       
         }
       });
     });     
@@ -29,6 +31,15 @@
       force_zoom_level: 11,
       always_show_markers: true,
       default_point: {lat: 39.0997265, lng: -94.5785667},
+      category_icon_options: function(category){
+        if (category.charAt(0).match(/[a-m]/i)){
+          return {color: '#79BF40', text: '11', type: 'poly'};
+        } else if (category.charAt(0).match(/[n-z]/i)){
+          return new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_xpin_icon&chld=pin_star|home|00FFFF|FF0000');
+        } else {
+          return {color: '#79BF40', text: '10'};
+        }
+      }
     });
 
   });
