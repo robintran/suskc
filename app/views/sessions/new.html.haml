@@ -3,6 +3,8 @@
     %h2 Sign in
   %br
   ~ form_tag signin_path(role: 'user') do
+    .errors.span12{style: "margin-bottom: 20px"}
+      = render partial: "shared/errors"
     .field.span12
       .span1
         %label Email
