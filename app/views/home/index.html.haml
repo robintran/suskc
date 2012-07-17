@@ -1,13 +1,31 @@
 .span{style: "height: 100%;width: 18%; min-width: 200px;"}
   #map-side-bar.well.sidebar-nav{style: "min-height: 90%"}
-    %ul.nav.nav-list
-      #display_locations.hidden
-        = render partial: 'locations'
-    - @categories.each do |cat|
-      %li= link_to cat.name, update_map_path, rel: cat.id
+    %ul
+      - @categories.each do |cat|
+        %li= link_to cat.name, update_map_path, rel: cat.id
 .span{style: "height: 100%; width: 77%; min-width: 500px;"}
   #mymap.gmap3{style: "min-width: 100%; min-height: 96%"}
 :javascript
+  $("#map-side-bar a").click(function(e){
+      e.preventDefault();
+      $("#fading-image").show();
+      $("#mymap").gmap3({action:'clear'});
+      $url = $(this).attr("href");
+      cat_id = $(this).attr("rel");
+      data_obj = {category: cat_id}
+      $.ajax({
+        type: "GET",
+        url: $url,
+        data: data_obj,
+        success: function(result) {
+          $("#fading-image").hide();
+          list = result;
+          addMarkers(list);       
+        }
+      });
+    });     
+
+
   var cluster;  
   $(function(){
     $('#mymap').gmap3({ action: 'init',
@@ -41,11 +59,11 @@
     }
     ne = bounds.getNorthEast();
     sw = bounds.getSouthWest();
-    addMarkers();
+    list = #{Point.get_points(@locations).to_json.html_safe}
+    addMarkers(list);
   }
       
-  function addMarkers(){
-    list = #{Point.get_points(@locations).to_json.html_safe}
+  function addMarkers(list){
     $('#mymap').gmap3(
       { action: 'addMarkers',
         radius: 100,
