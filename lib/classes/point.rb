@@ -4,6 +4,13 @@ class Point
     point[:lat] = location.latitude
     point[:lng] = location.longitude
     point[:data] = {company: location.name, email: location.email}
+    first_cat = location.categories.first
+    if first_cat
+      icon = "../assets/bg-digital.png" if first_cat.name == 'Digital Company'
+      icon = "../assets/bg-investors.png" if first_cat.name == 'Investor'
+      icon = "../assets/bg-coworking.png" if first_cat.name == 'Coworking Space'
+    end
+    point[:options] = {clickable: true, icon: icon}
     return point 
   end
   

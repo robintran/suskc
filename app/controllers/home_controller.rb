@@ -5,8 +5,10 @@ class HomeController < ApplicationController
   end
   
   def update_map
-    @category = Category.find params[:category]
-    @locations = @category.locations
+    if params[:category] && params[:category] != 'all'
+      @category = Category.find params[:category]
+      @locations = @category.locations
+    end
     @locations = Location.all if @locations.blank?
     points = Point.get_points(@locations).to_json
     respond_to do |format|
