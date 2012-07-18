@@ -67,7 +67,7 @@
     list = #{Point.get_points(@locations).to_json.html_safe}
     addMarkers(list);
   }
-      
+  
   function addMarkers(list){
     $('#mymap').gmap3(
       { action: 'addMarkers',
@@ -99,6 +99,9 @@
         cluster:{
           events:{
             click: function(cluster, event, data) {
+              if(inList(data.latLng, list)==true){
+                make_overlay(data.latLng, data, 'cluster');
+              }
               cluster.map.panTo(data.latLng);
               cluster.map.setZoom(cluster.map.getZoom() + 1);
             },
@@ -112,25 +115,13 @@
         },
         marker: {
           options: {
-            icon: "../assets/bg-digital.png",
-            clickable: true
+            icon: "../assets/bg-digital.png"
           },
           events:{  
             click: function(marker, event, data){
-              $(this).gmap3({action:'clear', name:'overlay'});
-              $(this).gmap3(
-                { action:'clear', name:'overlay'},
-                { action:'addOverlay',
-                  latLng: marker.getPosition(),
-                  content: "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.company + "</h3>" + data.email + "</div></div>",
-                  offset: {
-                    x: 10,
-                    y: -10
-                  }
-                }
-              );
-              
-              marker.map.panTo(marker.getPosition());
+              pos = marker.getPosition();
+              make_overlay(pos, data, 'marker');            
+              marker.map.panTo(pos);
               marker.map.setZoom(16);
             },
             mouseout: function(){
@@ -140,4 +131,38 @@
         }
       }
     );
+  }
+  
+  function make_overlay(pos, data, type){
+    $("#mymap").gmap3({action:'clear', name:'overlay'});
+    content = ""
+    if(type=='marker'){
+      content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.company + "</h3>" + data + "</div></div>";
+    }else if(type=='cluster'){
+      content = "test";
+    }
+    show_overlay(pos, content);
+  }
+  
+  function show_overlay(pos, content){
+    $("#mymap").gmap3(
+      { action:'clear', name:'overlay'},
+      { action:'addOverlay',
+        latLng: pos,
+        content: content,
+        offset: {
+          x: 10,
+          y: -10
+        }
+      }
+    );  
+  }
+  
+  function inList(pos, list){
+    for (i = 0; i < list.length; i++){
+      if(list[i].lat.toFixed(7) == pos.lat().toFixed(7) && list[i].lng.toFixed(7) == pos.lng().toFixed(7)){
+        return true;
+      }
+    }
+    return false;
   }
