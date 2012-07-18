@@ -122,10 +122,10 @@
                 { action:'clear', name:'overlay'},
                 { action:'addOverlay',
                   latLng: marker.getPosition(),
-                  content: "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'>" + data.company + "<br/>" + data.email + "</div></div>",
+                  content: "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.company + "</h3>" + data.email + "</div></div>",
                   offset: {
-                    x: -46,
-                    y: -110
+                    x: 10,
+                    y: -10
                   }
                 }
               );
