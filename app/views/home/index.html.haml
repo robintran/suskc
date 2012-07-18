@@ -99,8 +99,14 @@
         cluster:{
           events:{
             click: function(cluster, event, data) {
-              if(inList(data.latLng, list)==true){
-                make_overlay(data.latLng, data, 'cluster');
+              points = getPoints(data.latLng, list)
+              if(points.length > 1){
+                companies=""
+                for(i=0; i< points.length; i++){
+                  companies = companies + points[i].company + "<br/>";
+                }
+                content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + companies + "</div></div>";
+                make_overlay(data.latLng, content);
               }
               cluster.map.panTo(data.latLng);
               cluster.map.setZoom(cluster.map.getZoom() + 1);
@@ -120,7 +126,8 @@
           events:{  
             click: function(marker, event, data){
               pos = marker.getPosition();
-              make_overlay(pos, data, 'marker');            
+              content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.company + "</h3>" + data.email + "</div></div>";
+              make_overlay(pos, content);            
               marker.map.panTo(pos);
               marker.map.setZoom(16);
             },
@@ -133,18 +140,8 @@
     );
   }
   
-  function make_overlay(pos, data, type){
+  function make_overlay(pos, content){
     $("#mymap").gmap3({action:'clear', name:'overlay'});
-    content = ""
-    if(type=='marker'){
-      content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.company + "</h3>" + data + "</div></div>";
-    }else if(type=='cluster'){
-      content = "test";
-    }
-    show_overlay(pos, content);
-  }
-  
-  function show_overlay(pos, content){
     $("#mymap").gmap3(
       { action:'clear', name:'overlay'},
       { action:'addOverlay',
@@ -158,11 +155,12 @@
     );  
   }
   
-  function inList(pos, list){
+  function getPoints(pos, list){
+    points = []
     for (i = 0; i < list.length; i++){
       if(list[i].lat.toFixed(7) == pos.lat().toFixed(7) && list[i].lng.toFixed(7) == pos.lng().toFixed(7)){
-        return true;
+        points.push(list[i]);
       }
     }
-    return false;
+    return points;
   }
