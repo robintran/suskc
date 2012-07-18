@@ -5,7 +5,6 @@ gem 'haml-rails'
 gem 'jquery-rails'
 gem 'parse_resource'
 gem 'rails', '3.2.3'
-gem 'sqlite3'
 gem 'twitter-bootstrap-rails'
 
 group :assets do
