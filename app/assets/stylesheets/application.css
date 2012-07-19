@@ -29,3 +29,7 @@ $("#fading-image").live("click", function(e){
 .hidden{
   display: none;
 }
+
+.notice{
+  color: green;
+}

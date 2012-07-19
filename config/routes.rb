@@ -13,6 +13,7 @@ StartupShopKC::Application.routes.draw do
     get 'dashboard/index'
     get 'first_admin' => 'dashboard#first_admin', as: 'first_admin'
     post 'create_first_admin' => 'dashboard#create_first_admin', as: 'create_first_admin'
+    put 'update_user' => 'dashboard#update_user', as: 'update_user'
     match "/" => "dashboard#index"
     root :to => "admin/dashboard#index"
   end

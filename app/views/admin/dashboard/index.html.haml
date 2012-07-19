@@ -1,0 +1,51 @@
+.span9.no-lmargin
+  %p
+    %h2 Account Infomation
+.span9.no-lmargin.notice= notice
+.span9
+  .span9.no-lmargin
+    .span1.no-lmargin
+      Email
+    .span7.no-lmargin
+      = current_user.username
+  .span9.no-lmargin
+    .span1.no-lmargin
+      Password
+    .span7.no-lmargin
+      ********
+  .span9.no-lmargin{style: "margin-top: 10px;"}
+    %p= link_to 'edit', '#edit_account'
+  #edit_account.span9.no-lmargin{class: "#{@display_form==true ? '' : 'hidden'}"}
+    ~ form_for @user, url: admin_update_user_path(id: @user.id) do |f|
+      .errors.span12{style: "margin-bottom: 20px"}
+        = render partial: "shared/errors"
+      .field.span12
+        .span1
+          %label Email
+        .span4= f.email_field :username
+      .field.span12
+        .span1
+          %label New Password
+        .span4= f.password_field :password
+      .field.span12
+        .span1
+          %label Password Confirmation
+        .span4= password_field_tag :password_confirmation
+      .field.span12
+        .span1= submit_tag 'Update'
+:javascript
+  $(document).ready(function(){
+    
+    $("a[href=#edit_account]").click(function(e){
+      $("#edit_account").toggleClass("hidden");
+      text = $(this).html();
+      if(text=='edit'){
+        text = 'hide form';
+      }else{
+        text = 'edit';
+      }
+      $(this).html(text);
+      return false;
+    });
+    
+  });
