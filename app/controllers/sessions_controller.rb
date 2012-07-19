@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    @errors = [flash[:alert]]
   end
 
   def create
