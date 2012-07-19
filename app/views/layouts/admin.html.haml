@@ -1,0 +1,38 @@
+!!! 5
+%html(lang="en")
+  %head
+    %meta(charset="utf-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    %title= content_for?(:title) ? yield(:title) : "StartupShopKC"
+    = javascript_include_tag "application"   
+    = csrf_meta_tags
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+    = stylesheet_link_tag "application", :media => "all"
+  %body{style: "height: 100%"}
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          #logo
+            %a.brand(href="/admin") StartupShopKC
+          #search
+            ~ form_tag '/search', style: "margin: 0" do
+              = text_field_tag :search
+          #account
+            .container{style: "text-align: right;"}
+              .nav-collapse{style: "float: left;"}
+                %ul.nav
+                  - if current_user
+                    %li
+                      = link_to "hi #{current_user.username}"
+                    %li
+                      = link_to "Logout", "/signout"
+    .container{style: "height: 100%"}
+      .content{style: "height: 90%; width: 100%"}
+        .row{style: "height: 100%; width: 100%; min-width: 1000px; float: left; "}
+          = yield
+    %footer
+      %p &copy; Company 2012
+    #fading-image
+      = image_tag('loading.gif')

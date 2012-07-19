@@ -5,13 +5,18 @@ class UsersController < ApplicationController
   end
   
   def create
+    @errors = []
     @user = User.new params[:user]
-    @user.role = "user"
-    @user.save
-    @errors = @user.errors.full_messages
     @errors << "password confirmation is not matched" if params[:user][:password] != params[:password_confirmation]
+   
     if @errors.blank?
-      redirect_to home_path
+      @user.role = "user"
+      if @user.save
+        redirect_to home_path
+      else
+        @errors = @user.errors.full_messages
+        render :new
+      end
     else
       render :new
     end

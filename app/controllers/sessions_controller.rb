@@ -7,7 +7,8 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:username], params[:password])
     if user
       session[:user_id] = user.id
-      redirect_to root_url, :notice => "logged in !"
+      url = user.admin? ? "/admin" : root_url
+      redirect_to url, :notice => "logged in !"
     else
       @errors = ["Invalid email or password"]
       render "new"

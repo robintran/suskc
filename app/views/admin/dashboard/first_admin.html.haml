@@ -1,0 +1,21 @@
+.span
+  %p
+    %h2 Create an admin for your site
+  %br
+  ~ form_for @user, url: admin_create_first_admin_path do |f|
+    .errors.span12{style: "margin-bottom: 20px"}
+      = render partial: "/shared/errors"
+    .field.span12
+      .span1
+        %label Email
+      .span4= f.email_field :username
+    .field.span12
+      .span1
+        %label Password
+      .span4= f.password_field :password
+    .field.span12
+      .span1
+        %label Password Confirmation
+      .span4= password_field_tag :password_confirmation
+    .field.span12
+      .span1= submit_tag 'Create'
