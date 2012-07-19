@@ -3,6 +3,8 @@ class Admin::DashboardController < ApplicationController
   layout 'admin'
   def index
     @user = current_user
+    @show_tab = '1'
+    @show_tab = params[:tab] unless params[:tab].blank?
   end
   
   def first_admin
@@ -44,7 +46,7 @@ class Admin::DashboardController < ApplicationController
       params[:user].delete(:password)
     end
     @user = User.find params[:id]
-    render_path = @user.id == current_user.id ? 'index' : 'edit_user'
+    @show_tab = @user.id == current_user.id ? '1' : '2'
     if @errors.blank?
       @user.update_attributes(params[:user])
       if @user.errors.blank?
@@ -53,12 +55,16 @@ class Admin::DashboardController < ApplicationController
       else
         @display_form = true
         @errors = @user.errors.full_messages
-        render render_path
+        render :index
       end
     else
       @display_form = true
-      render render_path
+      render :index
     end
+  end
+  
+  def users
+    @users = User.all
   end
   
 end
