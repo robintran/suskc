@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new params[:user]
+    @user.role = "user"
     @user.save
     @errors = @user.errors.full_messages
     @errors << "password confirmation is not matched" if params[:user][:password] != params[:password_confirmation]
