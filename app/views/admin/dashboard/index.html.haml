@@ -1,16 +1,16 @@
 #tab_1{class: "#{'hidden' if @show_tab != '1'}"}
-  = render partial: "my_account"
-#tab_2{class: "#{'hidden' if @show_tab != '1'}"}
+  = render partial: "index"
+#tab_2{class: "#{'hidden' if @show_tab != '2'}"}
   = render partial: "users"
-#tab_3{class: "#{'hidden' if @show_tab != '1'}"}
+#tab_3{class: "#{'hidden' if @show_tab != '3'}"}
   = render partial: "locations"
   
 :javascript
   $(document).ready(function(){
     $('a.tabable').live('click', function(){
       var currentTab = $(this).attr('href');
-      $("div[id*=tab_]").hide();  
-      $(currentTab).show();
+      $("div[id*=tab_]").addClass('hidden');  
+      $(currentTab).removeClass('hidden');
       return false;
     });
   });

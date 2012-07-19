@@ -1,7 +1,7 @@
+.span9.no-lmargin.notice= notice
 .span9.no-lmargin
   %p
-    %h2 Account Infomation
-.span9.no-lmargin.notice= notice
+    %h2 My Account
 .span9
   .span9.no-lmargin
     .span1.no-lmargin
@@ -33,6 +33,38 @@
         .span4= password_field_tag :password_confirmation
       .field.span12
         .span1= submit_tag 'Update'
+
+.span9.no-lmargin
+  %p
+    %h2 Users Summary
+.span9
+  .span2.no-lmargin
+    Registered Users
+  .span1= @registed_users.size
+.span9
+  .span2.no-lmargin
+    Confirmed Users
+  .span1= @confirmed_users.size
+.span9
+  .span2.no-lmargin
+    Unconfirmed Users
+  .span1= @unconfirmed_users.size
+
+.span9.no-lmargin
+  %p
+    %h2 Locations Summary
+.span9
+  .span2.no-lmargin
+    Registered Location
+  .span1= @locations.size
+.span9
+  .span2.no-lmargin
+    Actived Locations
+  .span1= @actived_locations.size
+.span9
+  .span2.no-lmargin
+    Unactived Locations
+  .span1= @unactived_locations.size       
 :javascript
   $(document).ready(function(){
     

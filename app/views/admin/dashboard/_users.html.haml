@@ -1,0 +1,22 @@
+.span9.no-lmargin
+  %p
+    %h2 Users
+.span9.no-lmargin.notice= notice
+.span5.no-lmargin.shadow_box
+  .span5.no-lmargin
+    .span3.no-lmargin.th
+      EMAIL
+    .span1.no-lmargin.th
+      ROLE
+    .span1.no-lmargin.th
+      &nbsp;
+  - bg_class = 'even'
+  - @users.each do |user|
+    - bg_class = bg_class == 'odd' ? 'even' : 'odd'
+    .span5.no-lmargin
+      .span3.no-lmargin{class: "#{bg_class}"}
+        = user.username
+      .span1.no-lmargin{class: "#{bg_class}"}
+        = user.role
+      .span1.no-lmargin{class: "#{bg_class}"}
+        = link_to 'show', '#edit_user'

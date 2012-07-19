@@ -2,6 +2,7 @@ class Admin::DashboardController < ApplicationController
   before_filter :authenticate_admin, except: [:first_admin, :create_first_admin]
   layout 'admin'
   def index
+    init
     @user = current_user
     @show_tab = '1'
     @show_tab = params[:tab] unless params[:tab].blank?
@@ -55,16 +56,27 @@ class Admin::DashboardController < ApplicationController
       else
         @display_form = true
         @errors = @user.errors.full_messages
+        init
         render :index
       end
     else
       @display_form = true
+      init
       render :index
     end
   end
   
-  def users
-    @users = User.all
-  end
+  private
   
+    def init
+      @users = User.all
+      @locations = Location.all
+      
+      @registed_users = User.where(role: 'user')
+      @confirmed_users = User.where(confirm_code: 'confirmed')
+      @unconfirmed_users = @registed_users - @confirmed_users
+      
+      @actived_locations = Location.where(status: 'actived')
+      @unactived_locations = @locations - @actived_locations
+    end
 end

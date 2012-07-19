@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if user
       session[:user_id] = user.id
       url = user.admin? ? "/admin" : root_url
-      redirect_to url, :notice => "logged in !"
+      redirect_to url
     else
       @errors = ["Invalid email or password"]
       render "new"
