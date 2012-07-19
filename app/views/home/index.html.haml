@@ -103,9 +103,9 @@
               if(points.length > 1){
                 companies=""
                 for(i=0; i< points.length; i++){
-                  companies = companies + points[i].company + "<br/>";
+                  companies = companies + "<li>" + points[i].data.company + "</li>";
                 }
-                content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + companies + "</div></div>";
+                content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + points.length + " Companies here: </h3>"+ companies + "</div></div>";
                 make_overlay(data.latLng, content);
               }
               cluster.map.panTo(data.latLng);
@@ -126,7 +126,7 @@
           events:{  
             click: function(marker, event, data){
               pos = marker.getPosition();
-              content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.company + "</h3>" + data.email + "</div></div>";
+              content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.company + "</h3>" + data.email + "<br/>" + data.address + "</div></div>";
               make_overlay(pos, content);            
               marker.map.panTo(pos);
               marker.map.setZoom(16);
