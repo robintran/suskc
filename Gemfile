@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'geokit'
+gem 'fancybox-rails'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'parse_resource'

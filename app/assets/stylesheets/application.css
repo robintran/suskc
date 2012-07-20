@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require fancybox
  *= require_tree .
 */
 
@@ -55,4 +56,8 @@ $("#fading-image").live("click", function(e){
   box-shadow: 3px 3px 4px #000;
   /* For IE 8 */
   -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+}
+
+.overlay{
+  padding: 10px 20px;
 }
