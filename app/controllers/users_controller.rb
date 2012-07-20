@@ -22,10 +22,10 @@ class UsersController < ApplicationController
     if @errors.blank?
       @user.role = "user"
       confirm_code = Digest::SHA1.hexdigest([Time.now, rand].join)
-      @user.confirm_code = confirm_code
+      confirm_url = "http://#{request.host_with_port}/confirm_email/#{confirm_code}"
+      @user.confirm_code = confirm_url
       if @user.save
-        confirm_link = "http://#{request.host_with_port}/confirm_email/#{confirm_code}"
-        ConfirmMailer.email_confirm(@user.username, confirm_link).deliver
+        ConfirmMailer.email_confirm(@user.username, confirm_url).deliver
         redirect_to home_path, notice: 'A confirm email has been sent to your email address'
       else
         @errors = @user.errors.full_messages

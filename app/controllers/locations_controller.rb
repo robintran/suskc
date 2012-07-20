@@ -8,6 +8,7 @@ class LocationsController < ApplicationController
   def create
     @errors = []
     @location = Location.new params[:location]
+    @location.user_id = current_user.id
     addr = Geokit::Geocoders::GoogleGeocoder.geocode(@location.address)
     if addr.success
       @location.latitude = addr.lat

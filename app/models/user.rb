@@ -9,4 +9,8 @@ class User < ParseUser
     return self.confirm_code=='confirmed'
   end
   
+  def locations
+    Location.where(user_id: self.id)
+  end
+  
 end

@@ -1,6 +1,6 @@
 class Location < ParseResource::Base
-  
-  fields :name, :description, :address, :phone, :email, :url, :twitter, :facebook, :latitude, :longitude
+  belongs_to :user
+  fields :name, :description, :address, :phone, :email, :url, :twitter, :facebook, :latitude, :longitude, :active
   
   validates :address, presence: true
   validates :email, presence: true
@@ -14,6 +14,10 @@ class Location < ParseResource::Base
       cats << cat_loc.category
     end
     return cats
+  end
+  
+  def active?
+    return self.active==true ? 'active' : 'unactive'
   end
   
 end

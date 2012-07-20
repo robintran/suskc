@@ -2,21 +2,76 @@
   %p
     %h2 Users
 .span9.no-lmargin.notice= notice
-.span5.no-lmargin.shadow_box
-  .span5.no-lmargin
+.span6.no-lmargin.shadow_box
+  .span6.no-lmargin
     .span3.no-lmargin.th
-      EMAIL
+      Email
     .span1.no-lmargin.th
-      ROLE
+      Role
+    .span1.no-lmargin.th
+      Confirmation
     .span1.no-lmargin.th
       &nbsp;
   - bg_class = 'even'
   - @users.each do |user|
     - bg_class = bg_class == 'odd' ? 'even' : 'odd'
-    .span5.no-lmargin
+    .span6.no-lmargin
       .span3.no-lmargin{class: "#{bg_class}"}
         = user.username
       .span1.no-lmargin{class: "#{bg_class}"}
         = user.role
       .span1.no-lmargin{class: "#{bg_class}"}
-        = link_to 'show', '#edit_user'
+        = user.confirmed? ? 'confirmed' : 'unconfirmed'
+      .span1.no-lmargin{class: "#{bg_class}"}
+        = link_to 'show', "##{user.id}", class: "fancybox"
+    
+    .hidden
+      .span9.no-lmargin.overlay{id: "#{user.id}"}
+        .span9.no-lmargin{style: "margin-bottom: 10px"}
+          %h2 User Information
+        .span9.no-lmargin
+          .span2.no-lmargin Email
+          .span7.no-lmargin= user.username
+        .span9.no-lmargin
+          .span2.no-lmargin Comfirmation
+          .spnan7.no-lmargin
+            - if user.confirmed?
+              Confirmed
+            - else
+              Confirm url: "#{user.confirm_code}"
+        .span9.no-lmargin{style: "margin: 10px 0"}
+          %h2 Locations
+        - locs = user.locations
+        .span9.no-lmargin
+          .span9.no-lmargin
+            .span2.no-lmargin.th
+              Name
+            .span2.no-lmargin.th
+              Description
+            .span3.no-lmargin.th
+              Address
+            .span1.no-lmargin.th
+              Activate
+            .span1.no-lmargin.th
+              &nbsp;
+          - if locs.blank?
+            This user has no location
+          - loc_bg_class = 'even'
+          - locs.each do |loc|
+            - loc_bg_class = loc_bg_class == 'odd' ? 'even' : 'odd'
+            .span9.no-lmargin
+              .span2.no-lmargin{class: "#{loc_bg_class}"}
+                = loc.name
+              .span2.no-lmargin{class: "#{loc_bg_class}"}
+                = loc.description
+              .span3.no-lmargin{class: "#{loc_bg_class}"}
+                = loc.address
+              .span1.no-lmargin{class: "#{loc_bg_class}"}
+                = loc.active?
+              .span1.no-lmargin{class: "#{loc_bg_class}"}
+                = link_to 'details', '#'
+
+:javascript
+  $(document).ready(function() {
+    $("a.fancybox").fancybox();
+  });
