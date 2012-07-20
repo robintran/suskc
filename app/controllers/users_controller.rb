@@ -4,6 +4,16 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
+  def confirm_email
+    user = User.where(confirm_code: params[:code]).first
+    if user
+      user.update_attributes(confirm_code: 'confirmed')
+      redirect_to '/', notice: 'Your email has been confirm successfully'
+    else
+      redirect_to '/', notice: 'Confirm code wrong or it has been used'
+    end
+  end
+  
   def create
     @errors = []
     @user = User.new params[:user]
@@ -11,8 +21,12 @@ class UsersController < ApplicationController
    
     if @errors.blank?
       @user.role = "user"
+      confirm_code = Digest::SHA1.hexdigest([Time.now, rand].join)
+      @user.confirm_code = confirm_code
       if @user.save
-        redirect_to home_path
+        confirm_link = "http://#{request.host_with_port}/confirm_email/#{confirm_code}"
+        ConfirmMailer.email_confirm(@user.username, confirm_link).deliver
+        redirect_to home_path, notice: 'A confirm email has been sent to your email address'
       else
         @errors = @user.errors.full_messages
         render :new

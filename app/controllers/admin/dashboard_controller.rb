@@ -73,8 +73,7 @@ class Admin::DashboardController < ApplicationController
       @locations = Location.all
       
       @registed_users = User.where(role: 'user')
-      @confirmed_users = User.where(confirm_code: 'confirmed')
-      @unconfirmed_users = @registed_users - @confirmed_users
+      @confirmed_users = User.where(role: 'user', confirm_code: 'confirmed')
       
       @actived_locations = Location.where(status: 'actived')
       @unactived_locations = @locations - @actived_locations

@@ -48,7 +48,7 @@
 .span9
   .span2.no-lmargin
     Unconfirmed Users
-  .span1= @unconfirmed_users.size
+  .span1= @registed_users.size - @confirmed_users.size
 
 .span9.no-lmargin
   %p

@@ -4,4 +4,9 @@ class User < ParseUser
   def admin?
     return self.role=='admin'
   end
+  
+  def confirmed?
+    return self.confirm_code=='confirmed'
+  end
+  
 end

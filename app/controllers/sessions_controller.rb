@@ -7,9 +7,14 @@ class SessionsController < ApplicationController
   def create
     user = User.authenticate(params[:username], params[:password])
     if user
-      session[:user_id] = user.id
-      url = user.admin? ? "/admin" : root_url
-      redirect_to url
+      if user.confirmed?
+        session[:user_id] = user.id
+        url = user.admin? ? "/admin" : root_url
+        redirect_to url
+      else
+        @errors = ["Your account has not been confirmed, please check your email to confirm before you can login."]
+        render "new"
+      end
     else
       @errors = ["Invalid email or password"]
       render "new"
