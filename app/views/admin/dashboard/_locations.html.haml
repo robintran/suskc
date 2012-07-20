@@ -1,0 +1,34 @@
+.span12.no-lmargin
+  %p
+    %h2 Users
+.span12.no-lmargin.notice= notice
+.span12.no-lmargin.shadow_box{style: "width: 1140px;"}
+  .span12.no-lmargin
+    .span2.no-lmargin.th
+      Name
+    .span3.no-lmargin.th
+      Description
+    .span3.no-lmargin.th
+      Address
+    .span2.no-lmargin.th
+      User
+    .span1.no-lmargin.th
+      Activate
+    .span1.no-lmargin.th
+      &nbsp;
+  - bg_class = 'even'
+  - @locations.each do |location|
+    - bg_class = bg_class == 'odd' ? 'even' : 'odd'
+    .span12.no-lmargin
+      .span2.no-lmargin{class: "#{bg_class}"}
+        = location.name
+      .span3.no-lmargin{class: "#{bg_class}"}
+        = location.description
+      .span3.no-lmargin{class: "#{bg_class}"}
+        = location.address
+      .span2.no-lmargin{class: "#{bg_class}"}
+        = location.user.username
+      .span1.no-lmargin{class: "#{bg_class}"}
+        = location.active?
+      .span1.no-lmargin{class: "#{bg_class}"}
+        = link_to 'Details', "#", class: ""

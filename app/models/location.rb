@@ -20,5 +20,8 @@ class Location < ParseResource::Base
     return self.active==true ? 'active' : 'unactive'
   end
   
+  def user
+    User.find(self.user_id)
+  end
 end
 
