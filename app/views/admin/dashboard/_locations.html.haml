@@ -28,7 +28,15 @@
         = location.address
       .span2.no-lmargin{class: "#{bg_class}"}
         = location.user.username
-      .span1.no-lmargin{class: "#{bg_class}"}
+      .span1.no-lmargin{class: "#{bg_class}", id: "act_text_#{location.id}"}
         = location.active?
-      .span1.no-lmargin{class: "#{bg_class}"}
-        = link_to 'Details', "#", class: ""
+      .span1.no-lmargin{class: "#{bg_class}", id: "act_ctrl_#{location.id}"}
+        = render partial: "active_location", locals: {location: location}
+:javascript
+  $(document).ready(function(){
+  
+    $("a.waiting").live('click', function(){
+      $("#fading-image").show();
+    });
+    
+  });

@@ -1,0 +1,3 @@
+$("#act_text_#{@location.id}").html("#{@location.active?}");
+$("#act_ctrl_#{@location.id}").html("#{escape_javascript(render partial: 'active_location', locals: {location: @location})}");
+$("#fading-image").hide();

@@ -1,6 +1,14 @@
 class Admin::DashboardController < ApplicationController
   before_filter :authenticate_admin, except: [:first_admin, :create_first_admin]
   layout 'admin'
+  
+  def active_location
+    @location = Location.find params[:id]
+    active = !@location.active
+    @location.update_attributes(active: active)
+    respond_to :js
+  end
+  
   def index
     init
     @user = current_user

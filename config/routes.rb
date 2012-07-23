@@ -5,6 +5,7 @@ StartupShopKC::Application.routes.draw do
   post 'signin' => 'sessions#create'
   get 'signout' => 'sessions#destroy'
   get 'signup' => 'users#new', as: 'signup'
+  
   get 'update_map' => 'home#update_map'
   match 'confirm_email/:code' => 'users#confirm_email'
   
@@ -16,6 +17,7 @@ StartupShopKC::Application.routes.draw do
     get 'first_admin' => 'dashboard#first_admin', as: 'first_admin'
     post 'create_first_admin' => 'dashboard#create_first_admin', as: 'create_first_admin'
     put 'update_user' => 'dashboard#update_user', as: 'update_user'
+    get 'active_location' => 'dashboard#active_location'
     match "/" => "dashboard#index"
     root :to => "admin/dashboard#index"
   end

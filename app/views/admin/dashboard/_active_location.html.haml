@@ -1,0 +1,4 @@
+- if location.active
+  = link_to 'Deactive', admin_active_location_path(id: location.id), remote: true, class: 'waiting'
+- else
+  = link_to 'Active', admin_active_location_path(id: location.id), remote: true, class: 'waiting'
