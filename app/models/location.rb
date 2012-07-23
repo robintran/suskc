@@ -12,10 +12,6 @@ class Location < ParseResource::Base
     return self.active==true ? 'actived' : 'unactived'
   end
   
-  def self.active_list
-    where(active: true)
-  end
-  
   def categories
     cat_locs = CategoryLocation.where(location_id: self.id)
     cats = []
@@ -28,5 +24,14 @@ class Location < ParseResource::Base
   def user
     User.find(self.user_id)
   end
+  
+  def self.actived_list
+    where(active: true)
+  end
+  
+  def self.unactived_list
+    where(active: false) | where(active: nil)
+  end
+  
 end
 
