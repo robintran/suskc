@@ -7,6 +7,15 @@ class Location < ParseResource::Base
   validates :phone, presence: true
   validates :description, presence: true
   
+  
+  def active?
+    return self.active==true ? 'actived' : 'unactived'
+  end
+  
+  def self.active_list
+    where(active: true)
+  end
+  
   def categories
     cat_locs = CategoryLocation.where(location_id: self.id)
     cats = []
@@ -14,10 +23,6 @@ class Location < ParseResource::Base
       cats << cat_loc.category
     end
     return cats
-  end
-  
-  def active?
-    return self.active==true ? 'active' : 'unactive'
   end
   
   def user

@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @locations = Location.all
+    @locations = Location.active_list
     @categories = Category.all
   end
   
@@ -9,7 +9,7 @@ class HomeController < ApplicationController
       @category = Category.find params[:category]
       @locations = @category.locations
     end
-    @locations = Location.all if @locations.blank?
+    @locations = Location.active_list if @locations.blank?
     points = Point.get_points(@locations).to_json
     respond_to do |format|
       format.json { render :json => points }

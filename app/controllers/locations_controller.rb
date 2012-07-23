@@ -9,6 +9,7 @@ class LocationsController < ApplicationController
     @errors = []
     @location = Location.new params[:location]
     @location.user_id = current_user.id
+    @location.active=false
     addr = Geokit::Geocoders::GoogleGeocoder.geocode(@location.address)
     if addr.success
       @location.latitude = addr.lat
@@ -23,7 +24,7 @@ class LocationsController < ApplicationController
         params[:category].each do |id|
           cat_loc = CategoryLocation.create(category_id: id, location_id: @location.id)
         end
-        redirect_to root_path
+        redirect_to root_path, notice: "Location created successfuly. Please wait for us to active"
       else
         @errors += @location.errors.full_messages
         render :new
