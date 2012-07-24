@@ -2,7 +2,7 @@
   #map-side-bar.well.sidebar-nav{style: "min-height: 90%"}
     %h3 Categories
     %ul
-      %li= link_to "All Companies", update_map_path, rel: 'all'
+      %li= link_to "All Companies", update_map_path, rel: 'all', class: 'category_item'
       - @categories.each do |cat|
         %li= link_to cat.name, update_map_path, rel: cat.id, class: 'category_item'
     %hr{style: "color: #FFC345; background: #FFC345; height: 2px;"}
@@ -11,10 +11,10 @@
       - @locations.each do |loc|
         %li= link_to loc.name, '#', data: {pos: {lat: loc.latitude, lng: loc.longitude}, name: loc.name, email: loc.email, address: loc.address}.to_json, class: 'location_item'
 
-
-.span{style: "height: 100%;"}
-  #mymap.gmap3{style: "min-height: 96%"}
+#map_wrapper.span{style: "height: 100%; oveflow: hidden;"}
+  #mymap.gmap3{style: "min-height: 96%;"}
 :javascript
+
   $("#map-side-bar a.category_item").click(function(e){
     e.preventDefault();
     $("#fading-image").show();
@@ -50,6 +50,9 @@
 
   var cluster;  
   $(function(){
+    sreen_w=screen.width - 420;
+    $("#mymap").css('width', sreen_w);
+    $("#map_wrapper").css('width', sreen_w);
     $('#mymap').gmap3({ action: 'init',
       options:{
         center:[39.0997265, -94.5785667],
