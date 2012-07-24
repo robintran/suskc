@@ -7,7 +7,7 @@
         %li{id: "#{cat.id}"}= link_to cat.name, update_map_path, rel: cat.id, class: 'category_item'
     %hr{style: "color: #FFC345; background: #FFC345; height: 2px;"}
     %h3 Companies
-    %ul
+    %ul#locations
       - @locations.each do |loc|
         %li{id: "#{loc.id}"}= link_to loc.name, '#', data: {pos: {lat: loc.latitude, lng: loc.longitude}, name: loc.name, email: loc.email, address: loc.address, id: loc.id}.to_json, class: 'location_item'
 
@@ -43,7 +43,12 @@
       success: function(result) {
         $("#fading-image").hide();
         list = result;
-        addMarkers(list);       
+        $("ul#locations li").addClass('hidden');
+        for(i=0; i<list.length; i++){
+          id = list[i].data.id;
+          $("li#"+id).removeClass('hidden');
+        }
+        addMarkers(list);  
       }
     });
   });     
