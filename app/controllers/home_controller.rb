@@ -3,6 +3,17 @@ class HomeController < ApplicationController
     @locations = Location.actived_list
     @categories = Category.all
   end
+    
+  def search
+    term = params[:term]
+    unless term.blank?
+      @locations = Location.search(term)
+      @categories = Category.all
+      render :index
+    else
+      redirect_to root_path
+    end
+  end
   
   def update_map
     @locations = []

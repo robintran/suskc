@@ -5,7 +5,7 @@ StartupShopKC::Application.routes.draw do
   post 'signin' => 'sessions#create'
   get 'signout' => 'sessions#destroy'
   get 'signup' => 'users#new', as: 'signup'
-  
+  post 'search' => 'home#search', as: 'search'
   get 'update_map' => 'home#update_map'
   match 'confirm_email/:code' => 'users#confirm_email'
   

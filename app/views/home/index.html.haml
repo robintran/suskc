@@ -1,12 +1,23 @@
 .span{style: "height: 100%; width: 250px;"}
-  #map-side-bar.well.sidebar-nav{style: "min-height: 90%"}
+  #search-side-bar.well.sidebar-nav{style: "min-height: 90%", class: "#{'hidden' if params[:action]!='search'}"}
+    .right.close{style: "margin-top: -10px;"}
+      = link_to 'x', 'close'
+    %h3 Search Results
+    - if @locations.blank?
+      No result found
+    - else
+      %ul#locations
+        - @locations.each do |loc|
+          %li{id: "#{loc.id}"}= link_to loc.name, '#', data: {pos: {lat: loc.latitude, lng: loc.longitude}, name: loc.name, email: loc.email, address: loc.address, id: loc.id}.to_json, class: 'location_item'
+  #cat-side-bar.well.sidebar-nav{style: "min-height: 90%", class: "#{'hidden' if params[:action]=='search'}"}
     %h3 Categories
     %ul
-      %li= link_to "All Companies", update_map_path, rel: 'all', class: 'category_item active'
+      %li= link_to "All Companies", update_map_path, rel: 'all', class: "category_item #{'active' unless params[:action]=='search'}"
       - @categories.each do |cat|
         %li{id: "#{cat.id}"}= link_to cat.name, update_map_path, rel: cat.id, class: 'category_item'
     %hr{style: "color: #FFC345; background: #FFC345; height: 2px;"}
-    %h3 Companies
+    %h3 
+      Companies
     %ul#locations
       - @locations.each do |loc|
         %li{id: "#{loc.id}"}= link_to loc.name, '#', data: {pos: {lat: loc.latitude, lng: loc.longitude}, name: loc.name, email: loc.email, address: loc.address, id: loc.id}.to_json, class: 'location_item'
@@ -16,6 +27,8 @@
 
 - @locations.each do |loc|
   .well.hidden.loc_info.span2{id: "location_info_#{loc.id}", style: "position: fixed; width; 250px; min-height: 100%;margin-left: 280px; z-index: 10"}
+    .right.close{style: "margin-top: -10px;"}
+      =link_to 'x', 'close'
     %h2= loc.name
     .span2.no-lmargin= loc.address
     .span2.no-lmargin= loc.phone
@@ -25,8 +38,18 @@
     .span2.no-lmargin= loc.facebook
 
 :javascript
-
-  $("#map-side-bar a.category_item").click(function(e){
+  $(".loc_info .close a").click(function(){
+    $(".loc_info").addClass('hidden');
+    return false;
+  });
+  
+  $("#search-side-bar .close a").click(function(){
+    $("#search-side-bar").addClass('hidden');
+    $("#cat-side-bar").removeClass('hidden');
+    return false;
+  });
+  
+  $("#cat-side-bar a.category_item").click(function(e){
     e.preventDefault();
     $(".category_item").removeClass('active');
     $(".location_item").removeClass('active');

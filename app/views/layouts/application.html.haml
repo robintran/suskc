@@ -24,8 +24,8 @@
           #logo
             %a.brand(href="/") StartupShopKC
           #search
-            ~ form_tag '/search', style: "margin: 0" do
-              = text_field_tag :search
+            ~ form_tag search_path, style: "margin: 0" do
+              = text_field_tag :term
           #account
             .container{style: "text-align: right;"}
               .nav-collapse{style: "float: left;"}
