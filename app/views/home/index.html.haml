@@ -186,8 +186,9 @@
     $(".loc_info").addClass('hidden');
     $("#location_info_" + id).removeClass('hidden');
     $(".location_item").removeClass('active');
-    $("li#"+id+" a").addClass('active');
-    
+    if(id != ''){
+      $("li#"+id+" a").addClass('active');
+    }
     $("#mymap").gmap3({action:'clear', name:'overlay'});
     $("#mymap").gmap3(
       { action:'clear', name:'overlay'},
