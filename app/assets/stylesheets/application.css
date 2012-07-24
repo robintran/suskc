@@ -61,3 +61,7 @@ $("#fading-image").live("click", function(e){
 .overlay{
   padding: 10px 20px;
 }
+
+.active{
+  color: #FFC345;
+}

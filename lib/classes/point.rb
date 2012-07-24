@@ -3,7 +3,7 @@ class Point
     point = {}
     point[:lat] = location.latitude
     point[:lng] = location.longitude
-    point[:data] = {company: location.name, email: location.email, address: location.address}
+    point[:data] = {id: location.id, company: location.name, email: location.email, address: location.address}
     first_cat = location.categories.first
     if first_cat
       icon = "../assets/bg-digital.png" if first_cat.name == 'Digital Company'

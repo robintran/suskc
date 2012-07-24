@@ -2,21 +2,35 @@
   #map-side-bar.well.sidebar-nav{style: "min-height: 90%"}
     %h3 Categories
     %ul
-      %li= link_to "All Companies", update_map_path, rel: 'all', class: 'category_item'
+      %li= link_to "All Companies", update_map_path, rel: 'all', class: 'category_item active'
       - @categories.each do |cat|
-        %li= link_to cat.name, update_map_path, rel: cat.id, class: 'category_item'
+        %li{id: "#{cat.id}"}= link_to cat.name, update_map_path, rel: cat.id, class: 'category_item'
     %hr{style: "color: #FFC345; background: #FFC345; height: 2px;"}
     %h3 Companies
     %ul
       - @locations.each do |loc|
-        %li= link_to loc.name, '#', data: {pos: {lat: loc.latitude, lng: loc.longitude}, name: loc.name, email: loc.email, address: loc.address}.to_json, class: 'location_item'
+        %li{id: "#{loc.id}"}= link_to loc.name, '#', data: {pos: {lat: loc.latitude, lng: loc.longitude}, name: loc.name, email: loc.email, address: loc.address, id: loc.id}.to_json, class: 'location_item'
 
 #map_wrapper.span{style: "height: 100%; oveflow: hidden;"}
   #mymap.gmap3{style: "min-height: 96%;"}
+
+- @locations.each do |loc|
+  .well.hidden.loc_info.span2{id: "location_info_#{loc.id}", style: "position: fixed; width; 250px; min-height: 100%;margin-left: 280px; z-index: 10"}
+    %h2= loc.name
+    .span2.no-lmargin= loc.address
+    .span2.no-lmargin= loc.phone
+    .span2.no-lmargin= loc.email
+    .span2.no-lmargin= loc.url
+    .span2.no-lmargin= loc.twitter
+    .span2.no-lmargin= loc.facebook
+
 :javascript
 
   $("#map-side-bar a.category_item").click(function(e){
     e.preventDefault();
+    $(".category_item").removeClass('active');
+    $(".location_item").removeClass('active');
+    $(this).addClass('active');
     $("#fading-image").show();
     $("#mymap").gmap3({action:'clear'});
     $url = $(this).attr("href");
@@ -35,11 +49,13 @@
   });     
 
   $(".location_item").live('click', function(){
+    $(".location_item").removeClass('active');
+    $(this).addClass('active');
     data = JSON.parse($(this).attr("data"));
     pos = data.pos;
     latLng = new google.maps.LatLng(pos.lat, pos.lng);
     content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + data.email + "<br/>" + data.address + "</div></div>";
-    make_overlay(latLng, content);            
+    make_overlay(latLng, content, data.id);            
     $("#mymap").gmap3({action: 'setCenter', args:[latLng]});
     $("#mymap").gmap3('get').setZoom(16);
   })
@@ -127,7 +143,7 @@
                   companies = companies + "<li>" + points[i].data.company + "</li>";
                 }
                 content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + points.length + " Companies here: </h3>"+ companies + "</div></div>";
-                make_overlay(data.latLng, content);
+                make_overlay(data.latLng, content, '');
               }
               cluster.map.panTo(data.latLng);
               cluster.map.setZoom(cluster.map.getZoom() + 1);
@@ -148,7 +164,7 @@
             click: function(marker, event, data){
               pos = marker.getPosition();
               content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.company + "</h3>" + data.email + "<br/>" + data.address + "</div></div>";
-              make_overlay(pos, content);            
+              make_overlay(pos, content, data.id);            
               marker.map.panTo(pos);
               marker.map.setZoom(16);
             },
@@ -161,7 +177,12 @@
     );
   }
   
-  function make_overlay(pos, content){
+  function make_overlay(pos, content, id){
+    $(".loc_info").addClass('hidden');
+    $("#location_info_" + id).removeClass('hidden');
+    $(".location_item").removeClass('active');
+    $("li#"+id+" a").addClass('active');
+    
     $("#mymap").gmap3({action:'clear', name:'overlay'});
     $("#mymap").gmap3(
       { action:'clear', name:'overlay'},
