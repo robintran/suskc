@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
-
-  def new
-    @user = User.new
-  end
+  before_filter :authenticate_user, only: [:my_account]
   
   def confirm_email
     user = User.where(confirm_code: params[:code]).first
@@ -35,4 +32,14 @@ class UsersController < ApplicationController
       render :new
     end
   end
+  
+  def my_account
+    @user = current_user
+    @locations = @user.locations
+  end
+  
+  def new
+    @user = User.new
+  end
+  
 end

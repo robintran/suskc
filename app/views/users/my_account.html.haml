@@ -1,0 +1,40 @@
+.span9.notice= notice
+.span12
+  %p
+    %h2 My Account
+.span12
+  .span9.no-lmargin
+    .span1.no-lmargin
+      Email
+    .span7.no-lmargin
+      = current_user.username
+
+.span12
+  %p
+    %h2 Locations
+.span11.shadow_box{style: "width: 1050px;"}
+  .span11.no-lmargin
+    .span2.no-lmargin.th
+      Name
+    .span3.no-lmargin.th
+      Description
+    .span3.no-lmargin.th
+      Address
+    .span2.no-lmargin.th
+      Email
+    .span1.no-lmargin.th
+      Activate
+  - bg_class = 'even'
+  - @locations.each do |location|
+    - bg_class = bg_class == 'odd' ? 'even' : 'odd'
+    .span11.no-lmargin
+      .span2.no-lmargin{class: "#{bg_class}"}
+        = location.name
+      .span3.no-lmargin{class: "#{bg_class}"}
+        = location.description
+      .span3.no-lmargin{class: "#{bg_class}"}
+        = location.address
+      .span2.no-lmargin{class: "#{bg_class}"}
+        = location.email
+      .span1.no-lmargin{class: "#{bg_class}", id: "act_text_#{location.id}"}
+        = location.active?
