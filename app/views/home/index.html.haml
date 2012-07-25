@@ -76,6 +76,11 @@
     });
   });     
 
+  $(".location_details").live('click', function(){
+    $("li#"+$(this).attr('href')+" a").click();
+    return false;
+  });
+  
   $(".location_item").live('click', function(){
     $(".location_item").removeClass('active');
     $(this).addClass('active');
@@ -168,7 +173,7 @@
               if(points.length > 1){
                 companies=""
                 for(i=0; i< points.length; i++){
-                  companies = companies + "<li>" + points[i].data.company + "</li>";
+                  companies = companies + "<li><a class='location_details' href='" + points[i].data.id + "'>" + points[i].data.company + "</a></li>";
                 }
                 content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + points.length + " Companies here: </h3>"+ companies + "</div></div>";
                 make_overlay(data.latLng, content, '');
