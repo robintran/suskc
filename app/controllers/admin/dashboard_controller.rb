@@ -9,6 +9,13 @@ class Admin::DashboardController < ApplicationController
     respond_to :js
   end
   
+  def location_filter
+    status = params[:status]
+    @locations = Location.actived_list if status=='active'
+    @locations = Location.unactived_list if status=='unactive'
+    respond_to :js
+  end
+  
   def index
     init
     @user = current_user
