@@ -2,15 +2,17 @@ StartupShopKC::Application.routes.draw do
   get 'home/index', as: 'home'
   root :to => 'home#index'
    
-  get 'signin' => 'sessions#new', as: 'signin'
-  post 'signin' => 'sessions#create'
-  get 'signout' => 'sessions#destroy'
-  get 'signup' => 'users#new', as: 'signup'
-  get 'my_account' => 'users#my_account', as: 'my_account'
-  get 'upgrade_account' =>  'users#upgrade_account'
-  post 'update_card' => 'users#update_card'
-  post 'search' => 'home#search', as: 'search'
-  get 'update_map' => 'home#update_map'
+  post 'search'         => 'home#search', as: 'search'
+  get 'update_map'      => 'home#update_map'
+  get 'signin'          => 'sessions#new', as: 'signin'
+  post 'signin'         => 'sessions#create'
+  get 'signout'         => 'sessions#destroy'
+  get 'signup'          => 'users#new', as: 'signup'
+  get 'my_account'      => 'users#my_account', as: 'my_account'
+  get 'charge'        => 'users#charge'
+  get 'upgrade_account' => 'users#upgrade_account'
+  post 'update_card'    => 'users#update_card'
+  
   match 'confirm_email/:code' => 'users#confirm_email'
   
   resources :users

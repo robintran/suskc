@@ -42,7 +42,31 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
+  def charge
+    redirect_to my_account if current_user.plan == 'Member'
+    # amount in cents
+    amount = 10 * 100
+    begin
+      stripe = YAML.load_file("#{Rails.root}/config/stripe.yml")[Rails.env]
+      Stripe.api_key = stripe['secretkey']
+      @charge = Stripe::Charge.create(
+       :amount => amount,
+       :currency => "usd",
+       :customer => current_user.customer_id,
+       :description => "payment by #{current_user.username}"
+      )
+      current_user.update_attributes(plan: 'Member')
+      flash[:notice] = "successfull charge"
+    rescue Exception => e
+      flash[:notice] = e
+    end
+    redirect_to my_account_path  
+  end
+  
   def upgrade_account
+    if current_user.plan == 'Member'
+      redirect_to my_account_path
+    end
     init_card
   end
   
