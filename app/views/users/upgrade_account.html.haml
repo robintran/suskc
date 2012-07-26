@@ -6,7 +6,26 @@
   %p
     %h3 Card Infomation
 .span12
-  #card_form.span9
+  - if @active_card && @card_errors.blank?
+    .span9.no-lmargin
+      .span2.no-lmargin Name on Card
+      .span7.no-lmargin= @active_card.name
+    .span9.no-lmargin
+      .span2.no-lmargin Card Type
+      .span7.no-lmargin= @active_card.type
+    .span9.no-lmargin
+      .span2.no-lmargin Card Number
+      .span7.no-lmargin= "xxxx-xxxx-xxxx-#{@active_card.last4}"
+    .span9.no-lmargin
+      .span2.no-lmargin Expiration Date
+      .span7.no-lmargin= "#{@active_card.exp_year} / #{@active_card.exp_month}"
+    .span9.no-lmargin
+      %p= link_to 'edit card', '#card_form'
+    %br
+    .span9.no-lmargin
+      %p= link_to 'purchase to upgrade', '#'
+    %br 
+  #card_form.span9{class: "#{'hidden' if(@active_card && @card_errors.blank?)}"}
     ~ form_tag update_card_path do
       #card_error.span9.no-lmargin{style: "color: red;"}
         - unless @card_errors.blank?
@@ -17,7 +36,7 @@
         .span2.no-lmargin
           %label{for: 'first_name'}Name on card
         .span7.no-lmargin
-          = text_field_tag '', @name, class: 'name'
+          = text_field_tag '', "#{@active_card.name if @active_card}", class: 'name'
       .span9.no-lmargin
         .span2.no-lmargin
           %label{for: 'number'}Number
@@ -69,6 +88,17 @@
 :javascript
   Stripe.setPublishableKey("#{stripe['publishablekey']}");
   $(document).ready(function(){
+    $("a[href=#card_form]").click(function(e){
+      $("#card_form").toggleClass("hidden");
+      text = $(this).html();
+      if(text=='edit card'){
+        text = 'hide form';
+      }else{
+        text = 'edit card';
+      }
+      $(this).html(text);
+      return false;
+    });
     //payment
     $("#card_form form").submit(function(event) {
       // disable the submit button to prevent repeated clicks

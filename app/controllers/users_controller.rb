@@ -42,8 +42,56 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
-  def update_card
-    redirect_to upgrade_account_path
+  def upgrade_account
+    init_card
   end
   
+  def update_card
+    init_card
+    @card_errors=[] 
+    begin
+      if @customer
+        @customer.card = params[:card][:token]
+        @customer.save
+      else
+        token = params[:card][:token]
+        @customer = Stripe::Customer.create(
+          card: token,
+          description: "#{current_user.username}"
+        )
+        current_user.update_attributes(customer_id: @customer.id)
+      end
+    rescue Exception => e
+      @card_errors << e
+      render :upgrade_account
+      return
+    end
+    
+    @active_card = @customer.active_card
+    @card_errors << 'cvc is not accepted' if @active_card.cvc_check == 'fail'
+    @card_errors << 'line 1 address is not matched' if @active_card.address_line1_check == 'fail'
+    @card_errors << 'zip code is not matched' if @active_card.address_zip_check == 'fail'
+    
+    if @card_errors.any?
+      render :upgrade_account
+    else
+      redirect_to upgrade_account_path
+    end
+  end
+  
+  private
+  
+    def init_card
+      stripe = YAML.load_file("#{Rails.root}/config/stripe.yml")[Rails.env]
+      Stripe.api_key = stripe['secretkey']
+      customer_id = current_user.customer_id
+      begin
+        @customer = Stripe::Customer.retrieve(customer_id) if(customer_id)
+      rescue Exception => e
+        puts e
+      end
+      
+      @active_card = @customer.active_card if @customer
+    end
+    
 end

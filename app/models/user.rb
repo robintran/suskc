@@ -1,5 +1,5 @@
 class User < ParseUser
-  fields :role, :confirm_code, :plan
+  fields :role, :confirm_code, :plan, :customer_id
   
   def admin?
     return self.role=='admin'
