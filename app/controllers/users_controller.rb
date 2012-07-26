@@ -42,4 +42,8 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
+  def update_card
+    redirect_to upgrade_account_path
+  end
+  
 end

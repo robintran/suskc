@@ -1,0 +1,9 @@
+development:
+  publishablekey: pk_2DbHZFq5gA1gjSGs7qpmBsHuC19PG
+  secretkey: k1khxTjnDu0ZdDQmX9Vevh2PxRxw1C9x
+staging:
+  publishablekey: pk_2DbHZFq5gA1gjSGs7qpmBsHuC19PG
+  secretkey: k1khxTjnDu0ZdDQmX9Vevh2PxRxw1C9x
+production:
+  publishablekey: pk_2DbHZFq5gA1gjSGs7qpmBsHuC19PG
+  secretkey: k1khxTjnDu0ZdDQmX9Vevh2PxRxw1C9x
