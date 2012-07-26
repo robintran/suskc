@@ -6,9 +6,15 @@
   .span9.no-lmargin
     .span1.no-lmargin
       Email
-    .span7.no-lmargin
+    .span8.no-lmargin
       = current_user.username
-
+    .span1.no-lmargin
+      Plan
+    .span8.no-lmargin
+      = current_user.plan
+    - if current_user.plan=='Free'
+      .span9.no-lmargin
+        = link_to 'Upgrade Account', upgrade_account_path
 .span12
   %p
     %h2 Locations
