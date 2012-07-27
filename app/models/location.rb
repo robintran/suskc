@@ -26,7 +26,7 @@ class Location < ParseResource::Base
   end
   
   def self.actived_list
-    where(active: true)
+    where(active: true).sort_by{|loc| loc.name}
   end
   
   def self.unactived_list
