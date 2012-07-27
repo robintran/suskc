@@ -75,13 +75,6 @@ class UsersController < ApplicationController
     redirect_to my_account_path  
   end
   
-  def upgrade_account
-    if current_user.plan == 'Member'
-      redirect_to my_account_path
-    end
-    init_card
-  end
-  
   def update_card
     init_card
     @card_errors=[] 

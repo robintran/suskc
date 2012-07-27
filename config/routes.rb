@@ -10,7 +10,6 @@ StartupShopKC::Application.routes.draw do
   get 'signup'          => 'users#new', as: 'signup'
   get 'my_account'      => 'users#my_account', as: 'my_account'
   get 'charge'        => 'users#charge'
-  get 'upgrade_account' => 'users#upgrade_account'
   post 'update_card'    => 'users#update_card'
   
   match 'confirm_email/:code' => 'users#confirm_email'
