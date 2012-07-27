@@ -62,6 +62,10 @@ $("#fading-image").live("click", function(e){
   padding: 10px 20px;
 }
 
+.member{
+  color: #85B421;
+}
+
 .active{
   color: #FFC345;
 }

@@ -20,7 +20,7 @@
       Companies
     %ul#locations
       - @locations.each do |loc|
-        %li{id: "#{loc.id}"}= link_to loc.name, '#', data: {pos: {lat: loc.latitude, lng: loc.longitude}, name: loc.name, email: loc.email, address: loc.address, id: loc.id}.to_json, class: 'location_item'
+        %li{id: "#{loc.id}"}= link_to loc.name, '#', data: {pos: {lat: loc.latitude, lng: loc.longitude}, name: loc.name, email: loc.email, address: loc.address, id: loc.id}.to_json, class: "location_item#{' member' if loc.user.is_member?}"
 
 #map_wrapper.span{style: "height: 100%; oveflow: hidden;"}
   #mymap.gmap3{style: "min-height: 96%;"}
