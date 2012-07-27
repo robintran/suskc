@@ -1,0 +1,126 @@
+.span12.no-lmargin
+  - if @active_card && @card_errors.blank?
+    .span9.no-lmargin
+      .span2.no-lmargin Name on Card
+      .span7.no-lmargin= @active_card.name
+    .span9.no-lmargin
+      .span2.no-lmargin Card Type
+      .span7.no-lmargin= @active_card.type
+    .span9.no-lmargin
+      .span2.no-lmargin Card Number
+      .span7.no-lmargin= "xxxx-xxxx-xxxx-#{@active_card.last4}"
+    .span9.no-lmargin
+      .span2.no-lmargin Expiration Date
+      .span7.no-lmargin= "#{@active_card.exp_year} / #{@active_card.exp_month}"
+    .span9.no-lmargin
+      %p= link_to 'edit card', '#card_form'
+    %br
+  #card_form.span9{class: "#{'hidden' if(@active_card && @card_errors.blank?)}"}
+    ~ form_tag update_card_path do
+      #card_error.span9.no-lmargin{style: "color: red;"}
+        - unless @card_errors.blank?
+          - @card_errors.each do |msg|
+            = msg
+            %br
+      .span9.no-lmargin
+        .span2.no-lmargin
+          %label{for: 'first_name'}Name on card
+        .span7.no-lmargin
+          = text_field_tag '', "#{@active_card.name if @active_card}", class: 'name'
+      .span9.no-lmargin
+        .span2.no-lmargin
+          %label{for: 'number'}Number
+        .span7.no-lmargin
+          = text_field_tag '', "#{('xxxx-xxxx-xxxx-' + @active_card.last4) if @active_card}", class: 'card-number'
+      .span9.no-lmargin
+        .span2.no-lmargin
+          %label{for: 'type'}Type
+        .span7.no-lmargin
+          = select_tag '', options_for_select(["Visa","MasterCard","American Express","JCB","Diners Club","Discover"], "#{@active_card.type if @active_card}"), class: 'card-type'
+      .span9.no-lmargin
+        .span2.no-lmargin
+          %label Expiration Date
+        .span7.no-lmargin
+          %span{style: "width: 100px; float: left;"}
+            %div= select_year((@active_card.exp_year if @active_card) || Date.today, start_year: Time.now.year, end_year: Time.now.year + 95)
+          %span{style: "width: 100px; float: left;"}
+            %div= select_month((@active_card.exp_month if @active_card) || 1, use_month_numbers: true)
+      .span9.no-lmargin
+        .span2.no-lmargin
+          %label{for: 'cvc'}CVC
+        .span7.no-lmargin
+          = text_field_tag '', '', class: 'card-cvc'
+      .span9.no-lmargin
+        .span2.no-lmargin
+          %label{for: 'address'}Address
+        .span7.no-lmargin
+          = text_field_tag '', "#{@active_card.address_line1 if @active_card}", class: 'address-line1'
+      .span9.no-lmargin
+        .span2.no-lmargin
+          %label{for: 'address'}Address
+        .span7.no-lmargin
+          = text_field_tag '', "#{@active_card.address_line2 if @active_card}", class: 'address-line2'
+      .span9.no-lmargin
+        .span2.no-lmargin
+          %label{for: 'state'}State
+        .span7.no-lmargin
+          = text_field_tag '', "#{@active_card.address_state if @active_card}", class: 'state'
+      .span9.no-lmargin
+        .span2.no-lmargin
+          %label{for: 'zip'}Zip
+        .span7.no-lmargin
+          = text_field_tag '', "#{@active_card.address_zip if @active_card}", class: 'zip'
+      .span9.no-lmargin.submit
+        .span9.no-lmargin.submit
+          = submit_tag :save
+- stripe = YAML.load_file("#{Rails.root}/config/stripe.yml")[Rails.env]
+= javascript_include_tag "https://js.stripe.com/v1/"
+:javascript
+  Stripe.setPublishableKey("#{stripe['publishablekey']}");
+  $(document).ready(function(){
+    $("a[href=#card_form]").click(function(e){
+      $("#card_form").toggleClass("hidden");
+      text = $(this).html();
+      if(text=='edit card'){
+        text = 'hide form';
+      }else{
+        text = 'edit card';
+      }
+      $(this).html(text);
+      return false;
+    });
+    //payment
+    $("#card_form form").submit(function(event) {
+      // disable the submit button to prevent repeated clicks
+      $('#card_form input[type=submit]').attr("disabled", "disabled");
+      $("#fading-image").show();
+      Stripe.createToken({
+          name: $('.name').val(),
+          number: $('.card-number').val(),
+          type: $('.card-type').val(),
+          city: $('.city').val(),
+          cvc: $('.card-cvc').val(),
+          exp_month: $('#date_month').val(),
+          exp_year: $('#date_year').val(),
+          address_line1: $('.address-line1').val(),
+          address_line2: $('.address-line2').val(),
+          address_state: $('.state').val(),
+          address_zip: $('.zip').val()
+      }, stripeResponseHandler);
+      // prevent the form from submitting with the default action
+      event.preventDefault();
+    });
+
+    function stripeResponseHandler(status, response) {
+      $("#fading-image").hide();
+      if (response.error){
+          $("#card_error").text(response.error.message);
+          $('#card_form input[type=submit]').removeAttr("disabled");
+      } else {
+          var form$ = $("#card_form form");
+          var token = response['id'];
+          form$.append("<input type='hidden' name='card[token]' value='" + token + "'/>");
+          form$.get(0).submit();
+      }
+    }
+  });

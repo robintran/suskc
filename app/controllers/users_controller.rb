@@ -37,6 +37,7 @@ class UsersController < ApplicationController
   end
   
   def my_account
+    init_card
     @user = current_user
     @locations = @user.locations
   end
@@ -46,22 +47,30 @@ class UsersController < ApplicationController
   end
   
   def charge
-    redirect_to my_account if current_user.plan == 'Member'
+    @location = Location.find params[:location]
+    redirect_to my_account if @location.paid==true
     # amount in cents
-    amount = 10 * 100
+    setting_cost = Setting.where(name: 'up_cost').first
+    amount = setting_cost ? setting_cost.value*100 : 100
+    @errors = []
     begin
       stripe = YAML.load_file("#{Rails.root}/config/stripe.yml")[Rails.env]
       Stripe.api_key = stripe['secretkey']
       @charge = Stripe::Charge.create(
-       :amount => amount,
+       :amount => amount.to_i,
        :currency => "usd",
        :customer => current_user.customer_id,
        :description => "payment by #{current_user.username}"
       )
-      current_user.update_attributes(plan: 'Member')
+      @location.update_attributes(paid: true)
       flash[:notice] = "successfull charge"
     rescue Exception => e
-      flash[:notice] = e
+      @error = e
+      @user = current_user
+      @locations = @user.locations
+      init_card
+      render :my_account
+      return
     end
     redirect_to my_account_path  
   end
@@ -90,7 +99,7 @@ class UsersController < ApplicationController
       end
     rescue Exception => e
       @card_errors << e
-      render :upgrade_account
+      render :my_account
       return
     end
     
@@ -100,9 +109,9 @@ class UsersController < ApplicationController
     @card_errors << 'zip code is not matched' if @active_card.address_zip_check == 'fail'
     
     if @card_errors.any?
-      render :upgrade_account
+      render :my_account
     else
-      redirect_to upgrade_account_path
+      redirect_to my_account_path
     end
   end
   

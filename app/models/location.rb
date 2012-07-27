@@ -1,6 +1,6 @@
 class Location < ParseResource::Base
   belongs_to :user
-  fields :name, :description, :address, :phone, :email, :url, :twitter, :facebook, :latitude, :longitude, :active
+  fields :name, :description, :address, :phone, :email, :url, :twitter, :facebook, :latitude, :longitude, :active, :paid
   
   validates :address, presence: true
   validates :email, presence: true

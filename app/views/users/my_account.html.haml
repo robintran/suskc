@@ -1,4 +1,3 @@
-.span9.notice= notice
 .span12
   %p
     %h2 My Account
@@ -8,18 +7,20 @@
       Email
     .span8.no-lmargin
       = current_user.username
-    .span1.no-lmargin
-      Plan
-    .span8.no-lmargin
-      = current_user.plan
-    - if current_user.plan=='Free'
-      .span9.no-lmargin
-        = link_to 'Upgrade Account', upgrade_account_path
+    
+.span12
+  %p 
+    %h3 Card info
+  = render partial: 'card'
+  
 .span12
   %p
     %h2 Locations
-.span11.shadow_box{style: "width: 1050px;"}
-  .span11.no-lmargin
+- if @error
+  .span12
+    %p=@error
+.span12.shadow_box{style: "width: 1140px;"}
+  .span12.no-lmargin
     .span2.no-lmargin.th
       Name
     .span3.no-lmargin.th
@@ -30,10 +31,12 @@
       Email
     .span1.no-lmargin.th
       Activate
+    .span1.no-lmargin.th
+      Payment
   - bg_class = 'even'
   - @locations.each do |location|
     - bg_class = bg_class == 'odd' ? 'even' : 'odd'
-    .span11.no-lmargin
+    .span12.no-lmargin
       .span2.no-lmargin{class: "#{bg_class}"}
         = location.name
       .span3.no-lmargin{class: "#{bg_class}"}
@@ -44,3 +47,8 @@
         = location.email
       .span1.no-lmargin{class: "#{bg_class}", id: "act_text_#{location.id}"}
         = location.active?
+      .span1.no-lmargin{class: "#{bg_class}"}
+        - if location.paid
+          Paid
+        - else
+          = link_to 'Purchase', charge_path(location: location.id)
