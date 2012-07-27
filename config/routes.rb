@@ -25,6 +25,7 @@ StartupShopKC::Application.routes.draw do
     put 'update_user' => 'dashboard#update_user', as: 'update_user'
     get 'active_location' => 'dashboard#active_location'
     get 'location_filter' => 'dashboard#location_filter'
+    post 'update_cost' => 'dashboard#update_cost'
     match "/" => "dashboard#index"
     root :to => "admin/dashboard#index"
   end

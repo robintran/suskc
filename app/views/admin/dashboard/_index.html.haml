@@ -1,7 +1,7 @@
 .span9.no-lmargin.notice= notice
 .span9.no-lmargin
   %p
-    %h2 My Account
+    %h2 Settings
 .span9
   .span9.no-lmargin
     .span1.no-lmargin
@@ -14,7 +14,7 @@
     .span7.no-lmargin
       ********
   .span9.no-lmargin{style: "margin-top: 10px;"}
-    %p= link_to 'edit', '#edit_account'
+    %p= link_to 'edit', '#edit_account', class: 'show_form'
   #edit_account.span9.no-lmargin{class: "#{@display_form==true ? '' : 'hidden'}"}
     ~ form_for @user, url: admin_update_user_path(id: @user.id) do |f|
       .errors.span12{style: "margin-bottom: 20px"}
@@ -31,9 +31,19 @@
         .span1
           %label Password Confirmation
         .span4= password_field_tag :password_confirmation
-      .field.span12
+      .field.span12{style: "margin-bottom: 20px;"}
         .span1= submit_tag 'Update'
-
+.span9
+  .span2.no-lmargin
+    Upgrade location cost
+  #cost_value.span1.no-lmargin
+    = number_to_currency(@upgrade_cost)
+  .span1.no-lmargin
+    = link_to 'edit', '#edit_cost', class: 'show_form'
+#edit_cost.hidden.span9
+  ~ form_tag admin_update_cost_path, remote: true do
+    = text_field_tag :cost
+    = submit_tag 'save'
 .span9.no-lmargin
   %p
     %h2 Users Summary
@@ -68,8 +78,9 @@
 :javascript
   $(document).ready(function(){
     
-    $("a[href=#edit_account]").click(function(e){
-      $("#edit_account").toggleClass("hidden");
+    $("a.show_form").click(function(e){
+      $element = $(this).attr('href');
+      $($element).toggleClass("hidden");
       text = $(this).html();
       if(text=='edit'){
         text = 'hide form';

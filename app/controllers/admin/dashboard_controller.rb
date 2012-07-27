@@ -54,6 +54,13 @@ class Admin::DashboardController < ApplicationController
     end
   end
   
+  def update_cost
+    @cost = params[:cost]
+    setting_cost = Setting.where(name: 'up_cost').first
+    setting_cost.update_attributes(value: @cost)
+    respond_to :js
+  end
+  
   def update_user
     @errors = []
     unless params[:user][:password].blank? && params[:password_confirmation].blank?
@@ -86,7 +93,9 @@ class Admin::DashboardController < ApplicationController
     def init
       @users = User.all
       @locations = Location.all
-      
+      setting_cost = Setting.where(name: 'up_cost').first
+      setting_cost = Setting.create(name: 'up_cost', value: 1.00) unless setting_cost
+      @upgrade_cost = setting_cost.value
       @registed_users = User.where(role: 'user')
       @confirmed_users = User.where(role: 'user', confirm_code: 'confirmed')
       
