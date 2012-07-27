@@ -14,6 +14,9 @@ class UsersController < ApplicationController
   def create
     @errors = []
     @user = User.new params[:user]
+    if(User.where(username: params[:user][:username]).any?)
+      @errors << 'Email has already been taken.'
+    end
     @errors << "password confirmation is not matched" if params[:user][:password] != params[:password_confirmation]
    
     if @errors.blank?
