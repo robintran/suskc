@@ -4,7 +4,11 @@ class Category < ParseResource::Base
   has_many :locations
   
   def active_locations
-    locations.select{|l| l.active == true}
+    if locations.blank?
+      return []
+    else
+      return locations.select{|l| l && l.active == true}
+    end
   end
   
   def locations

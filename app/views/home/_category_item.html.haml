@@ -1,0 +1,5 @@
+- cat = Category.where(name: cat_name).first
+- cat_id = cat ? cat.id : 'all'
+= link_to "<i class='#{icon_class} category-icon'></i>".html_safe, update_map_path, rel: cat_id, class: 'category_item'
+%span.title= link_to cat_name, update_map_path, rel: cat_id, class: 'category_item'
+= link_to "<i class='icon-arrow-right arrow-icon'></i>".html_safe, update_map_path, rel: cat_id, class: 'category_item'

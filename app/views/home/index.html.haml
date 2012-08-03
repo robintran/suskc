@@ -5,33 +5,19 @@
       %span.title-copy Categories
     .inside
       .category
-        %i.icon-save.category-icon
-          %span.title Digital Company
-          %i.icon-arrow-right.arrow-icon
+        = render partial: 'category_item', locals: {cat_name: "Digital Company", icon_class: "icon-save"}
       .category
-        %i.icon-money.category-icon
-          %span.title Investor
-          %i.icon-arrow-right.arrow-icon
+        = render partial: 'category_item', locals: {cat_name: "Investor", icon_class: "icon-money"}
       .category
-        %i.icon-print.category-icon
-          %span.title Coworking Space
-          %i.icon-arrow-right.arrow-icon     
+        = render partial: 'category_item', locals: {cat_name: "Coworking Space", icon_class: "icon-print"}
       .category
-        %i.icon-dashboard.category-icon
-          %span.title Accelerator
-          %i.icon-arrow-right.arrow-icon
+        = render partial: 'category_item', locals: {cat_name: "Accelerator", icon_class: "icon-dashboard"}
       .category
-        %i.icon-pencil.category-icon
-          %span.title Freelancer
-          %i.icon-arrow-right.arrow-icon
+        = render partial: 'category_item', locals: {cat_name: "Freelancer", icon_class: "icon-pencil"}
       .category
-        %i.icon-fire.category-icon
-          %span.title Startup
-          %i.icon-arrow-right.arrow-icon
+        = render partial: 'category_item', locals: {cat_name: "Startup", icon_class: "icon-fire"}
       .category
-        %i.icon-briefcase.category-icon
-          %span.title Hiring
-          %i.icon-arrow-right.arrow-icon
+        = render partial: 'category_item', locals: {cat_name: "Hiring", icon_class: "icon-briefcase"}
 
 :javascript
   $(".loc_info .close a").click(function(){
@@ -45,7 +31,7 @@
     return false;
   });
   
-  $("#cat-side-bar a.category_item").click(function(e){
+  $(".left-menu a.category_item").click(function(e){
     e.preventDefault();
     $(".category_item").removeClass('active');
     $(".location_item").removeClass('active');
