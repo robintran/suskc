@@ -1,8 +1,10 @@
 .gmap3{
   margin: 0 auto;
-  border: 1px dashed #C0C0C0;
-  width: 1000px;
+  width: 100% !important;
+  position: absolute;
   height: 750px;
+  z-index: -1;
+  margin-top: -15px;
 }
 .cluster{
   color: #FFFFFF;
@@ -51,3 +53,5 @@
 .close{
   font-weight: bold;
 }
+
+a{text-decoration: none}

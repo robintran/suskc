@@ -1,37 +1,41 @@
-.left-menu
-  .background
-    .title
-      %i.icon-list-ul.title-icon
-      %span.title-copy Categories
-    .inside
-      .category
-        %i.icon-save.category-icon
-          %span.title Digital Company
-          %i.icon-arrow-right.arrow-icon
-      .category
-        %i.icon-money.category-icon
-          %span.title Investor
-          %i.icon-arrow-right.arrow-icon
-      .category
-        %i.icon-print.category-icon
-          %span.title Coworking Space
-          %i.icon-arrow-right.arrow-icon     
-      .category
-        %i.icon-dashboard.category-icon
-          %span.title Accelerator
-          %i.icon-arrow-right.arrow-icon
-      .category
-        %i.icon-pencil.category-icon
-          %span.title Freelancer
-          %i.icon-arrow-right.arrow-icon
-      .category
-        %i.icon-fire.category-icon
-          %span.title Startup
-          %i.icon-arrow-right.arrow-icon
-      .category
-        %i.icon-briefcase.category-icon
-          %span.title Hiring
-          %i.icon-arrow-right.arrow-icon
+.span{style: "height: 100%; width: 250px;"}
+  #search-side-bar.well.sidebar-nav{style: "min-height: 90%", class: "#{'hidden' if params[:action]!='search'}"}
+    .right.close{style: "margin-top: -10px;"}
+      = link_to 'x', 'close'
+    %h3 Search Results
+    - if @locations.blank?
+      No result found
+    - else
+      %ul#locations
+        - @locations.each do |loc|
+          %li{id: "#{loc.id}"}= link_to loc.name, '#', data: {pos: {lat: loc.latitude, lng: loc.longitude}, name: loc.name, email: loc.email, address: loc.address, id: loc.id}.to_json, class: 'location_item'
+  #cat-side-bar.well.sidebar-nav{style: "min-height: 90%", class: "#{'hidden' if params[:action]=='search'}"}
+    %h3 Categories
+    %ul
+      %li= link_to "All Companies", update_map_path, rel: 'all', class: "category_item #{'active' unless params[:action]=='search'}"
+      - @categories.each do |cat|
+        %li{id: "#{cat.id}"}= link_to cat.name, update_map_path, rel: cat.id, class: 'category_item'
+    %hr{style: "color: #FFC345; background: #FFC345; height: 2px;"}
+    %h3 
+      Companies
+    %ul#locations
+      - @locations.each do |loc|
+        %li{id: "#{loc.id}"}= link_to loc.name, '#', data: {pos: {lat: loc.latitude, lng: loc.longitude}, name: loc.name, email: loc.email, address: loc.address, id: loc.id}.to_json, class: "location_item#{' member' if loc.paid}"
+
+#map_wrapper.span{style: "height: 100%; oveflow: hidden;"}
+  #mymap.gmap3{style: "min-height: 96%;"}
+
+- @locations.each do |loc|
+  .well.hidden.loc_info.span2{id: "location_info_#{loc.id}", style: "position: fixed; width; 250px; min-height: 100%;margin-left: 280px; z-index: 10"}
+    .right.close{style: "margin-top: -10px;"}
+      =link_to 'x', 'close'
+    %h2= loc.name
+    .span2.no-lmargin= loc.address
+    .span2.no-lmargin= loc.phone
+    .span2.no-lmargin= loc.email
+    .span2.no-lmargin= loc.url
+    .span2.no-lmargin= loc.twitter
+    .span2.no-lmargin= loc.facebook
 
 :javascript
   $(".loc_info .close a").click(function(){
