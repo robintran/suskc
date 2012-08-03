@@ -23,14 +23,14 @@
             %span.add-company-copy
               = link_to 'Add your company', new_location_path
               %span   
-          = link_to "<i class='icon-signout signin-icon'></i>".html_safe, "signout"
+          = link_to "<i class='icon-signout signin-icon'></i>".html_safe, "/signout"
         - else
           .add-company-right
             %span.add-icon= image_tag 'add.png'
             %span.add-company-copy
               = link_to 'Register', '/signup'
               %span  
-          = link_to "<i class='icon-signin signin-icon'></i>".html_safe, 'signin'
+          = link_to "<i class='icon-signin signin-icon'></i>".html_safe, '/signin'
       .search-input
         ~ form_tag search_path do
           = text_field_tag :term, '', class: 'search'
