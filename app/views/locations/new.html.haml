@@ -6,39 +6,39 @@
     .errors.span12{style: "margin-bottom: 20px"}
       = render partial: "shared/errors"
     .field.span12
-      .span1
+      .span2
         %label Company Name
       .span4= f.text_field :name
     .field.span12
-      .span1
+      .span2
         %label Phone
       .span4= f.text_field :phone
     .field.span12
-      .span1
+      .span2
         %label Email
       .span4= f.email_field :email
     .field.span12
-      .span1
+      .span2
         %label Address
       .span4= f.text_field :address
     .field.span12
-      .span1
+      .span2
         %label Website Url
       .span4= f.text_field :url
     .field.span12
-      .span1
+      .span2
         %label Twitter
       .span4= f.text_field :twitter
     .field.span12
-      .span1
+      .span2
         %label Facebook
       .span4= f.text_field :facebook
     .field.span12
-      .span1
+      .span2
         %label Descriptions
       .span7= f.text_area :description
     .field.span12
-      .span1
+      .span2
         %label Categories
       #categories.span4
         - Category.all.each do |cat|

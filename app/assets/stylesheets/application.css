@@ -69,3 +69,7 @@ $("#fading-image").live("click", function(e){
 .active{
   color: #FFC345;
 }
+
+.field{
+  margin: 3px 0;
+}
