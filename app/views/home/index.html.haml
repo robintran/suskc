@@ -19,17 +19,53 @@
       .category
         = render partial: 'category_item', locals: {cat_name: "Hiring", icon_class: "icon-briefcase"}
 
+#category.left-menu.full.hidden
+  .background
+    .title
+      %i.icon-save.title-icon
+      %span.title-copy Digital Company
+      = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
+    .inside.inside-full
+      #company
+      .back
+        = link_to "<i class='icon-arrow-left back-icon'></i>".html_safe, "close"
+        %span= link_to 'back', 'close'
+        
 :javascript
   $(".loc_info .close a").click(function(){
     $(".loc_info").addClass('hidden');
     return false;
   });
   
+  $("#category a[href=close]").click(function(){
+    $("#category").addClass('hidden');
+    return false;
+  });
   $("#search-side-bar .close a").click(function(){
     $("#search-side-bar").addClass('hidden');
     $("#cat-side-bar").removeClass('hidden');
     return false;
   });
+  
+  function getIconClass(category){
+    icon_class = 'icon-save';
+    if(category=='Digital Company'){
+      icon_class = 'icon-save';
+    }else if(category=='Investor'){
+      icon_class = 'icon-money';
+    }else if(category=='Coworking Space'){
+      icon_class = 'icon-print';
+    }else if(category=='Accelerator'){
+      icon_class = 'icon-dashboard';
+    }else if(category=='Freelancer'){
+      icon_class = 'icon-pencil';
+    }else if(category=='Startup'){
+      icon_class = 'icon-fire';
+    }else if(category=='Startup'){
+      icon_class = 'icon-biefcase';
+    }
+    return icon_class;
+  }
   
   $(".left-menu a.category_item").click(function(e){
     e.preventDefault();
@@ -39,21 +75,34 @@
     $("#fading-image").show();
     $("#mymap").gmap3({action:'clear'});
     $url = $(this).attr("href");
-    cat_id = $(this).attr("rel");
-    data_obj = {category: cat_id}
+    category = $(this).attr("rel");
+    icon_class = getIconClass(category);
+    data_obj = {category: category}
+    $("#category .title-copy").html(category);
     $.ajax({
       type: "GET",
       url: $url,
       data: data_obj,
       success: function(result) {
-        $("#fading-image").hide();
+        $("#category.left-menu").removeClass('hidden');
         list = result;
         $("ul#locations li").addClass('hidden');
+        $("#category .inside #company").text('');
         for(i=0; i<list.length; i++){
           id = list[i].data.id;
           $("li#"+id).removeClass('hidden');
+          data= '{"pos": {"lat": ' + list[i].lat + ', "lng": ' + list[i].lng + '}, "name": "' + list[i].data.company + '", "email": "' + list[i].data.email + '", "address": "' + list[i].data.address + '", "id": "' + list[i].data.id + '"}';
+          inside_content="<div class='category company'><a href='#', data='" + data + 
+          "', class='location_item'><i class='" + icon_class + 
+          "'></i></a><span class='title'><a href='#', data='" + data + "', class='location_item'>" +
+          list[i].data.company + "</a></span><a href='#', data='" + data + 
+          "', class='location_item'><i class='icon-arrow-right arrow-icon'></i></a><div class='info'><div class='address'>" + 
+          list[i].data.address + "</div><div class='city'>" + list[i].data.email + "</div></div></div>";
+
+          $("#category .inside #company").append(inside_content);
         }
-        addMarkers(list);  
+        addMarkers(list);
+        $("#fading-image").hide();
       }
     });
   });     

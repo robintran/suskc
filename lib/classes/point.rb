@@ -12,9 +12,17 @@ class Point
   
   def self.get_points(locations)
     points = []
-    locations.each do |location|
-      points << make_point(location)
+    unless locations.blank?
+      locations.each do |location|
+        points << make_point(location)
+      end
     end
     return points
+  end
+  
+  def self.get_cat_points(cat_name)
+    category = Category.where(name: cat_name).first
+    locations = category.active_locations if category
+    return get_points(locations)
   end
 end
