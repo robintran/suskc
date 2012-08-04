@@ -3,7 +3,7 @@ class Point
     point = {}
     point[:lat] = location.latitude
     point[:lng] = location.longitude
-    point[:data] = {id: location.id, company: location.name, email: location.email, address: location.address}
+    point[:data] = {id: location.id, name: location.name, email: location.email, address: location.address, phone: location.phone, url: location.url, twitter: location.twitter, facebook: location.facebook, description: location.description}
     
     icon = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" if location.paid
     point[:options] = {clickable: true, icon: icon}
