@@ -35,10 +35,14 @@ class Location < ParseResource::Base
   
   def self.search term
     all_locs = where(active: true)
-    by_name = all_locs.select{|loc| loc.name.downcase.include?(term.downcase)}
-    by_address = all_locs.select{|loc| loc.address.downcase.include?(term.downcase)}
-    by_desc = all_locs.select{|loc| loc.description.downcase.include?(term.downcase)}
-    return(by_name | by_address | by_desc)
+    locations = all_locs.select{|loc| 
+      loc.name.downcase.include?(term.downcase) || 
+      loc.address.downcase.include?(term.downcase) || 
+      loc.description.downcase.include?(term.downcase)
+    }
+    #by_address = all_locs.select{|loc| loc.address.downcase.include?(term.downcase)}
+    #by_desc = all_locs.select{|loc| loc.description.downcase.include?(term.downcase)}
+    return locations
   end
   
 end

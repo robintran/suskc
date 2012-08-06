@@ -102,9 +102,7 @@
   
   $(".left-menu a.category_item").click(function(e){
     e.preventDefault();
-    $(".category_item").removeClass('active');
     $(".location_item").removeClass('active');
-    $(this).addClass('active');
     $("#fading-image").show();
     $("#mymap").gmap3({action:'clear'});
     $url = $(this).attr("href");
@@ -119,11 +117,9 @@
       success: function(result) {
         $("#category.left-menu").removeClass('hidden');
         list = result;
-        $("ul#locations li").addClass('hidden');
         $("#category .inside #company").text('');
         for(i=0; i<list.length; i++){
           id = list[i].data.id;
-          $("li#"+id).removeClass('hidden');
           data= '{"pos": {"lat": ' + list[i].lat + ', "lng": ' + list[i].lng + '}, "name": "' + list[i].data.name + '", "email": "' + list[i].data.email + '", "address": "' + list[i].data.address + '", "id": "' + list[i].data.id + '", "url": "' + list[i].data.url + '", "twitter": "' + list[i].data.twitter + '", "facebook": "' + list[i].data.facebook + '", "description": "' + list[i].data.description+ '", "logo": "' + list[i].data.logo + '"}';
           inside_content="<div class='category company'><a href='#', data='" + data + 
           "', class='location_item'><i class='" + icon_class + 
@@ -140,10 +136,10 @@
     });
   });     
 
-  $(".location_details").live('click', function(){
-    $("li#"+$(this).attr('href')+" a").click();
-    return false;
-  });
+  //$(".location_details").live('click', function(){
+    //$("li#"+$(this).attr('href')+" a").click();
+    //return false;
+  //});
   
   $(".location_item").live('click', function(){
     $(".location_item").removeClass('active');
@@ -238,7 +234,19 @@
               if(points.length > 1){
                 companies=""
                 for(i=0; i< points.length; i++){
-                  companies = companies + "<li><a class='location_details' href='" + points[i].data.id + "'>" + points[i].data.name + "</a></li>";
+                
+                  id = points[i].data.id;
+                  pdata= '{"pos": {"lat": ' + points[i].lat + ', "lng": ' + points[i].lng + '}, "name": "' + 
+                  points[i].data.name + '", "email": "' + points[i].data.email + '", "address": "' + 
+                  points[i].data.address + '", "id": "' + points[i].data.id + '", "url": "' + 
+                  points[i].data.url + '", "twitter": "' + points[i].data.twitter + '", "facebook": "' + 
+                  points[i].data.facebook + '", "description": "' + points[i].data.description + 
+                  '", "logo": "' + points[i].data.logo + '"}';
+                  
+                  item= "<a href='#', data='" + pdata + "', class='location_item'>" + 
+                  points[i].data.name + "</a>";                
+                
+                  companies = companies + "<li>" + item + "</li>";
                 }
                 content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + points.length + " Companies here: </h3>"+ companies + "</div></div>";
                 make_overlay(data.latLng, content, '');

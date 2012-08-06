@@ -1,13 +1,6 @@
 class HomeController < ApplicationController
   def index
     @locations = Location.actived_list
-#    @dig_locations = get_locations("Digital Company")
-#    @inv_locations = get_locations("Investor")
-#    @cow_locations = get_locations("Coworking Space")
-#    @acc_locations = get_locations("Accelerator")
-#    @fre_locations = get_locations("Freelancer")
-#    @sta_locations = get_locations("Startup")
-#    @hir_locations = get_locations("Hiring")
     @categories = Category.all
   end
     
