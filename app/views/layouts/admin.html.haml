@@ -12,23 +12,20 @@
       = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
     = stylesheet_link_tag "application", :media => "all"
   %body{style: "height: 100%"}
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          #logo
-            %a.brand(href="/admin") StartupShopKC
-          #search
-            ~ form_tag '/search', style: "margin: 0" do
-              = text_field_tag :search
-          #account
-            .container{style: "text-align: right;"}
-              .nav-collapse{style: "float: left;"}
-                %ul.nav
-                  - if current_user
-                    %li
-                      = link_to "hi #{current_user.username}"
-                    %li
-                      = link_to "Logout", "/signout"
+    .top-bar
+      .left
+        .left-logo= link_to image_tag('logo.png'), '/'
+        %i.icon-info-sign.info-icon
+      .right
+        - if current_user  
+          = link_to "<i class='icon-signout signin-icon'></i>".html_safe, "/signout"
+        - else
+          .add-company-right
+            %span.add-icon= image_tag 'add.png'
+            %span.add-company-copy
+              = link_to 'Register', '/signup'
+              %span  
+          = link_to "<i class='icon-signin signin-icon'></i>".html_safe, '/signin'
     .container{style: "height: 100%"}
       .content{style: "height: 90%; width: 100%"}
         .row{style: "height: 100%; width: 100%; min-width: 1000px; float: left; "}
@@ -40,7 +37,5 @@
                 %li= link_to "Locations", "#tab_3", class: 'tabable'
           .span{style: "height: 100%; width: 77%; min-width: 500px;"}
             = yield
-    %footer
-      %p &copy; Company 2012
     #fading-image
       = image_tag('loading.gif')

@@ -44,8 +44,15 @@
 }
 
 .marker_info .info{
-  padding: 10px 15px 10px 20px;
+  padding: 0 15px 10px 20px;
+  color: #666;
 }
+
+.marker_info .info h3{
+  margin: 0 0 5px 0;
+  color : #000;
+}
+
 .right{
   text-align: right;
 }
