@@ -1,13 +1,13 @@
 class Location < ParseResource::Base
   belongs_to :user
-  fields :name, :description, :address, :phone, :email, :url, :twitter, :facebook, :latitude, :longitude, :active, :paid
+  fields :name, :description, :address, :phone, :email, :url, :twitter, :facebook, :latitude, :longitude,
+         :active, :paid, :logo, :user_id
   
   validates :address, presence: true
   validates :email, presence: true
   validates :phone, presence: true
   validates :description, presence: true
-  
-  
+    
   def active?
     return self.active==true ? 'actived' : 'unactived'
   end

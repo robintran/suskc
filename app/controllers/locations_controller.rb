@@ -16,7 +16,6 @@ class LocationsController < ApplicationController
       @location.longitude = addr.lng
     else
       @errors << "invalid address"
-      render :new
     end
     
     if @errors.blank?
@@ -24,7 +23,16 @@ class LocationsController < ApplicationController
         params[:category].each do |id|
           cat_loc = CategoryLocation.create(category_id: id, location_id: @location.id)
         end
-        redirect_to root_path, notice: "Location created successfuly. Please wait for us to active"
+        uploader = LogoUploader.new
+        params[:logo].original_filename = "#{@location.id}_#{params[:logo].original_filename}" 
+        uploader.store!(params[:logo])
+        @location.logo = uploader.url
+        if @location.save
+          redirect_to root_path, notice: "Location created successfuly. Please wait for us to active"
+        else
+          @errors += @location.errors.full_messages
+          render :new
+        end
       else
         @errors += @location.errors.full_messages
         render :new

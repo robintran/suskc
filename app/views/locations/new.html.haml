@@ -2,7 +2,7 @@
   %p 
     %h2 Create Location
   %br
-  ~ form_for @location do |f|
+  ~ form_for @location, :html => {:multipart => true} do |f|
     .errors.span12{style: "margin-bottom: 20px"}
       = render partial: "shared/errors"
     .field.span12
@@ -45,7 +45,10 @@
           .span4{style: "margin: 0"}
             .span1{style: "margin: 0"}= check_box_tag "category[]", cat.id
             .span3{style: "margin: 0"}= cat.name
-          
+    .field.span12
+      .span2
+        %label Logo
+      .span4= file_field_tag :logo    
     .field.span12
       .span1= submit_tag 'Create'
       

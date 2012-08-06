@@ -1,11 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'geokit'
+gem 'carrierwave'
 gem 'fancybox-rails'
+gem 'geokit'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'parse_resource'
 gem 'rails', '3.2.3'
+gem 'rmagick'
 gem 'stripe'
 gem 'twitter-bootstrap-rails'
 

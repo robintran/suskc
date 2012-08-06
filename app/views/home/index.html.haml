@@ -124,7 +124,7 @@
         for(i=0; i<list.length; i++){
           id = list[i].data.id;
           $("li#"+id).removeClass('hidden');
-          data= '{"pos": {"lat": ' + list[i].lat + ', "lng": ' + list[i].lng + '}, "name": "' + list[i].data.name + '", "email": "' + list[i].data.email + '", "address": "' + list[i].data.address + '", "id": "' + list[i].data.id + '", "url": "' + list[i].data.url + '", "twitter": "' + list[i].data.twitter + '", "facebook": "' + list[i].data.facebook + '", "description": "' + list[i].data.description+ '"}';
+          data= '{"pos": {"lat": ' + list[i].lat + ', "lng": ' + list[i].lng + '}, "name": "' + list[i].data.name + '", "email": "' + list[i].data.email + '", "address": "' + list[i].data.address + '", "id": "' + list[i].data.id + '", "url": "' + list[i].data.url + '", "twitter": "' + list[i].data.twitter + '", "facebook": "' + list[i].data.facebook + '", "description": "' + list[i].data.description+ '", "logo": "' + list[i].data.logo + '"}';
           inside_content="<div class='category company'><a href='#', data='" + data + 
           "', class='location_item'><i class='" + icon_class + 
           "'></i></a><span class='title'><a href='#', data='" + data + "', class='location_item'>" +
@@ -297,6 +297,7 @@
   }
   
   function load_company_menu(data){
+    $("#company-image img").attr('src', data.logo)
     $("#company #company_name").html(data.name);
     $("#company .address").html(data.address);
     $("#company .city").html("Kansas");
