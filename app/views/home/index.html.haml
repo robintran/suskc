@@ -62,7 +62,24 @@
       .back
         = link_to "<i class='icon-arrow-left back-icon'></i>".html_safe, "close"
         %span= link_to 'back', 'close'
-        
+
+- if params[:action] == 'search'
+  #search_result.left-menu.full       
+    .background
+      .title
+        %span.title-copy Search Result
+        = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
+      .inside.inside-full
+        - @locations.each do |loc|   
+          - data = {"pos"=> {"lat"=> loc.latitude, "lng"=> loc.longitude}, "name"=> "#{loc.name}", "email"=> "#{loc.email}", "address"=> "#{loc.address}", "id"=> "#{loc.id}", "url"=> "#{loc.url}", "twitter"=> "#{loc.twitter}", "facebook"=> "#{loc.facebook}", "description"=> "#{loc.description}", "logo"=> "#{loc.logo}"}.to_json
+          .category.company
+            = link_to "<i class='icon-map-marker'></i>".html_safe, '#', data: data, class: 'location_item'
+            %span.title=link_to loc.name, '#', data: data, class: 'location_item'
+            = link_to "<i class='icon-arrow-right arrow-icon'></i>".html_safe, '#', data: data, class: 'location_item'
+        .back
+          = link_to "<i class='icon-arrow-left back-icon'></i>".html_safe, "close"
+          %span=link_to 'back', 'close'
+          
 :javascript
   $(".loc_info .close a").click(function(){
     $(".loc_info").addClass('hidden');
@@ -71,6 +88,12 @@
   
   $("#category a[href=close]").click(function(){
     $("#category").addClass('hidden');
+    $("#company").addClass('hidden');
+    return false;
+  });
+  
+  $("#search_result a[href=close]").click(function(){
+    $("#search_result").addClass('hidden');
     $("#company").addClass('hidden');
     return false;
   });
@@ -136,11 +159,6 @@
     });
   });     
 
-  //$(".location_details").live('click', function(){
-    //$("li#"+$(this).attr('href')+" a").click();
-    //return false;
-  //});
-  
   $(".location_item").live('click', function(){
     $(".location_item").removeClass('active');
     $(this).addClass('active');

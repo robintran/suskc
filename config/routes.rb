@@ -1,7 +1,8 @@
 StartupShopKC::Application.routes.draw do
   get 'home/index', as: 'home'
   root :to => 'home#index'
-   
+  
+  get 'search'          => 'home#search', as: 'search'
   post 'search'         => 'home#search', as: 'search'
   get 'update_map'      => 'home#update_map'
   get 'signin'          => 'sessions#new', as: 'signin'

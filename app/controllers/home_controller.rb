@@ -5,11 +5,15 @@ class HomeController < ApplicationController
   end
     
   def search
-    term = params[:term]
-    unless term.blank?
-      @locations = Location.search(term)
-      @categories = Category.all
-      render :index
+    if request.post?
+      term = params[:term]
+      unless term.blank?
+        @locations = Location.search(term)
+        @categories = Category.all
+        render :index
+      else
+        redirect_to root_path
+      end
     else
       redirect_to root_path
     end
