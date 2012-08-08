@@ -2,7 +2,7 @@
   margin: 0 auto;
   width: 100% !important;
   position: absolute;
-  height: 750px;
+  height: 100%;
   z-index: -1;
   margin-top: -15px;
 }
