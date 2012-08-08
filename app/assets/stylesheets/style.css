@@ -566,3 +566,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e06797', end
 #popover textarea{
   height: 84px;
 }
+
+.button{
+  -webkit-appearance: button;
+  background: #1DA0BC;
+}

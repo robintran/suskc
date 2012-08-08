@@ -5,7 +5,7 @@
     #step0.inside
       .progress-bar.step0
       .copy Adding your company to StartupShopKC is extremely easy. Simply follow the 4 step process. You can also highlight your company to blah blah blah
-      %button.continue I'm ready. let's begin! 
+      = link_to "I'm ready. let's begin!", "#step1", class: 'continue button' 
       
     #step1.inside.hidden
       .progress-bar.step1
@@ -15,7 +15,7 @@
           %i.icon-list-ul.form-icon
           Category
           = select_tag :category, options_from_collection_for_select(Category.all, :id, :name), class: 'category-select'
-      %button.continue Okey! Next step!
+      = link_to "Okey! Next step!", "#step2", class: 'continue button'
 
     #step2.inside.hidden
       .progress-bar.step2
@@ -69,11 +69,21 @@
             Description
           .field
             = f.text_area :description, class: 'text-input'
-      %button.continue Awesome! What's next?
+      = link_to "Awesome! What's next?", "#step3", class: "continue button"
     
     #step3.inside.hidden
       .progress-bar.step3
       .copy Would you like to highlight your company? It's a great way to get noticed!
       %button.continue.no No thanks
       %button.continue.yes Yes please!
-        
+:javascript
+  $("a[href=add_company]").click(function(){
+    $("#popover").removeClass('hidden');
+    return false;
+  });
+  
+  $("a.continue").click(function(){
+    $("div[id*=step]").addClass('hidden');
+    element = $(this).attr('href');
+    $(element).removeClass('hidden');
+  });    
