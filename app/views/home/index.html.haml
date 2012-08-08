@@ -79,7 +79,9 @@
         .back
           = link_to "<i class='icon-arrow-left back-icon'></i>".html_safe, "close"
           %span=link_to 'back', 'close'
-          
+ 
+= render partial: 'add_company'
+            
 :javascript
   $(".loc_info .close a").click(function(){
     $(".loc_info").addClass('hidden');

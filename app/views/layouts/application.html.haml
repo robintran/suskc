@@ -36,7 +36,7 @@
           = text_field_tag :term, '', class: 'search'
           %button.search-button
             =image_tag 'search.png'
-    #mymap.gmap3
+    #mymap.gmap3{style: "position: fixed;"}
     .content
       = yield
     #fading-image

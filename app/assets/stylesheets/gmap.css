@@ -6,6 +6,11 @@
   z-index: -1;
   margin-top: -15px;
 }
+
+#mymap{
+  position: fixed !important;
+}
+
 .cluster{
   color: #FFFFFF;
   text-align:center;
