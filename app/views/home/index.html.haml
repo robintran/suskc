@@ -70,8 +70,9 @@
         %span.title-copy Search Result
         = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
       .inside.inside-full
-        - @locations.each do |loc|   
-          - data = {"pos"=> {"lat"=> loc.latitude, "lng"=> loc.longitude}, "name"=> "#{loc.name}", "email"=> "#{loc.email}", "address"=> "#{loc.address}", "id"=> "#{loc.id}", "url"=> "#{loc.url}", "twitter"=> "#{loc.twitter}", "facebook"=> "#{loc.facebook}", "description"=> "#{loc.description}", "logo"=> "#{loc.logo}"}.to_json
+        - @locations.each do |loc|
+          - logo = loc.logo.blank? ? "/assets/think-big.png" : loc.logo  
+          - data = {"pos"=> {"lat"=> loc.latitude, "lng"=> loc.longitude}, "name"=> "#{loc.name}", "email"=> "#{loc.email}", "address"=> "#{loc.address}", "id"=> "#{loc.id}", "url"=> "#{loc.url}", "twitter"=> "#{loc.twitter}", "facebook"=> "#{loc.facebook}", "description"=> "#{loc.description}", "logo"=> "#{logo}"}.to_json
           .category.company
             = link_to "<i class='icon-map-marker'></i>".html_safe, '#', data: data, class: 'location_item'
             %span.title=link_to loc.name, '#', data: data, class: 'location_item'

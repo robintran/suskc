@@ -13,16 +13,7 @@ class Location < ParseResource::Base
   def active?
     return self.active==true ? 'actived' : 'unactived'
   end
-  
-  def categories
-    cat_locs = CategoryLocation.where(location_id: self.id)
-    cats = []
-    cat_locs.each do |cat_loc|
-      cats << cat_loc.category
-    end
-    return cats
-  end
-  
+    
   def user
     User.find(self.user_id)
   end
@@ -42,8 +33,6 @@ class Location < ParseResource::Base
       loc.address.downcase.include?(term.downcase) || 
       loc.description.downcase.include?(term.downcase)
     }
-    #by_address = all_locs.select{|loc| loc.address.downcase.include?(term.downcase)}
-    #by_desc = all_locs.select{|loc| loc.description.downcase.include?(term.downcase)}
     return locations
   end
   
