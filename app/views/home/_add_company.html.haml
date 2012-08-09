@@ -22,7 +22,7 @@
     #step2.inside.hidden
       .progress-bar.step2
       .copy Next we'll need some important information. Spill it!
-      ~ form_for @location, remote: true, html: {class: 'form'} do |f|
+      ~ form_for @location, remote: true, html: {class: 'form', :multipart => true} do |f|
         .input#error
         .input
           .label
@@ -72,6 +72,12 @@
             Description
           .field
             = f.text_area :description, class: 'text-input required'
+        .input
+          .label
+            %i.icon-picture.form-icon
+            Logo
+          .field
+            = file_field_tag :logo
       = link_to "Awesome! What's next?", "#step3", class: "continue button"
     
     #step3.inside.hidden

@@ -18,20 +18,20 @@ class LocationsController < ApplicationController
       @errors << "invalid address"
     end
     
-    if @errors.blank?
-      if @location.save   
-        if params[:logo]
-          uploader = LogoUploader.new
-          params[:logo].original_filename = "#{@location.id}_#{params[:logo].original_filename}" 
-          uploader.store!(params[:logo])
-          @location.logo = uploader.url
-          unless @location.save
-            @errors += @location.errors.full_messages
-          end
-        end
-      else
-        @errors += @location.errors.full_messages
+    if params[:logo]
+      begin
+        uploader = LogoUploader.new
+        params[:logo].original_filename = "#{@location.id}_#{params[:logo].original_filename}" 
+        uploader.store!(params[:logo])
+        @location.logo = uploader.url
+      rescue Exception => e
+        @errors << e
       end
+    end
+    
+    if @errors.blank?
+      @location.save   
+      @errors += @location.errors.full_messages
     end
     
     respond_to :js
