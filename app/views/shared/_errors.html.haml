@@ -1,6 +1,6 @@
 - unless @errors.blank?
   - @errors.each do |msg|
     - msg = "email already be taken" if msg == 'M u'
-    .span12{style: "color: red;"}
+    %span{style: "color: red;"}
       = msg
   %br

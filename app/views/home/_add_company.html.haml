@@ -12,7 +12,7 @@
     #step1.inside.hidden
       .progress-bar.step1
       .copy Start by specifying a category for your company. Choose wisely.
-      ~ form_tag new_location_path, class: 'form' do
+      ~ form_tag '', class: 'form' do
         .input
           %i.icon-list-ul.form-icon
           Category
@@ -22,7 +22,8 @@
     #step2.inside.hidden
       .progress-bar.step2
       .copy Next we'll need some important information. Spill it!
-      ~ form_for @location, html: {class: 'form'} do |f|
+      ~ form_for @location, remote: true, html: {class: 'form'} do |f|
+        .input#error
         .input
           .label
             %i.icon-flag.form-icon
@@ -94,7 +95,7 @@
       moveToStep(next_step);
     }else if(next_step=="#step3"){
       if(validate_location()==true){
-        moveToStep(next_step);
+        $("#step2 form").submit();
       }
     }
     e.preventDefault();
