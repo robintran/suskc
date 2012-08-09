@@ -104,6 +104,11 @@
     $("#company").addClass('hidden');
     return false;
   });
+  
+  $("#popover a[href=close]").click(function(){
+    $("#popover").addClass('hidden');
+    return false;
+  });
    
   function getIconClass(category){
     icon_class = 'icon-save';

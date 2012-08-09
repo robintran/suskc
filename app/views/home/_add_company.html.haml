@@ -1,7 +1,9 @@
 - @location ||= Location.new
 #popover.hidden
   .background
-    .title Add your company
+    .title 
+      Add your company
+      = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
     #step0.inside
       .progress-bar.step0
       .copy Adding your company to StartupShopKC is extremely easy. Simply follow the 4 step process. You can also highlight your company to blah blah blah
