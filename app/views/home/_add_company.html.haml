@@ -14,7 +14,7 @@
         .input
           %i.icon-list-ul.form-icon
           Category
-          = select_tag :category, options_from_collection_for_select(Category.all, :id, :name), class: 'category-select'
+          = select_tag :category, options_for_select(Location::CATEGORIES), class: 'category-select'
       = link_to "Okey! Next step!", "#step2", class: 'continue button'
 
     #step2.inside.hidden
@@ -26,25 +26,25 @@
             %i.icon-flag.form-icon
             Company Name
           .field
-            = f.text_field :name, class: 'text-input'
+            = f.text_field :name, class: 'text-input required'
         .input
           .label
             %i.icon-map-marker.form-icon
             Address
           .field
-            = f.text_field :address, class: 'text-input'
+            = f.text_field :address, class: 'text-input required'
         .input
           .label
             %i.icon-phone.form-icon
             Phone Number
           .field
-            = f.text_field :phone, class: 'text-input'
+            = f.text_field :phone, class: 'text-input required'
         .input
           .label
             %i.icon-envelope.form-icon
             Email
           .field
-            = f.text_field :email, class: 'text-input'
+            = f.text_field :email, class: 'text-input required'
         .input
           .label
             %i.icon-globe.form-icon
@@ -68,7 +68,7 @@
             %i.icon-comment.form-icon
             Description
           .field
-            = f.text_area :description, class: 'text-input'
+            = f.text_area :description, class: 'text-input required'
       = link_to "Awesome! What's next?", "#step3", class: "continue button"
     
     #step3.inside.hidden
@@ -82,8 +82,35 @@
     return false;
   });
   
-  $("a.continue").click(function(){
+  $("a.continue").click(function(e){    
+    next_step = $(this).attr('href');
+    if(next_step=="#step1"){
+      moveToStep(next_step);
+    }else if(next_step=="#step2"){
+      category = $("#step1 select").val();
+      $("#step2 form").append("<input type='hidden' name='location[category]' value='" + category + "'/>");
+      moveToStep(next_step);
+    }else if(next_step=="#step3"){
+      if(validate_location()==true){
+        moveToStep(next_step);
+      }
+    }
+    e.preventDefault();
+  });
+  
+  function moveToStep(step){
     $("div[id*=step]").addClass('hidden');
-    element = $(this).attr('href');
-    $(element).removeClass('hidden');
-  });    
+    $(step).removeClass('hidden');
+  }
+  
+  function validate_location(){
+    result = true;
+    require_fields = $("#step2").find(".required");
+    $.each(require_fields, function(){
+      if($(this).val()=="" || $(this).val()==null){
+        $(this).parent().append("<span class='error'>can't be blank</span>");
+        result = false;
+      }
+    });
+    return result;
+  }  

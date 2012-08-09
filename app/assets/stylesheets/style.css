@@ -362,7 +362,7 @@ margin-right: 2%;
 #popover {
 	margin: 0 auto;
 	width:470px;
-	margin-top: 90px;
+	margin-top: 75px;
 }
 
 #popover .background {
@@ -570,4 +570,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e06797', end
 .button{
   -webkit-appearance: button;
   background: #1DA0BC;
+}
+
+.error{
+  font-size: 12px;
+  color: red;
+  position: absolute;
+  margin-left: 20px;
 }
