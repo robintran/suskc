@@ -4,10 +4,14 @@
     .title 
       Add your company
       = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
-    #step0.inside
+    #step_choose.inside
+      .copy Choose type to add
+      %button(href="#step0" class="continue") Add Company
+      %button(href="#step0" class="continue") Add Event
+    #step0.inside.hidden
       .progress-bar.step0
       .copy Adding your company to StartupShopKC is extremely easy. Simply follow the 4 step process. You can also highlight your company to blah blah blah
-      = link_to "I'm ready. let's begin!", "#step1", class: 'continue button' 
+      %button(href="#step1" class="continue") I'm ready. let's begin!
       
     #step1.inside.hidden
       .progress-bar.step1
@@ -17,7 +21,7 @@
           %i.icon-list-ul.form-icon
           Category
           = select_tag :category, options_for_select(Location::CATEGORIES), class: 'category-select'
-      = link_to "Okey! Next step!", "#step2", class: 'continue button'
+      %button(href="#step2" class="continue") Okey! Next step!
 
     #step2.inside.hidden
       .progress-bar.step2
@@ -78,7 +82,7 @@
             Logo
           .field
             = file_field_tag :logo
-      = link_to "Awesome! What's next?", "#step3", class: "continue button"
+      %button(href="#step3" class="continue") Awesome! What's next?
     
     #step3.inside.hidden
       .progress-bar.step3
@@ -86,16 +90,14 @@
       %button.continue.no No thanks
       %button.continue.yes Yes please!
 :javascript
-  $("a[href=add_company]").click(function(){
+  $("a[href=add_something]").click(function(){
     $("#popover").removeClass('hidden');
     return false;
   });
   
-  $("a.continue").click(function(e){    
+  $("button.continue").click(function(e){ 
     next_step = $(this).attr('href');
-    if(next_step=="#step1"){
-      moveToStep(next_step);
-    }else if(next_step=="#step2"){
+    if(next_step=="#step2"){
       category = $("#step1 select").val();
       $("#step2 form").append("<input type='hidden' name='location[category]' value='" + category + "'/>");
       moveToStep(next_step);
@@ -103,10 +105,12 @@
       if(validate_location()==true){
         $("#step2 form").submit();
       }
+    }else{
+      moveToStep(next_step);
     }
     e.preventDefault();
   });
-  
+    
   function moveToStep(step){
     $("div[id*=step]").addClass('hidden');
     $(step).removeClass('hidden');

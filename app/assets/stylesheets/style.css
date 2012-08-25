@@ -568,8 +568,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e06797', end
 }
 
 .button{
+  appearance:button;
+  -moz-appearance:button;
   -webkit-appearance: button;
   background: #1DA0BC;
+  padding: 5px 20px;
 }
 
 .error{
