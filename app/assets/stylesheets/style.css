@@ -559,6 +559,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e06797', end
   width: 280px;
 }
 
+#popover .field .label{
+  padding-top: 10px;
+  margin-left: 20px;
+  width: 260px;
+}
+
 #popover .text-input{
   width: 255px !important;
 }

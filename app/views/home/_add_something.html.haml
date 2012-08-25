@@ -12,9 +12,9 @@
     #popover_event
       = render partial: 'add_event'
 :javascript
-  $("a[href=add_something]").click(function(){
+  $("a[href=add_something]").click(function(e){
     $("#popover").removeClass('hidden');
-    return false;
+    e.preventDefault();
   });
    
   $("button.continue").click(function(e){ 
@@ -42,6 +42,15 @@
     $("div[id*=step]").addClass('hidden');
     $(step).removeClass('hidden');
   }
+  
+  $("input#use_company").click(function(){
+    if($(this).is(':checked')){
+      $("#event_address").attr("disabled", "disabled");
+    }else{
+       $("#event_address").removeAttr("disabled");
+    }
+    $("#my_companies").toggleClass("hidden");
+  });
   
   function validate_location(){
     result = true;
