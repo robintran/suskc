@@ -1,4 +1,56 @@
 #popover.hidden
   .background
-    .title
-      Choose type to add
+    .title 
+      %span.add-title Add your company or event
+      = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
+    #step_choose.inside
+      .copy Choose type to add
+      %button(id="add_company" href="#step0_c" class="continue") Add Company
+      %button(id="add_event" href="#step0_e" class="continue") Add Event
+    
+      = render partial: 'add_company'
+    #popover_event
+      = render partial: 'add_event'
+:javascript
+  $("a[href=add_something]").click(function(){
+    $("#popover").removeClass('hidden');
+    return false;
+  });
+   
+  $("button.continue").click(function(e){ 
+    next_step = $(this).attr('href');
+    if(next_step=="#step0_c"){
+      $('.add-title').text("Add your company");
+    }else if(next_step=="#step0_e"){
+      $('.add-title').text("Add your event");
+    }
+    if(next_step=="#step2_c"){
+      category = $("#step1_c select").val();
+      $("#step2_c form").append("<input type='hidden' name='location[category]' value='" + category + "'/>");
+      moveToStep("#popover " + next_step);
+    }else if(next_step=="#step3_c"){
+      if(validate_location()==true){
+        $("#step2_c form").submit();
+      }
+    }else{
+      moveToStep(next_step);
+    }
+    e.preventDefault();
+  });  
+  
+  function moveToStep(step){
+    $("div[id*=step]").addClass('hidden');
+    $(step).removeClass('hidden');
+  }
+  
+  function validate_location(){
+    result = true;
+    require_fields = $("#step2").find(".required");
+    $.each(require_fields, function(){
+      if($(this).val()=="" || $(this).val()==null){
+        $(this).parent().append("<span class='error'>can't be blank</span>");
+        result = false;
+      }
+    });
+    return result;
+  }  

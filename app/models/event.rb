@@ -1,3 +1,3 @@
 class Event < ParseResource::Base
-  fields :name, :etime, :recurring, :location, :url, :desciption
+  fields :name, :e_time, :recurring, :location, :url, :description
 end

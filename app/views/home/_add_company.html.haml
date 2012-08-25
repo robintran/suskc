@@ -1,129 +1,80 @@
 - @location ||= Location.new
-#popover.hidden
-  .background
-    .title 
-      Add your company
-      = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
-    #step_choose.inside
-      .copy Choose type to add
-      %button(href="#step0" class="continue") Add Company
-      %button(href="#step0" class="continue") Add Event
-    #step0.inside.hidden
-      .progress-bar.step0
-      .copy Adding your company to StartupShopKC is extremely easy. Simply follow the 4 step process. You can also highlight your company to blah blah blah
-      %button(href="#step1" class="continue") I'm ready. let's begin!
-      
-    #step1.inside.hidden
-      .progress-bar.step1
-      .copy Start by specifying a category for your company. Choose wisely.
-      ~ form_tag '', class: 'form' do
-        .input
-          %i.icon-list-ul.form-icon
-          Category
-          = select_tag :category, options_for_select(Location::CATEGORIES), class: 'category-select'
-      %button(href="#step2" class="continue") Okey! Next step!
-
-    #step2.inside.hidden
-      .progress-bar.step2
-      .copy Next we'll need some important information. Spill it!
-      ~ form_for @location, remote: true, html: {class: 'form', :multipart => true} do |f|
-        .input#error
-        .input
-          .label
-            %i.icon-flag.form-icon
-            Company Name
-          .field
-            = f.text_field :name, class: 'text-input required'
-        .input
-          .label
-            %i.icon-map-marker.form-icon
-            Address
-          .field
-            = f.text_field :address, class: 'text-input required'
-        .input
-          .label
-            %i.icon-phone.form-icon
-            Phone Number
-          .field
-            = f.text_field :phone, class: 'text-input required'
-        .input
-          .label
-            %i.icon-envelope.form-icon
-            Email
-          .field
-            = f.text_field :email, class: 'text-input required'
-        .input
-          .label
-            %i.icon-globe.form-icon
-            Web
-          .field
-            = f.text_field :url, class: 'text-input'
-        .input
-          .label
-            %i.icon-twitter.form-icon
-            Twitter
-          .field
-            = f.text_field :twitter, class: 'text-input'
-        .input
-          .label
-            %i.icon-facebook.form-icon
-            Facebook
-          .field
-            = f.text_field :facebook, class: 'text-input'
-        .input
-          .label
-            %i.icon-comment.form-icon
-            Description
-          .field
-            = f.text_area :description, class: 'text-input required'
-        .input
-          .label
-            %i.icon-picture.form-icon
-            Logo
-          .field
-            = file_field_tag :logo
-      %button(href="#step3" class="continue") Awesome! What's next?
+#step0_c.inside.hidden
+  .progress-bar.step0
+  .copy Adding your company to StartupShopKC is extremely easy. Simply follow the 4 step process. You can also highlight your company to blah blah blah
+  %button(href="#step1_c" class="continue") I'm ready. let's begin!   
+#step1_c.inside.hidden
+  .progress-bar.step1
+  .copy Start by specifying a category for your company. Choose wisely.
+  ~ form_tag '', class: 'form' do
+    .input
+      %i.icon-list-ul.form-icon
+      Category
+      = select_tag :category, options_for_select(Location::CATEGORIES), class: 'category-select'
+  %button(href="#step2_c" class="continue") Okey! Next step!
+#step2_c.inside.hidden
+  .progress-bar.step2
+  .copy Next we'll need some important information. Spill it!
+  ~ form_for @location, remote: true, html: {class: 'form', :multipart => true} do |f|
+    .input#error
+    .input
+      .label
+        %i.icon-flag.form-icon
+        Company Name
+      .field
+        = f.text_field :name, class: 'text-input required'
+    .input
+      .label
+        %i.icon-map-marker.form-icon
+        Address
+      .field
+        = f.text_field :address, class: 'text-input required'
+    .input
+      .label
+        %i.icon-phone.form-icon
+        Phone Number
+      .field
+        = f.text_field :phone, class: 'text-input required'
+    .input
+      .label
+        %i.icon-envelope.form-icon
+        Email
+      .field
+        = f.text_field :email, class: 'text-input required'
+    .input
+      .label
+        %i.icon-globe.form-icon
+        Web
+      .field
+        = f.text_field :url, class: 'text-input'
+    .input
+      .label
+        %i.icon-twitter.form-icon
+        Twitter
+      .field
+        = f.text_field :twitter, class: 'text-input'
+    .input
+      .label
+        %i.icon-facebook.form-icon
+        Facebook
+      .field
+        = f.text_field :facebook, class: 'text-input'
+    .input
+      .label
+        %i.icon-comment.form-icon
+        Description
+      .field
+        = f.text_area :description, class: 'text-input required'
+    .input
+      .label
+        %i.icon-picture.form-icon
+        Logo
+      .field
+        = file_field_tag :logo
+  %button(href="#step3_c" class="continue") Awesome! What's next?
     
-    #step3.inside.hidden
-      .progress-bar.step3
-      .copy Would you like to highlight your company? It's a great way to get noticed!
-      %button.continue.no No thanks
-      %button.continue.yes Yes please!
-:javascript
-  $("a[href=add_something]").click(function(){
-    $("#popover").removeClass('hidden');
-    return false;
-  });
-  
-  $("button.continue").click(function(e){ 
-    next_step = $(this).attr('href');
-    if(next_step=="#step2"){
-      category = $("#step1 select").val();
-      $("#step2 form").append("<input type='hidden' name='location[category]' value='" + category + "'/>");
-      moveToStep(next_step);
-    }else if(next_step=="#step3"){
-      if(validate_location()==true){
-        $("#step2 form").submit();
-      }
-    }else{
-      moveToStep(next_step);
-    }
-    e.preventDefault();
-  });
-    
-  function moveToStep(step){
-    $("div[id*=step]").addClass('hidden');
-    $(step).removeClass('hidden');
-  }
-  
-  function validate_location(){
-    result = true;
-    require_fields = $("#step2").find(".required");
-    $.each(require_fields, function(){
-      if($(this).val()=="" || $(this).val()==null){
-        $(this).parent().append("<span class='error'>can't be blank</span>");
-        result = false;
-      }
-    });
-    return result;
-  }  
+#step3_c.inside.hidden
+  .progress-bar.step3
+  .copy Would you like to highlight your company? It's a great way to get noticed!
+  %button.continue.no No thanks
+  %button.continue.yes Yes please!

@@ -17,6 +17,7 @@ StartupShopKC::Application.routes.draw do
   
   resources :users
   resources :locations
+  resources :events
   
   namespace :admin do
     get 'dashboard/index'
