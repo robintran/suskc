@@ -80,8 +80,8 @@
         .back
           = link_to "<i class='icon-arrow-left back-icon'></i>".html_safe, "close"
           %span=link_to 'back', 'close'
- 
-= render partial: 'add_something'
+#add_something 
+  = render partial: 'add_something'
             
 :javascript
   $("a[href=add_something]").click(function(e){
@@ -115,12 +115,7 @@
     $("#company").addClass('hidden');
     e.preventDefault();
   });
-  
-  $("#popover a[href=close]").click(function(e){
-    $("#popover").addClass('hidden');
-    e.preventDefault();
-  });
-   
+    
   function getIconClass(category){
     icon_class = 'icon-save';
     if(category=='Digital Company'){

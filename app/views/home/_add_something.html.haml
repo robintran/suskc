@@ -20,7 +20,15 @@
       #popover_login.inside
         = render partial: 'shared/login_popup'
 :javascript
-  
+
+  $("#popover a[href=close]").click(function(e){
+    $("#popover span.add-title").html("Add your company or event");
+    $("div[id*=step]").addClass('hidden');
+    $("#step_choose").removeClass('hidden');
+    $("#popover").addClass('hidden');
+    e.preventDefault();
+  });
+     
   $("button.continue").click(function(e){ 
     next_step = $(this).attr('href');
     if(next_step=="#signin"){
