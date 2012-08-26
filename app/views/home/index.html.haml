@@ -84,6 +84,16 @@
 = render partial: 'add_something'
             
 :javascript
+  $("a[href=add_something]").click(function(e){
+    $("#popover").removeClass('hidden');
+    e.preventDefault();
+  });
+  
+  $("a[href=login_popup]").click(function(e){
+    $("#popover").removeClass('hidden');
+    e.preventDefault();
+  });
+  
   $(".loc_info .close a").click(function(e){
     $(".loc_info").addClass('hidden');
     e.preventDefault();
@@ -185,11 +195,11 @@
   });
 
   var cluster;  
-  $(function(){
+  $(document).ready(function(){
     sreen_w=screen.width - 420;
     $("#mymap").css('width', sreen_w);
     $("#map_wrapper").css('width', sreen_w);
-    $('#mymap').gmap3({ action: 'init',
+    $("#mymap").gmap3({ action: 'init',
       options:{
         center:[39.0997265, -94.5785667],
         zoom: 12,

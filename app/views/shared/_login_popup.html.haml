@@ -1,0 +1,16 @@
+~ form_tag signin_path(role: 'user'), class: 'form' do
+  .input.error
+  .input
+    .label
+      %i.icon-envelope.form-icon
+      Email
+    .field
+      = text_field_tag :username, '', class: 'text-input required'
+  .input
+    .label
+      %i.icon-key.form-icon
+      Password
+    .field
+      = password_field_tag :password,'', class: 'text-input required'  
+  .input
+    %button(href="#signin" class="continue") Signin

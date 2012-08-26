@@ -385,6 +385,10 @@ margin-right: 2%;
 	padding:20px;
 }
 
+#popover .inside, #popover .inside form{
+  float: left;
+}
+
 #popover .background .title {
 	color:white;
 	background:none;
