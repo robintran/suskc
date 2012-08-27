@@ -15,7 +15,17 @@ class Location < ParseResource::Base
   end
   
   def events
-    Event.where(company: self.id)
+    Event.where(company_id: self.id)
+  end
+  
+  def js_events
+    events_arr = []
+    loc_events = Event.where(company_id: self.id)
+    loc_events.each do |e|
+      event = {id: e.id, name: e.name, e_time: e.time}
+      events_arr << event
+    end
+    return events_arr
   end
   
   def user

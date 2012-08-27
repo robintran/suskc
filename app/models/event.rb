@@ -9,7 +9,7 @@ class Event < ParseResource::Base
     all_events = where(active: true)
     events = all_events.select{|e| 
       e.name.downcase.include?(term.downcase) || 
-      e.address.downcase.include?(term.downcase) || 
+      (e.address && e.address.downcase.include?(term.downcase)) || 
       e.description.downcase.include?(term.downcase)
     }
     return events
