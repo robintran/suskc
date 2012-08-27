@@ -13,7 +13,11 @@ class Location < ParseResource::Base
   def active?
     return self.active==true ? 'actived' : 'unactived'
   end
-    
+  
+  def events
+    Event.where(company: self.id)
+  end
+  
   def user
     User.find(self.user_id)
   end
