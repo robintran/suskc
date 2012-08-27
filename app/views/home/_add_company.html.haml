@@ -16,7 +16,7 @@
   .progress-bar.step2
   .copy Next we'll need some important information. Spill it!
   ~ form_for @location, remote: true, html: {class: 'form', :multipart => true} do |f|
-    .input#error
+    .input.errors
     .input
       .label
         %i.icon-flag.form-icon

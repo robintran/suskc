@@ -7,7 +7,7 @@
   .progress-bar.step1
   .copy Next we'll need some important information. Spill it!
   ~ form_for @event, remote: true, html: {class: 'form', :multipart => true} do |f|
-    .input#error
+    .input#errors
     .input
       .label
         %i.icon-flag.form-icon
@@ -25,13 +25,13 @@
         %i.icon-refresh.form-icon
         Recurring
       .field.select_field
-        = f.select :recurring, options_for_select(["Weekly", "Bi-Weekly", "Monthly", "Yearly"])
+        = f.select :recurring, options_for_select(["Weekly", "Bi-Weekly", "Monthly", "Yearly"]), allow_blank: 'None'
     .input
       .label
         %i.icon-globe.form-icon
         URL
       .field
-        = f.text_field :url, class: 'text-input required'
+        = f.text_field :url, class: 'text-input'
     .input
       .label
         %i.icon-comment.form-icon
@@ -44,11 +44,11 @@
         Location
       .field
         .label New address
-        = f.text_field :address, class: 'text-input required'
+        = f.text_field :address, class: 'text-input'
         .label 
           use company address
           = check_box_tag "use_company"
         #my_companies.label.hidden
           - locations = current_user ? current_user.locations : []
           = f.select :company, options_from_collection_for_select(locations, :id, :name), include_blank: 'select company'
-  %button(href="#step2_create" class="continue") Create
+  %button(href="#step2_e" class="continue") Create

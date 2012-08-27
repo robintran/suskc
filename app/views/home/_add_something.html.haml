@@ -43,8 +43,12 @@
       $("#step2_c form").append("<input type='hidden' name='location[category]' value='" + category + "'/>");
       moveToStep(next_step);
     }else if(next_step=="#step3_c"){
-      if(validate_location()==true){
+      if(validate_fields("#step2_c")==true){
         $("#step2_c form").submit();
+      }
+    }else if(next_step=="#step2_e"){
+      if(validate_fields("#step1_e")==true){
+        $("#step1_e form").submit();
       }
     }else{
       moveToStep(next_step);
@@ -66,9 +70,9 @@
     $("#my_companies").toggleClass("hidden");
   });
   
-  function validate_location(){
+  function validate_fields(element){
     result = true;
-    require_fields = $("#step2").find(".required");
+    require_fields = $(element).find(".required");
     $.each(require_fields, function(){
       if($(this).val()=="" || $(this).val()==null){
         $(this).parent().append("<span class='error'>can't be blank</span>");
