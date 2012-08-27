@@ -226,7 +226,7 @@
     }
     ne = bounds.getNorthEast();
     sw = bounds.getSouthWest();
-    list = #{Point.get_points(@locations).to_json.html_safe}
+    list = #{Point.get_points(@locations, @events).to_json.html_safe}
     addMarkers(list);
   }
   
@@ -263,23 +263,32 @@
             click: function(cluster, event, data) {
               points = getPoints(data.latLng, list)
               if(points.length > 1){
-                companies=""
+                companies="";
+                events="";
                 for(i=0; i< points.length; i++){
                 
                   id = points[i].data.id;
-                  pdata= '{"pos": {"lat": ' + points[i].lat + ', "lng": ' + points[i].lng + '}, "name": "' + 
-                  points[i].data.name + '", "email": "' + points[i].data.email + '", "address": "' + 
-                  points[i].data.address + '", "id": "' + points[i].data.id + '", "url": "' + 
-                  points[i].data.url + '", "twitter": "' + points[i].data.twitter + '", "facebook": "' + 
-                  points[i].data.facebook + '", "description": "' + points[i].data.description + 
-                  '", "logo": "' + points[i].data.logo + '"}';
-                  
-                  item= "<a href='#', data='" + pdata + "', class='location_item'>" + 
-                  points[i].data.name + "</a>";                
-                
-                  companies = companies + "<li>" + item + "</li>";
+                  idata = points[i].data;
+                  if(points[i].data.ptyle == 'event'){
+                    pdata = '{"pos": {"lat": ' + points[i].lat + ', "lng": ' + points[i].lng + '}, "name": "' + 
+                    idata.name + '", "e_time": "' + idata.e_time + '", "recurring": "' + idata.recurring + 
+                    '", "url": "' + idata.url + '", "description": "' + idata.description + '"}';
+                    
+                    item= "<a href='#', data='" + pdata + "', class='event_item'>" + i.data.name + "</a>";
+                    events = events + "<li>" + item + "</li>";
+                  }else{
+                    pdata= '{"pos": {"lat": ' + points[i].lat + ', "lng": ' + points[i].lng + '}, "name": "' + 
+                    idata.name + '", "email": "' + idata.email + '", "address": "' + 
+                    idata.address + '", "id": "' + idata.id + '", "url": "' + 
+                    idata.url + '", "twitter": "' + idata.twitter + '", "facebook": "' + 
+                    idata.facebook + '", "description": "' + idata.description + 
+                    '", "logo": "' + idata.logo + '"}';
+                    
+                    item= "<a href='#', data='" + pdata + "', class='location_item'>" + i.data.name + "</a>";
+                    companies = companies + "<li>" + item + "</li>";
+                  }
                 }
-                content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + points.length + " Companies here: </h3>"+ companies + "</div></div>";
+                content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + points.length + " Companies/Events here: </h3>"+ companies + events + "</div></div>";
                 make_overlay(data.latLng, content, '');
               }
               cluster.map.panTo(data.latLng);
@@ -300,7 +309,13 @@
           events:{  
             click: function(marker, event, data){
               pos = marker.getPosition();
-              content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + data.email + "<br/>" + data.address + "</div></div>";
+              info = '';
+              if(data.ptype=="event"){
+                info = data.e_time;
+              }else{
+                info = data.email + "<br/>" + data.address;
+              }
+              content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + info + "</div></div>";
               make_overlay(pos, content, data.id);
               load_company_menu(data);         
               marker.map.panTo(pos);

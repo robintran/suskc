@@ -50,5 +50,5 @@
           = check_box_tag "use_company"
         #my_companies.label.hidden
           - locations = current_user ? current_user.locations : []
-          = f.select :company, options_from_collection_for_select(locations, :id, :name), include_blank: 'select company'
+          = f.select :company_id, options_from_collection_for_select(locations, :id, :name), include_blank: 'select company'
   %button(href="#step2_e" class="continue") Create
