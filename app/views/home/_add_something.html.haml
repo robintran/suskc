@@ -47,7 +47,12 @@
         $("#step2_c form").submit();
       }
     }else if(next_step=="#step2_e"){
-      if(validate_fields("#step1_e")==true){
+      valid_f = validate_fields("#step1_e");
+      valid_add = validate_pair($("#event_address"), $("#event_company"));
+      if(valid_add==false){
+        $("#step1_e .location").append("<div class='label' style='margin-left: 0'><span class='error'>Input address or choose from your companies</span></div>");
+      }
+      if(valid_f==true && valid_add==true){
         $("#step1_e form").submit();
       }
     }else{
@@ -64,14 +69,24 @@
   $("input#use_company").click(function(){
     if($(this).is(':checked')){
       $("#event_address").attr("disabled", "disabled");
+      $("#my_companies").removeClass("hidden");
     }else{
-       $("#event_address").removeAttr("disabled");
+      $("#event_address").removeAttr("disabled");
+      $("#my_companies").addClass("hidden");
     }
-    $("#my_companies").toggleClass("hidden");
   });
+  
+  function validate_pair(e1, e2){
+    result = false;
+    if(e1.val() != "" || e2.val() != ""){
+      result = true;
+    }
+    return result;
+  }
   
   function validate_fields(element){
     result = true;
+    $(element + " span.error").remove();
     require_fields = $(element).find(".required");
     $.each(require_fields, function(){
       if($(this).val()=="" || $(this).val()==null){

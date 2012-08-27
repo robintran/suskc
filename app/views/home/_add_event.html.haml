@@ -25,7 +25,7 @@
         %i.icon-refresh.form-icon
         Recurring
       .field.select_field
-        = f.select :recurring, options_for_select(["Weekly", "Bi-Weekly", "Monthly", "Yearly"]), allow_blank: 'None'
+        = f.select :recurring, options_for_select(["None", "Weekly", "Bi-Weekly", "Monthly", "Yearly"])
     .input
       .label
         %i.icon-globe.form-icon
@@ -42,7 +42,7 @@
       .label
         %i.icon-globe.form-icon
         Location
-      .field
+      .field.location
         .label New address
         = f.text_field :address, class: 'text-input'
         .label 

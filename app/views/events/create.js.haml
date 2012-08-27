@@ -1,0 +1,4 @@
+- if @errors.blank?
+  location.reload();
+- else
+  $("#step1_e .errors").html("#{escape_javascript(render partial: 'shared/errors')}")
