@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if user
       if user.confirmed?
         session[:user_id] = user.id
-        url = user.admin? ? "/admin" : root_url
+        url = root_url
         redirect_to url
       else
         @errors = ["Your account has not been confirmed, please check your email to confirm before you can login."]
