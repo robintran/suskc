@@ -49,8 +49,11 @@
             %i.icon-facebook-sign.company-info-icon
             %span.facebook /suskc
         .company-description
-          Think Big Partners is an early-stage business incubator, startup accelerator and mentorship-based collaborative network that takes ideas, opportunities and entrepreneurs and makes them big.
-
+          Think Big Partners is an early-stage business incubator, startup accelerator and mentorship-based
+          collaborative network that takes ideas, opportunities and entrepreneurs and makes them big.
+        .single-company-info
+          .title Events
+          #com_events
 #category.left-menu.full.hidden
   .background
     .title
@@ -72,7 +75,7 @@
       .inside.inside-full
         - @locations.each do |loc|
           - logo = loc.logo.blank? ? "/assets/think-big.png" : loc.logo  
-          - data = {"pos"=> {"lat"=> loc.latitude, "lng"=> loc.longitude}, "name"=> "#{loc.name}", "email"=> "#{loc.email}", "address"=> "#{loc.address}", "id"=> "#{loc.id}", "url"=> "#{loc.url}", "twitter"=> "#{loc.twitter}", "facebook"=> "#{loc.facebook}", "description"=> "#{loc.description}", "logo"=> "#{logo}", "events" => "#{loc.js_events}".to_json}.to_json
+          - data = {"pos"=> {"lat"=> loc.latitude, "lng"=> loc.longitude}, "name"=> "#{loc.name}", "email"=> "#{loc.email}", "address"=> "#{loc.address}", "id"=> "#{loc.id}", "url"=> "#{loc.url}", "twitter"=> "#{loc.twitter}", "facebook"=> "#{loc.facebook}", "description"=> "#{loc.description}", "logo"=> "#{logo}", "events" => loc.js_events}.to_json
           .category.company
             = link_to "<i class='icon-map-marker'></i>".html_safe, '#', data: data, class: 'location_item'
             %span.title=link_to loc.name, '#', data: data, class: 'location_item'
@@ -156,7 +159,7 @@
         $("#category .inside #company").text('');
         for(i=0; i<list.length; i++){
           id = list[i].data.id;
-          data= '{"pos": {"lat": ' + list[i].lat + ', "lng": ' + list[i].lng + '}, "name": "' + list[i].data.name + '", "email": "' + list[i].data.email + '", "address": "' + list[i].data.address + '", "id": "' + list[i].data.id + '", "url": "' + list[i].data.url + '", "twitter": "' + list[i].data.twitter + '", "facebook": "' + list[i].data.facebook + '", "description": "' + list[i].data.description+ '", "logo": "' + list[i].data.logo + '", "events": "' + list[i].data.events+ '"}';
+          data= '{"pos": {"lat": ' + list[i].lat + ', "lng": ' + list[i].lng + '}, "name": "' + list[i].data.name + '", "email": "' + list[i].data.email + '", "address": "' + list[i].data.address + '", "id": "' + list[i].data.id + '", "url": "' + list[i].data.url + '", "twitter": "' + list[i].data.twitter + '", "facebook": "' + list[i].data.facebook + '", "description": "' + list[i].data.description+ '", "logo": "' + list[i].data.logo + '", "events": ' + list[i].data.events + '}';
           inside_content="<div class='category company'><a href='#', data='" + data + 
           "', class='location_item'><i class='" + icon_class + 
           "'></i></a><span class='title'><a href='#', data='" + data + "', class='location_item'>" +
@@ -361,6 +364,10 @@
     $("#company span.twitter").html(data.twitter);
     $("#company span.facebook").html(data.facebook);
     $("#company .company-description").html(data.description);
+    $("#company #com_events").html('');
+    for(i=0; i< data.events.length; i++){
+      $("#company #com_events").html("<div class='info-item'>" + data.events[i].name + "</div>");
+    }  
     $("#company.left-menu").removeClass('hidden');
   }
 
