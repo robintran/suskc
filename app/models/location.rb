@@ -22,7 +22,7 @@ class Location < ParseResource::Base
     events_arr = []
     loc_events = Event.where(company_id: self.id)
     loc_events.each do |e|
-      event = {id: e.id, name: e.name, e_time: e.time}
+      event = {id: e.id, name: e.name, e_time: e.e_time}
       events_arr << event
     end
     return events_arr
