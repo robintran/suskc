@@ -1,3 +1,6 @@
-= link_to "<i class='#{icon_class} category-icon'></i>".html_safe, update_map_path, rel: cat_name, class: 'category_item'
-%span.title= link_to cat_name, update_map_path, rel: cat_name, class: 'category_item'
-= link_to "<i class='icon-arrow-right arrow-icon'></i>".html_safe, update_map_path, rel: cat_name, class: 'category_item'
+= link_to "<i class='#{icon_class} category-icon'></i>".html_safe, update_map_path, rel: cat_name, class: c_class
+%span.title= link_to cat_name, update_map_path, rel: cat_name, class: c_class
+- if c_class=='parent-menu'
+  %span.arrow= link_to "<i class='icon-arrow-down arrow-icon'></i>".html_safe, update_map_path, rel: cat_name, class: c_class
+- else
+  = link_to "<i class='icon-arrow-right arrow-icon'></i>".html_safe, update_map_path, rel: cat_name, class: c_class

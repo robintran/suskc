@@ -167,7 +167,7 @@ margin-right: 2%;
 	padding-top: 8px;
 }
 
-.left-menu .inside  .title {
+.left-menu .inside .title {
 	font-family:Helvetica Neue,Arial,sans-serif;
 	font-weight:bold;
 	font-style:normal;
@@ -176,6 +176,19 @@ margin-right: 2%;
 	vertical-align: middle;
 	text-shadow: none;
 }
+
+.left-menu .inside .sub-category .category{
+	padding-left: 25px;
+	border-bottom: 1px solid #fff;
+	padding-bottom: 7px;
+	padding-top: 8px;
+	background: #eee;
+}
+
+.left-menu .inside .sub-category .title {
+	font-weight: normal;
+}
+
 
 .category .category-icon  i{
 	vertical-align:middle;

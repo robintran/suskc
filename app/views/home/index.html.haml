@@ -4,20 +4,16 @@
       %i.icon-list-ul.title-icon
       %span.title-copy Categories
     .inside
-      .category
-        = render partial: 'category_item', locals: {cat_name: "Digital Company", icon_class: "icon-save"}
-      .category
-        = render partial: 'category_item', locals: {cat_name: "Investor", icon_class: "icon-money"}
-      .category
-        = render partial: 'category_item', locals: {cat_name: "Coworking Space", icon_class: "icon-print"}
-      .category
-        = render partial: 'category_item', locals: {cat_name: "Accelerator", icon_class: "icon-dashboard"}
-      .category
-        = render partial: 'category_item', locals: {cat_name: "Freelancer", icon_class: "icon-pencil"}
-      .category
-        = render partial: 'category_item', locals: {cat_name: "Startup", icon_class: "icon-fire"}
-      .category
-        = render partial: 'category_item', locals: {cat_name: "Hiring", icon_class: "icon-briefcase"}
+      .category= render partial: 'category_item', locals: {cat_name: "Startup", icon_class: "icon-fire", c_class: "parent-menu"}
+      .sub-category.hidden
+        - Location::STARTUP_SUBS.each do |cat|
+          .category= render partial: 'category_item', locals: {cat_name: cat, icon_class: "icon-fire", c_class: "category_item"}
+      .category= render partial: 'category_item', locals: {cat_name: "Accelerator", icon_class: "icon-dashboard", c_class: "category_item"}
+      .category= render partial: 'category_item', locals: {cat_name: "Coworking Space", icon_class: "icon-print", c_class: "category_item"}
+      .category= render partial: 'category_item', locals: {cat_name: "Investor", icon_class: "icon-money", c_class: "category_item"}
+      .category= render partial: 'category_item', locals: {cat_name: "Education", icon_class: "icon-book", c_class: "category_item"}
+      .category= render partial: 'category_item', locals: {cat_name: "Service Providers", icon_class: "icon-wrench", c_class: "category_item"}
+      .category= render partial: 'category_item', locals: {cat_name: "Community", icon_class: "icon-signal", c_class: "category_item"}
 
 #company.left-menu.full.slide-out.hidden
   .background
@@ -136,6 +132,24 @@
     return icon_class;
   }
   
+  //menu control
+  $(".left-menu a.parent-menu").click(function(e){
+    e.preventDefault();
+    $(".left-menu .sub-category").toggleClass('hidden');
+    toggleIcon($("span.arrow .arrow-icon"));
+  });
+  
+  function toggleIcon(e){
+    if(e.hasClass("icon-arrow-down")){
+      e.removeClass("icon-arrow-down");
+      e.addClass("icon-arrow-up");
+    }else{
+      e.removeClass("icon-arrow-up");
+      e.addClass("icon-arrow-down");
+    }
+  }
+  
+  //update map, show locations by category
   $(".left-menu a.category_item").click(function(e){
     e.preventDefault();
     $(".location_item").removeClass('active');
