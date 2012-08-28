@@ -10,7 +10,7 @@
     .input
       %i.icon-list-ul.form-icon
       Category
-      = select_tag :category, options_for_select(Location::CATEGORIES), class: 'category-select'
+      = select_tag :category, grouped_options_for_select(Location::CATEGORIES), class: 'category-select'
   %button(href="#step2_c" class="continue") Okey! Next step!
 #step2_c.inside.hidden
   .progress-bar.step2

@@ -9,7 +9,7 @@
         - Location::STARTUP_SUBS.each do |cat|
           .category= render partial: 'category_item', locals: {cat_name: cat, icon_class: "icon-fire", c_class: "category_item"}
       .category= render partial: 'category_item', locals: {cat_name: "Accelerator", icon_class: "icon-dashboard", c_class: "category_item"}
-      .category= render partial: 'category_item', locals: {cat_name: "Coworking Space", icon_class: "icon-print", c_class: "category_item"}
+      .category= render partial: 'category_item', locals: {cat_name: "Coworking", icon_class: "icon-print", c_class: "category_item"}
       .category= render partial: 'category_item', locals: {cat_name: "Investor", icon_class: "icon-money", c_class: "category_item"}
       .category= render partial: 'category_item', locals: {cat_name: "Education", icon_class: "icon-book", c_class: "category_item"}
       .category= render partial: 'category_item', locals: {cat_name: "Service Providers", icon_class: "icon-wrench", c_class: "category_item"}
@@ -113,21 +113,21 @@
   });
     
   function getIconClass(category){
-    icon_class = 'icon-save';
-    if(category=='Digital Company'){
-      icon_class = 'icon-save';
+    icon_class = 'icon-fire';
+    if(category=='Startup'){
+      icon_class = 'icon-fire';
     }else if(category=='Investor'){
       icon_class = 'icon-money';
-    }else if(category=='Coworking Space'){
+    }else if(category=='Coworking'){
       icon_class = 'icon-print';
     }else if(category=='Accelerator'){
       icon_class = 'icon-dashboard';
-    }else if(category=='Freelancer'){
-      icon_class = 'icon-pencil';
-    }else if(category=='Startup'){
-      icon_class = 'icon-fire';
-    }else if(category=='Startup'){
-      icon_class = 'icon-biefcase';
+    }else if(category=='Education'){
+      icon_class = 'icon-book';
+    }else if(category=='Service Providers'){
+      icon_class = 'icon-wrench';
+    }else if(category=='Community'){
+      icon_class = 'icon-signal';
     }
     return icon_class;
   }
