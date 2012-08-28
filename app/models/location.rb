@@ -6,7 +6,7 @@ class Location < ParseResource::Base
   validates :address, presence: true
   validates :email, presence: true
   validates :phone, presence: true
-  validates :description, presence: true
+  validates :name, presence: true
   
   STARTUP_SUBS = ["Advertising", "BioTech", "eCommerce", "Enterprise", "Games", "Mobile", "Security", "Social", "Other"]
   CATEGORIES = [["Startup", STARTUP_SUBS], ["Other Categories",["Accelerator", "Coworking", "Investor", "Education", "Service Providers", "Community"]]] 

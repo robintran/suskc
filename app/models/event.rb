@@ -1,6 +1,9 @@
 class Event < ParseResource::Base
   fields :address, :active, :company_id, :name, :e_time, :recurring, :url, :description, :latitude, :longitude, :user_id
   
+  validates :e_time, presence: true
+  validates :name, presence: true
+  
   def self.actived_list
     where(active: true).sort_by{|e| e.name}
   end

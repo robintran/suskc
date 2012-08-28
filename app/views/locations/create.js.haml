@@ -1,6 +1,6 @@
 - if @errors.blank?
   $("div[id*=step]").addClass('hidden');
   $("#step3_c").removeClass('hidden');
-  $("#fading-image").hide();
 - else
-  $("#step2_c .errors").html("#{escape_javascript(render partial: 'shared/errors')}")
+  $("#step2_c .errors").html("#{escape_javascript(render partial: 'shared/errors')}");
+$("#fading-image").hide();
