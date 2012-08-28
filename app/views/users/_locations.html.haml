@@ -1,0 +1,50 @@
+.span12
+  %p
+    %h2 My Locations
+- if @error
+  .span12
+    %p=@error
+.span12.shadow_box{style: "width: 1140px;"}
+  .span12.no-lmargin
+    .span2.no-lmargin.th
+      Name
+    .span3.no-lmargin.th
+      Description
+    .span3.no-lmargin.th
+      Address
+    .span2.no-lmargin.th
+      Email
+    .span1.no-lmargin.th
+      Activate
+    .span1.no-lmargin.th
+      Payment
+  - bg_class = 'even'
+  - @locations.each do |location|
+    - bg_class = bg_class == 'odd' ? 'even' : 'odd'
+    .span12.no-lmargin
+      .span2.no-lmargin{class: "#{bg_class}"}
+        = link_to location.name, "#loc_#{location.id}", class: "fancybox"
+      .span3.no-lmargin{class: "#{bg_class}"}
+        = location.description
+      .span3.no-lmargin{class: "#{bg_class}"}
+        = location.address
+      .span2.no-lmargin{class: "#{bg_class}"}
+        = location.email
+      .span1.no-lmargin{class: "#{bg_class}", id: "act_text_#{location.id}"}
+        = location.active?
+      .span1.no-lmargin{class: "#{bg_class}"}
+        - if location.paid
+          Paid
+        - else
+          = link_to 'Purchase', charge_path(location: location.id) 
+
+.hidden
+  - @locations.each do |location|
+    %div{id: "loc_#{location.id}"}
+      .popover
+        .background
+          .title
+            %span.add-title Edit Location
+          .inside        
+            = render partial: 'locations/form', locals: {location: location}
+            %button(href="#loc_#{location.id}" class="continue submit") Save

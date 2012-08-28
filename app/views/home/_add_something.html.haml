@@ -44,6 +44,7 @@
       moveToStep(next_step);
     }else if(next_step=="#step3_c"){
       if(validate_fields("#step2_c")==true){
+        $("#fading-image").show();
         $("#step2_c form").submit();
       }
     }else if(next_step=="#step2_e"){
@@ -53,6 +54,7 @@
         $("#step1_e .location").append("<div class='label' style='margin-left: 0'><span class='error'>Input address or choose from your companies</span></div>");
       }
       if(valid_f==true && valid_add==true){
+        $("#fading-image").show();
         $("#step1_e form").submit();
       }
     }else{

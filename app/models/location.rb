@@ -9,10 +9,7 @@ class Location < ParseResource::Base
   validates :description, presence: true
   
   STARTUP_SUBS = ["Advertising", "BioTech", "eCommerce", "Enterprise", "Games", "Mobile", "Security", "Social", "Other"]
-  CATEGORIES = [["Startup", STARTUP_SUBS], ["Other Categories",["Accelerator", "Coworking", "Investor", "Education", "Service Providers", "Community"]]]  
-  
-  #['Digital Company', 'Investor', 'Coworking Space', 'Accelerator', 'Freelancer', 'Startup', 'Hiring']
-
+  CATEGORIES = [["Startup", STARTUP_SUBS], ["Other Categories",["Accelerator", "Coworking", "Investor", "Education", "Service Providers", "Community"]]] 
 
   def active?
     return self.active==true ? 'actived' : 'unactived'

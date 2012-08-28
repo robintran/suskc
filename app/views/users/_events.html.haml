@@ -1,0 +1,32 @@
+.span12
+  %p
+    %h2 My Events
+- if @error
+  .span12
+    %p=@error
+.span12.shadow_box{style: "width: 1140px;"}
+  .span12.no-lmargin
+    .span2.no-lmargin.th
+      Name
+    .span2.no-lmargin.th
+      Event Time
+    .span2.no-lmargin.th
+      Recurring
+    .span3.no-lmargin.th
+      Address/Company
+    .span3.no-lmargin.th
+      Description
+  - bg_class = 'even'
+  - @events.each do |event|
+    - bg_class = bg_class == 'odd' ? 'even' : 'odd'
+    .span12.no-lmargin
+      .span2.no-lmargin{class: "#{bg_class}"}
+        = link_to event.name, "#event_#{event.id}", class: "fancybox"
+      .span2.no-lmargin{class: "#{bg_class}"}
+        = event.e_time
+      .span2.no-lmargin{class: "#{bg_class}"}
+        = event.recurring
+      .span3.no-lmargin{class: "#{bg_class}"}
+        = event.address || "[#{event.company.name}] #{event.company.address}"
+      .span3.no-lmargin{class: "#{bg_class}"}
+        = event.description

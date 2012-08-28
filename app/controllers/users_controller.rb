@@ -40,6 +40,7 @@ class UsersController < ApplicationController
     init_card
     @user = current_user
     @locations = @user.locations
+    @events = @user.events
   end
   
   def new

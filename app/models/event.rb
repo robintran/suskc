@@ -1,5 +1,5 @@
 class Event < ParseResource::Base
-  fields :address, :active, :company_id, :name, :e_time, :recurring, :location, :url, :description, :latitude, :longitude, :user_id
+  fields :address, :active, :company_id, :name, :e_time, :recurring, :url, :description, :latitude, :longitude, :user_id
   
   def self.actived_list
     where(active: true).sort_by{|e| e.name}
@@ -13,5 +13,10 @@ class Event < ParseResource::Base
       e.description.downcase.include?(term.downcase)
     }
     return events
+  end
+  
+  def company
+    com = self.company_id ? Location.find(self.company_id) : nil
+    return com
   end
 end
