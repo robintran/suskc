@@ -1,0 +1,58 @@
+- event ||= Event.new
+~ form_for event, remote: true, html: {class: 'form', :multipart => true} do |f|
+  .input#errors
+  .input
+    .label
+      %i.icon-flag.form-icon
+      Event Name
+    .field
+      = f.text_field :name, class: 'text-input required'
+  .input
+    .label
+      %i.icon-time.form-icon
+      Event Time
+    .field
+      - if event.id.nil?
+        = f.datepicker :e_time, class: 'text-input required', readonly: 'true'
+      - else
+        = datepicker "event_#{event.id}", "e_time", value: event.e_time, class: 'text-input required', readonly: 'true'
+  .input
+    .label
+      %i.icon-refresh.form-icon
+      Recurring
+    .field.select_field
+      = f.select :recurring, options_for_select(["Weekly", "Bi-Weekly", "Monthly", "Yearly"]), include_blank: 'select recurring'
+  .input
+    .label
+      %i.icon-globe.form-icon
+      URL
+    .field
+      = f.text_field :url, class: 'text-input'
+  .input
+    .label
+      %i.icon-comment.form-icon
+      Description
+    .field
+      = f.text_area :description, class: 'text-input'
+  .input
+    .label
+      %i.icon-map-marker.form-icon
+      Location
+    .field.location
+      .label New address
+      - if event.company_id.blank?
+        = f.text_field :address, class: 'text-input'
+        .label 
+          use company address
+          = check_box_tag "use_company", "#event_#{event.id}", false, class: 'use_company'
+        #my_companies.my_companies.label.hidden
+          - locations = current_user ? current_user.locations : []
+          = f.select :company_id, options_from_collection_for_select(locations, :id, :name), include_blank: 'select company'
+      - else
+        = f.text_field :address, class: 'text-input', disabled: 'disabled'
+        .label 
+          use company address
+          = check_box_tag "use_company", "#event_#{event.id}", true, class: 'use_company'
+        #my_companies.my_companies.label
+          - locations = current_user ? current_user.locations : []
+          = f.select :company_id, options_from_collection_for_select(locations, :id, :name, event.company_id), include_blank: 'select company'

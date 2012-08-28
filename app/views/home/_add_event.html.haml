@@ -1,4 +1,3 @@
-- @event ||= Event.new
 #step0_e.inside.hidden
   .progress-bar.step0
   .copy Adding your Event to StartupShopKC is extremely easy.
@@ -6,49 +5,5 @@
 #step1_e.inside.hidden
   .progress-bar.step1
   .copy Next we'll need some important information. Spill it!
-  ~ form_for @event, remote: true, html: {class: 'form', :multipart => true} do |f|
-    .input#errors
-    .input
-      .label
-        %i.icon-flag.form-icon
-        Event Name
-      .field
-        = f.text_field :name, class: 'text-input required'
-    .input
-      .label
-        %i.icon-time.form-icon
-        Event Time
-      .field
-        = f.datepicker :e_time, class: 'text-input required', readonly: 'true'
-    .input
-      .label
-        %i.icon-refresh.form-icon
-        Recurring
-      .field.select_field
-        = f.select :recurring, options_for_select(["Weekly", "Bi-Weekly", "Monthly", "Yearly"]), include_blank: 'select recurring'
-    .input
-      .label
-        %i.icon-globe.form-icon
-        URL
-      .field
-        = f.text_field :url, class: 'text-input'
-    .input
-      .label
-        %i.icon-comment.form-icon
-        Description
-      .field
-        = f.text_area :description, class: 'text-input'
-    .input
-      .label
-        %i.icon-map-marker.form-icon
-        Location
-      .field.location
-        .label New address
-        = f.text_field :address, class: 'text-input'
-        .label 
-          use company address
-          = check_box_tag "use_company"
-        #my_companies.label.hidden
-          - locations = current_user ? current_user.locations : []
-          = f.select :company_id, options_from_collection_for_select(locations, :id, :name), include_blank: 'select company'
+  = render partial: 'events/form'
   %button(href="#step2_e" class="continue") Create

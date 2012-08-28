@@ -30,3 +30,14 @@
         = event.address || "[#{event.company.name}] #{event.company.address}"
       .span3.no-lmargin{class: "#{bg_class}"}
         = event.description
+
+.hidden
+  - @events.each do |event|
+    %div{id: "event_#{event.id}"}
+      .popover
+        .background
+          .title
+            %span.add-title Edit Event
+          .inside        
+            = render partial: 'events/form', locals: {event: event}
+            %button(href="#event_#{event.id}" class="continue submit") Save

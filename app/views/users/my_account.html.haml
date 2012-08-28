@@ -22,13 +22,7 @@
       autoSize : true
     });
   });
-  
-  $("#popover a[href=close]").click(function(e){
-    $("div[id*=loc_]").addClass('hidden');
-    $("#popover").addClass('hidden');
-    e.preventDefault();
-  });
-  
+   
   $("button.submit").click(function(){
     element = $(this).attr("href");
     if(validate_fields(element)==true){
@@ -37,6 +31,25 @@
       $(element + " form").submit();
     }
   });
+  
+  $("input.use_company").click(function(){
+    p_event = $(this).val();
+    if($(this).is(':checked')){
+      $(p_event + " #event_address").attr("disabled", "disabled");
+      $(p_event + " .my_companies").removeClass("hidden");
+    }else{
+      $(p_event + " #event_address").removeAttr("disabled");
+      $(p_event + " .my_companies").addClass("hidden");
+    }
+  });
+  
+  function validate_pair(e1, e2){
+    result = false;
+    if(e1.val() != "" || e2.val() != ""){
+      result = true;
+    }
+    return result;
+  }
   
   function validate_fields(element){
     result = true;
