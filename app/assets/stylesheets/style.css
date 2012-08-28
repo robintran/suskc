@@ -372,13 +372,18 @@ margin-right: 2%;
 
 /* POPOVER */
 
-#popover {
+#popover, .popover {
 	margin: 0 auto;
 	width:470px;
 	margin-top: 75px;
 }
 
-#popover .background {
+.popover{
+  margin-top: 0;
+  width: 490px;
+}
+
+#popover .background, .popover .background{
 	background-color:#0596b5;
 	float: left;
 	width: 255px;
@@ -390,7 +395,7 @@ margin-right: 2%;
 	margin-bottom:30px;
 }
 
-#popover .inside {
+#popover .inside, .popover .inside{
 	background:white;
 	border-radius: 4px;
 	border-top: 1px solid rgba(0, 11, 31, 0.69);
@@ -398,11 +403,12 @@ margin-right: 2%;
 	padding:20px;
 }
 
-#popover .inside, #popover .inside form{
+#popover .inside, #popover .inside form,
+.popover .inside, .popover .inside form{
   float: left;
 }
 
-#popover .background .title {
+#popover .background .title, .popover .background .title{
 	color:white;
 	background:none;
 	font-family:Lobster;
@@ -444,7 +450,7 @@ margin-right: 2%;
 	background: url(../assets/step5.png);
 }
 
-#popover .inside .copy {
+#popover .inside .copy, .popover .inside .copy{
 	font-size: 21px;
 	font-weight:bold;
 	letter-spacing:-1px;
@@ -563,30 +569,31 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e06797', end
 	margin-left: 20px;
 }
 
-#popover .input, #popover .label, #popover .field{
+#popover .input, #popover .label, #popover .field,
+.popover .input, .popover .label, .popover .field{
   float: left;
 }
 
-#popover .label{
+#popover .label, .popover .label{
   width: 147px;
   padding-top: 20px;
 }
 
-#popover .field{
+#popover .field, .popover .field{
   width: 280px;
 }
 
-#popover .field .label{
+#popover .field .label, .popover .field .label{
   padding-top: 10px;
   margin-left: 20px;
   width: 260px;
 }
 
-#popover .text-input{
+#popover .text-input, .popover .text-input{
   width: 255px !important;
 }
 
-#popover textarea{
+#popover textarea, .popover textarea{
   height: 84px;
 }
 

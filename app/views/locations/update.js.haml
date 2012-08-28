@@ -1,0 +1,4 @@
+- if @errors.blank?
+  location.reload();
+- else
+  $("#loc_#{@location.id}") .errors").html("#{escape_javascript(render partial: 'shared/errors')}")

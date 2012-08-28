@@ -38,7 +38,7 @@
     - bg_class = bg_class == 'odd' ? 'even' : 'odd'
     .span12.no-lmargin
       .span2.no-lmargin{class: "#{bg_class}"}
-        = location.name
+        = link_to location.name, "#loc_#{location.id}", class: "fancybox"
       .span3.no-lmargin{class: "#{bg_class}"}
         = location.description
       .span3.no-lmargin{class: "#{bg_class}"}
@@ -51,4 +51,49 @@
         - if location.paid
           Paid
         - else
-          = link_to 'Purchase', charge_path(location: location.id)
+          = link_to 'Purchase', charge_path(location: location.id) 
+
+.hidden
+  - @locations.each do |location|
+    %div{id: "loc_#{location.id}"}
+      .popover
+        .background
+          .title
+            %span.add-title Edit Location
+          .inside        
+            = render partial: 'locations/form', locals: {location: location}
+            %button(href="#loc_#{location.id}" class="continue submit") Save
+:javascript
+  $(document).ready(function() {
+    $("a.fancybox").fancybox({
+      autoSize : true
+    });
+  });
+  
+  $("#popover a[href=close]").click(function(e){
+    $("div[id*=loc_]").addClass('hidden');
+    $("#popover").addClass('hidden');
+    e.preventDefault();
+  });
+  
+  $("button.submit").click(function(){
+    element = $(this).attr("href");
+    if(validate_fields(element)==true){
+      $.fancybox.close();
+      $("#fading-image").show();
+      $(element + " form").submit();
+    }
+  });
+  
+  function validate_fields(element){
+    result = true;
+    $(element + " span.error").remove();
+    require_fields = $(element).find(".required");
+    $.each(require_fields, function(){
+      if($(this).val()=="" || $(this).val()==null){
+        $(this).parent().append("<span class='error'>can't be blank</span>");
+        result = false;
+      }
+    });
+    return result;
+  }  
