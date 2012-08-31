@@ -1,10 +1,10 @@
-.left-menu
+#main-menu.left-menu
   .background
     .title
       %i.icon-list-ul.title-icon
       %span.title-copy Categories
     .inside
-      .category= render partial: 'category_item', locals: {cat_name: "Startup", icon_class: "icon-fire", c_class: "parent-menu"}
+      .category= render partial: 'category_item', locals: {cat_name: "Startup", icon_class: "icon-upload", c_class: "parent-menu"}
       .sub-category.hidden
         - Location::STARTUP_SUBS.each do |cat|
           .category= render partial: 'category_item', locals: {cat_name: cat, icon_class: "icon-fire", c_class: "category_item"}
@@ -33,7 +33,7 @@
             %i.icon-phone.company-info-icon.phone-icon
             %span.phone
           .info-item
-            %i.icon-truck.company-info-icon.email-icon
+            %i.icon-envelope.company-info-icon.email-icon
             %span.email
           .info-item
             %i.icon-globe.company-info-icon
@@ -85,11 +85,13 @@
 :javascript
   $("a[href=add_something]").click(function(e){
     $("#popover").removeClass('hidden');
+    $(".left-menu").addClass("hidden");
     e.preventDefault();
   });
   
   $("a[href=login_popup]").click(function(e){
     $("#popover").removeClass('hidden');
+    $(".left-menu").addClass("hidden");
     e.preventDefault();
   });
   
@@ -173,7 +175,7 @@
         $("#category .inside #company").text('');
         for(i=0; i<list.length; i++){
           id = list[i].data.id;
-          data= '{"pos": {"lat": ' + list[i].lat + ', "lng": ' + list[i].lng + '}, "name": "' + list[i].data.name + '", "email": "' + list[i].data.email + '", "address": "' + list[i].data.address + '", "id": "' + list[i].data.id + '", "url": "' + list[i].data.url + '", "twitter": "' + list[i].data.twitter + '", "facebook": "' + list[i].data.facebook + '", "description": "' + list[i].data.description+ '", "logo": "' + list[i].data.logo + '", "events": ' + list[i].data.events + '}';
+          data= '{"pos": {"lat": ' + list[i].lat + ', "lng": ' + list[i].lng + '}, "name": "' + list[i].data.name + '", "email": "' + list[i].data.email + '", "address": "' + list[i].data.address + '", "id": "' + list[i].data.id + '", "url": "' + list[i].data.url + '", "twitter": "' + list[i].data.twitter + '", "facebook": "' + list[i].data.facebook + '", "description": "' + list[i].data.description+ '", "logo": "' + list[i].data.logo + '", "events": ' + list[i].data.events + ', "category": "' + list[i].data.category + '"}';
           inside_content="<div class='category company'><a href='#', data='" + data + 
           "', class='location_item'><i class='" + icon_class + 
           "'></i></a><span class='title'><a href='#', data='" + data + "', class='location_item'>" +
@@ -372,6 +374,8 @@
   }
   
   function load_company_menu(data){
+    $("#category .title-copy").html(data.category);
+    $("#category.left-menu").removeClass('hidden');
     $("#company-image img").attr('src', data.logo)
     $("#company #company_name").html(data.name);
     $("#company .address").html(data.address);
