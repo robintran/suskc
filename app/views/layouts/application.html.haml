@@ -18,16 +18,19 @@
       .left
         .left-logo= link_to image_tag('logo.png'), '/'
         %i.icon-info-sign.info-icon
-      .right
-        .add-company-right
+      .right.no-lmargin
+        .add-company-right.span2.no-lmargin
           %span.add-icon= image_tag 'add.png'
           %span.add-company-copy
             = link_to "Add Something", "add_something"# link_to 'Register', '/signup'
             %span
-        - if current_user
-          = link_to "<i class='icon-signout signin-icon'></i>".html_safe, '/signout'
-        - else
-          = link_to "<i class='icon-signin signin-icon'></i>".html_safe, "login_popup"
+        .span.no-lmargin{style: "float: right;"}
+          - if current_user           
+            .span.no-lmargin{style: "margin: -3px 0 0 25px;"}= link_to "<i class='icon-signout signin-icon'></i>".html_safe, '/signout'
+            .span1.no-lmargin{style: "margin: 20px 0 0 5px; text-align: left;"}= link_to "Sign Out", "/signout"      
+          - else          
+            .span.no-lmargin{style: "margin: -3px 0 0 25px;"}= link_to "<i class='icon-signin signin-icon'></i>".html_safe, "login_popup"
+            .span1.no-lmargin{style: "margin: 20px 0 0 5px; text-align: left;"}= link_to "Sign In", "login_popup"
       .search-input
         ~ form_tag search_path do
           = text_field_tag :term, '', class: 'search'

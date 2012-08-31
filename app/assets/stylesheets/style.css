@@ -82,16 +82,16 @@ body {
 
 .search-input input {
 	padding-left: 9px;
-font-family: Georgia;
-font-style: italic;
-font-size: 18px;
-color: #777;
-padding-right: 2%;
-width: 92%;
-float: left;
-padding-left: 2%;
-margin-left: 2%;
-margin-right: 2%;
+  font-family: Georgia;
+  font-style: italic;
+  font-size: 18px;
+  color: #777;
+  padding-right: 10px;
+  width: 92%;
+  float: left;
+  padding-left: 10px;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 .top-bar .left {
@@ -114,7 +114,7 @@ margin-right: 2%;
 }
 
 .top-bar .right {
-	width: 222px;
+	width: 352px;
 	float: right;
 	margin-left: 50px;
 }
