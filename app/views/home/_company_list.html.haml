@@ -1,0 +1,7 @@
+- locations.each do |loc|
+  - logo = loc.logo.blank? ? "/assets/think-big.png" : loc.logo
+  - data = {"pos"=> {"lat"=> loc.latitude, "lng"=> loc.longitude}, "name"=> "#{loc.name}", "email"=> "#{loc.email}", "address"=> "#{loc.address}", "id"=> "#{loc.id}", "url"=> "#{loc.url}", "twitter"=> "#{loc.twitter}", "facebook"=> "#{loc.facebook}", "description"=> "#{loc.description}", "logo"=> "#{logo}", "events" => loc.js_events}.to_json
+  .category.company
+    = link_to "<i class='#{icon_class}'></i>".html_safe, "#", data: data, class: "location_item"
+    %span.title= link_to loc.name, "#", data: data, class: "location_item"
+    = link_to "<i class='icon-arrow-right arrow-icon'></i>".html_safe, "#", data: data, class: "location_item"

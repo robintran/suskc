@@ -57,7 +57,7 @@
       %span.title-copy Digital Company
       = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
     .inside.inside-full
-      #company
+      #companies
       .back
         = link_to "<i class='icon-arrow-left back-icon'></i>".html_safe, "close"
         %span= link_to 'back', 'close'
@@ -172,7 +172,7 @@
       success: function(result) {
         $("#category.left-menu").removeClass('hidden');
         list = result;
-        $("#category .inside #company").text('');
+        $("#category .inside #companies").text('');
         for(i=0; i<list.length; i++){
           id = list[i].data.id;
           data= '{"pos": {"lat": ' + list[i].lat + ', "lng": ' + list[i].lng + '}, "name": "' + list[i].data.name + '", "email": "' + list[i].data.email + '", "address": "' + list[i].data.address + '", "id": "' + list[i].data.id + '", "url": "' + list[i].data.url + '", "twitter": "' + list[i].data.twitter + '", "facebook": "' + list[i].data.facebook + '", "description": "' + list[i].data.description+ '", "logo": "' + list[i].data.logo + '", "events": ' + list[i].data.events + ', "category": "' + list[i].data.category + '"}';
@@ -183,7 +183,7 @@
           "', class='location_item'><i class='icon-arrow-right arrow-icon'></i></a><div class='info'><div class='address'>" + 
           list[i].data.address + "</div><div class='city'>" + list[i].data.email + "</div></div></div>";
 
-          $("#category .inside #company").append(inside_content);
+          $("#category .inside #companies").append(inside_content);
         }
         addMarkers(list);
         $("#fading-image").hide();
@@ -331,6 +331,9 @@
           },
           events:{  
             click: function(marker, event, data){
+              icon_class = getIconClass(data.category);
+              $.get("#{locations_by_category_path}", {category: data.category, icon_class: icon_class});
+              
               pos = marker.getPosition();
               info = '';
               if(data.ptype=="event"){
@@ -339,7 +342,7 @@
                 info = data.email + "<br/>" + data.address;
               }
               content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + info + "</div></div>";
-              make_overlay(pos, content, data.id);
+              make_overlay(pos, content, data.id);            
               load_company_menu(data);         
               marker.map.panTo(pos);
               marker.map.setZoom(16);
@@ -389,7 +392,7 @@
     $("#company #com_events").html('');
     for(i=0; i< data.events.length; i++){
       $("#company #com_events").html("<div class='info-item'>" + data.events[i].name + "</div>");
-    }  
+    }
     $("#company.left-menu").removeClass('hidden');
   }
 

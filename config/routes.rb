@@ -10,9 +10,9 @@ StartupShopKC::Application.routes.draw do
   get 'signout'         => 'sessions#destroy'
   get 'signup'          => 'users#new', as: 'signup'
   get 'my_account'      => 'users#my_account', as: 'my_account'
-  get 'charge'        => 'users#charge'
+  get 'charge'          => 'users#charge'
   post 'update_card'    => 'users#update_card'
-  
+  get 'locations_by_category' => 'locations#locations_by_category'
   match 'confirm_email/:code' => 'users#confirm_email'
   
   resources :users

@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_filter :authenticate_user
+  before_filter :authenticate_user, except: [:locations_by_category]
   
   def new
     @location = Location.new
@@ -30,6 +30,12 @@ class LocationsController < ApplicationController
     end
     
     respond_to :js 
+  end
+  
+  def locations_by_category
+    @locations = Location.where(category: params[:category], active: true)
+    @icon_class = params[:icon_class]
+    respond_to :js
   end
   
   def update
