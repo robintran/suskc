@@ -1,5 +1,6 @@
 class Event < ParseResource::Base
-  fields :address, :active, :company_id, :name, :e_time, :recurring, :url, :description, :latitude, :longitude, :user_id
+  fields :address, :active, :company_id, :e_date, :name, :e_time, :recurring, :url, :description, 
+          :latitude, :longitude, :user_id
   
   validates :e_time, presence: true
   validates :name, presence: true

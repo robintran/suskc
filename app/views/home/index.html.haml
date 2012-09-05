@@ -4,6 +4,7 @@
       %i.icon-list-ul.title-icon
       %span.title-copy Categories
     .inside
+      .category= render partial: 'category_item', locals: {cat_name: "Events", icon_class: "icon-pushpin", c_class: "event_item"}
       .category= render partial: 'category_item', locals: {cat_name: "Startup", icon_class: "icon-upload", c_class: "parent-menu"}
       .sub-category.hidden
         - Location::STARTUP_SUBS.each do |cat|
@@ -79,6 +80,10 @@
         .back
           = link_to "<i class='icon-arrow-left back-icon'></i>".html_safe, "close"
           %span=link_to 'back', 'close'
+
+= render partial: "events_menus"
+
+
 #add_something 
   = render partial: 'add_something'
             
@@ -191,6 +196,11 @@
     });
   });     
 
+  $(".event_item").live('click', function(e){
+    $("#events.left-menu").removeClass("hidden");
+    e.preventDefault();
+  });
+  
   $(".location_item").live('click', function(){
     $(".location_item").removeClass('active');
     $(this).addClass('active');
