@@ -347,12 +347,18 @@
               info = '';
               if(data.ptype=="event"){
                 info = data.e_time;
+                content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + info + "</div></div>";
+                $(".left-menu.full").addClass('hidden');
+                $("#events").removeClass('hidden');
+                $("div[id*=event-info_]").addClass('hidden');
+                $("#event-info_" + data.id).removeClass('hidden');
+                make_overlay(pos, content, "");
               }else{
                 info = data.email + "<br/>" + data.address;
-              }
-              content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + info + "</div></div>";
-              make_overlay(pos, content, data.id);            
-              load_company_menu(data);         
+                content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + info + "</div></div>";
+                make_overlay(pos, content, data.id);
+                load_company_menu(data);
+              }                 
               marker.map.panTo(pos);
               marker.map.setZoom(16);
             },
