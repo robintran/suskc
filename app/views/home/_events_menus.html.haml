@@ -39,7 +39,8 @@
       %ul.list-events
         - @events.each do |event|
           - date = DateTime.strptime(event.e_time, "%m/%d/%Y")
-          %li.c-pointer{id: "#{event.id}"}
+          - data = {"pos"=> {"lat"=> event.latitude, "lng"=> event.longitude}, "name"=> "#{event.name}", "address"=> "#{event.e_address}", "e_time"=> "#{event.e_time}"}.to_json
+          %li.c-pointer{id: "#{event.id}", data: data}
             %span
               = date.strftime("%b")
               %strong= date.day
@@ -51,6 +52,13 @@
     id = $(this).attr("id");
     $("div[id*=event-info_]").addClass('hidden');
     $("#event-info_" + id).removeClass('hidden');
+    data = JSON.parse($(this).attr("data"));
+    pos = data.pos;
+    latLng = new google.maps.LatLng(pos.lat, pos.lng);
+    content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + data.e_time + "<br/>" + data.address + "</div></div>";
+    make_overlay(latLng, content, '');      
+    $("#mymap").gmap3({action: 'setCenter', args:[latLng]});
+    $("#mymap").gmap3('get').setZoom(16);
   });
   
   $("a[href=event-close]").click(function(e){
