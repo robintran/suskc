@@ -1,6 +1,6 @@
 class Event < ParseResource::Base
-  fields :address, :active, :company_id, :e_date, :name, :e_time, :recurring, :url, :description, 
-          :latitude, :longitude, :user_id
+  fields :address, :active, :company_id, :e_date, :email, :name, :e_time, :recurring, :url, :description, 
+          :latitude, :longitude, :user_id, :phone
   
   validates :e_time, presence: true
   validates :name, presence: true
@@ -22,5 +22,9 @@ class Event < ParseResource::Base
   def company
     com = self.company_id ? Location.find(self.company_id) : nil
     return com
+  end
+  
+  def e_address
+    company ? company.address : address
   end
 end

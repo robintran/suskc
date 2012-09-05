@@ -83,7 +83,6 @@
 
 = render partial: "events_menus"
 
-
 #add_something 
   = render partial: 'add_something'
             
@@ -121,7 +120,7 @@
     $("#company").addClass('hidden');
     e.preventDefault();
   });
-    
+  
   function getIconClass(category){
     icon_class = 'icon-fire';
     if(category=='Startup'){

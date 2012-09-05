@@ -1,46 +1,60 @@
-#event-item.left-menu.full.slide-out.hidden
-  .background
-    .title
-      = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
-    .inside.inside-full
-      .single-company
-        .single-company-info.events-info
-          %i.icon-pushpin
-          %span.title First Friday
-          .info-item
-            %i.icon-calendar
-            %span Jun 12 2012
-          .info-item
-            %i.icon-time
-            %span 9:30 - 10:30pm
-          .info-item
-            %i.icon-map-marker
-            %span 1800 Baltimore
-          .info-item 
-            %i.icon-phone
-            %span(816)842-5244
-          .info-item
-            %i.icon-envelope
-            %span info@thinkbigpartners.com
-          .info-item
-            %i.icon-globe
-            %span thinkbigpartners.com
-        .company-description
-          Description about how amazing first Fridays are at Think Big, we go up to the roof and get crazy. It’ll be the best 3 hours of your life!
+- @events.each do |event|
+  .left-menu.full.slide-out.hidden{id: "event-info_#{event.id}"}
+    .background
+      .title
+        = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "event-close"
+      .inside.inside-full
+        .single-company
+          .single-company-info.events-info
+            %i.icon-pushpin
+            %span.title= event.name
+            .info-item
+              %i.icon-calendar
+              %span= event.e_date
+            .info-item
+              %i.icon-time
+              %span= event.e_time
+            .info-item
+              %i.icon-map-marker
+              %span= event.e_address
+            .info-item 
+              %i.icon-phone
+              %span= event.phone
+            .info-item
+              %i.icon-envelope
+              %span= event.email
+            .info-item
+              %i.icon-globe
+              %span= event.url
+          .company-description
+            = event.description
 
 #events.left-menu.full.hidden
   .background
-    .title
-      %i.icon-arrleft.title-icon
-      %span.title-copy Upcoming Events
+    .title 
+      = link_to "<i class='icon-arrow-left title-icon'></i>".html_safe, "event-close"   
+      %span.title-copy
+        Upcoming Events
     .inside.inside-full.events-menu
       %ul.list-events
         - @events.each do |event|
           - date = DateTime.strptime(event.e_time, "%m/%d/%Y")
-          %li
+          %li.c-pointer{id: "#{event.id}"}
             %span
               = date.strftime("%b")
               %strong= date.day
             %div
               %strong= event.name
               %small 9:20 - 10:30
+:javascript
+  $("ul.list-events li").click(function(){
+    id = $(this).attr("id");
+    $("div[id*=event-info_]").addClass('hidden');
+    $("#event-info_" + id).removeClass('hidden');
+  });
+  
+  $("a[href=event-close]").click(function(e){
+    $("#events").addClass('hidden');
+    $("div[id*=event-info_]").addClass('hidden');
+    e.preventDefault();
+  });

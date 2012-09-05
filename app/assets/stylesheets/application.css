@@ -72,3 +72,7 @@ $("#fading-image").live("click", function(e){
 .field{
   margin: 3px 0;
 }
+
+.c-pointer{
+  cursor: pointer;
+}
