@@ -10,10 +10,10 @@
             %span.title= event.name
             .info-item
               %i.icon-calendar
-              %span= event.e_date
+              %span= event.datetime.strftime("%m/%d%Y")
             .info-item
               %i.icon-time
-              %span= event.e_time
+              %span= event.datetime.strftime("%H:%M")
             .info-item
               %i.icon-map-marker
               %span= event.e_address
@@ -38,15 +38,14 @@
     .inside.inside-full.events-menu
       %ul.list-events
         - @events.each do |event|
-          - date = DateTime.strptime(event.e_time, "%m/%d/%Y")
           - data = {"pos"=> {"lat"=> event.latitude, "lng"=> event.longitude}, "name"=> "#{event.name}", "address"=> "#{event.e_address}", "e_time"=> "#{event.e_time}"}.to_json
           %li.c-pointer{id: "#{event.id}", data: data}
             %span
-              = date.strftime("%b")
-              %strong= date.day
+              = event.datetime.strftime("%b")
+              %strong= event.datetime.day
             %div
               %strong= event.name
-              %small 9:20 - 10:30
+              %small= event.datetime.strftime("%H:%M")
 :javascript
   $("ul.list-events li").click(function(){
     id = $(this).attr("id");

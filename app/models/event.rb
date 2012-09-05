@@ -1,5 +1,5 @@
 class Event < ParseResource::Base
-  fields :address, :active, :company_id, :e_date, :email, :name, :e_time, :recurring, :url, :description, 
+  fields :address, :active, :company_id, :email, :name, :e_time, :recurring, :url, :description, 
           :latitude, :longitude, :user_id, :phone
   
   validates :e_time, presence: true
@@ -24,7 +24,17 @@ class Event < ParseResource::Base
     return com
   end
   
+  def datetime
+    begin
+      date = DateTime.strptime(self.e_time, "%m/%d/%Y %H:%M")
+    rescue
+      date = DateTime.strptime(self.e_time, "%m/%d/%Y")
+    end
+    return date
+  end
+  
   def e_address
     company ? company.address : address
   end
+  
 end

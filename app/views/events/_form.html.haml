@@ -9,19 +9,31 @@
       = f.text_field :name, class: 'text-input required'
   .input
     .label
-      %i.icon-time.form-icon
-      Event Time
+      %i.icon-calendar.form-icon
+      Event DateTime
     .field
       - if event.id.nil?
-        = f.datepicker :e_time, class: 'text-input required', readonly: 'true'
+        = f.text_field :e_time, class: 'datetime text-input required', readonly: 'true'
       - else
-        = datepicker "event_#{event.id}", "e_time", value: event.e_time, class: 'text-input required', readonly: 'true'
+        = text_field "event_#{event.id}", "e_time", value: event.e_time, class: 'datetime text-input required', readonly: 'true'
   .input
     .label
       %i.icon-refresh.form-icon
       Recurring
     .field.select_field
       = f.select :recurring, options_for_select(["Weekly", "Bi-Weekly", "Monthly", "Yearly"]), include_blank: 'select recurring'
+  .input
+    .label
+      %i.icon-phone.form-icon
+      Phone
+    .field
+      = f.text_field :phone, class: 'text-input'
+  .input
+    .label
+      %i.icon-envelope.form-icon
+      Email
+    .field
+      = f.text_field :email, class: 'text-input'
   .input
     .label
       %i.icon-globe.form-icon
@@ -56,3 +68,6 @@
         #my_companies.my_companies.label
           - locations = current_user ? current_user.locations : []
           = f.select :company_id, options_from_collection_for_select(locations, :id, :name, event.company_id), include_blank: 'select company'
+
+:javascript
+  $(".datetime").datetimepicker();
