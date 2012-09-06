@@ -13,12 +13,23 @@
       #popover_event
         = render partial: 'add_event'
   - else
-    .background
+    #popover_login.background
       .title
         %span.add-title Login
         = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
-      #popover_login.inside
+      .inside
         = render partial: 'shared/login_popup'
+        .input
+          or
+          = link_to "sign up new account", "popover_signup"
+    #popover_signup.background.hidden
+      .title
+        %span.add-title Registration
+        = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
+      .inside
+        = render partial: 'users/signup'
+        .input
+          = link_to "login", "popover_login"
 :javascript
 
   $("#popover a[href=close]").click(function(e){
@@ -27,13 +38,28 @@
     $("#step_choose").removeClass('hidden');
     $("#popover").addClass('hidden');
     $("#main-menu").removeClass("hidden");
+    $(".right-menu").removeClass("hidden");
     e.preventDefault();
   });
-     
+  
+  $("a[href=popover_signup]").click(function(e){
+    e.preventDefault();
+    $("#popover_signup").removeClass("hidden");
+    $("#popover_login").addClass("hidden");
+  });
+  
+  $("a[href=popover_login]").click(function(e){
+    e.preventDefault();
+    $("#popover_login").removeClass("hidden");
+    $("#popover_signup").addClass("hidden");
+  });
+  
   $("button.continue").click(function(e){ 
     next_step = $(this).attr('href');
     if(next_step=="#signin"){
       $("#popover_login form").submit();
+    }else if(next_step=="#signup"){
+      $("#popover_signup form").submit();
     }else if(next_step=="#step0_c"){
       $('.add-title').text("Add your company");
     }else if(next_step=="#step0_e"){

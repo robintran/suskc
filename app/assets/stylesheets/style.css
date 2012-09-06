@@ -124,7 +124,7 @@ body {
     margin: 0;
 }
 
-.left-menu {
+.left-menu, .right-menu {
 	background-color:#0596b5;
 	float: left;
 	width: 255px;
@@ -134,6 +134,8 @@ body {
 	border: 1px solid #007E96;
 	box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.22);
 }
+.right-menu {float:right}
+.right-full {position:absolute; bottom: 15px;  position: absolute;    top: 75px; right:30px}
 
 .title-copy {
 	font-family:Lobster, Georgia italic, serif;
@@ -153,21 +155,21 @@ body {
 	vertical-align: top;
 }
 
-.left-menu .inside {
+.left-menu .inside, .right-menu .inside {
 	background:white;
 	border-radius: 4px;
 	border-top: 1px solid rgba(0, 11, 31, 0.69);
 	width: 255px;
 }
 
-.left-menu .inside .category{
+.left-menu .inside .category, .right-menu .inside .category{
 	padding: 11px;
 	border-bottom: 1px solid #C4C4C4;
 	padding-bottom: 7px;
 	padding-top: 8px;
 }
 
-.left-menu .inside .title {
+.left-menu .inside .title, .left-menu .inside .title {
 	font-family:Helvetica Neue,Arial,sans-serif;
 	font-weight:bold;
 	font-style:normal;

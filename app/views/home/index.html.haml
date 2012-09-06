@@ -82,7 +82,7 @@
           %span=link_to 'back', 'close'
 
 = render partial: "events_menus"
-
+= render partial: "news_feeds/list"
 #add_something 
   = render partial: 'add_something'
             
@@ -90,12 +90,14 @@
   $("a[href=add_something]").click(function(e){
     $("#popover").removeClass('hidden');
     $(".left-menu").addClass("hidden");
+    $(".right-menu").addClass("hidden");
     e.preventDefault();
   });
   
   $("a[href=login_popup]").click(function(e){
     $("#popover").removeClass('hidden');
     $(".left-menu").addClass("hidden");
+    $(".right-menu").addClass("hidden");
     e.preventDefault();
   });
   

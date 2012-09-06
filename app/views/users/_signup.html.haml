@@ -1,0 +1,23 @@
+- user = @user || User.new
+~ form_for user, html: {class: 'form'} do |f|
+  .input.error
+  .input
+    .label
+      %i.icon-envelope.form-icon
+      Email
+    .field
+      = text_field_tag :username, '', class: 'text-input required'
+  .input
+    .label
+      %i.icon-key.form-icon
+      Password
+    .field
+      = password_field_tag :password, '', class: 'text-input required'
+  .input
+    .label
+      %i.icon-key.form-icon
+      Password Comfirmation
+    .field
+      = password_field_tag :password_confirmation, '', class: 'text-input required'
+  .input
+    %button(href="#signup" class="continue") Submit
