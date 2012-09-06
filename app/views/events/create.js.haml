@@ -1,4 +1,6 @@
 - if @errors.blank?
-  location.reload();
+  $("div[id*=step]").addClass('hidden');
+  $("#step2_e").removeClass('hidden');
 - else
   $("#step1_e .errors").html("#{escape_javascript(render partial: 'shared/errors')}")
+$("#fading-image").hide();

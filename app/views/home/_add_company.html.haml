@@ -25,12 +25,16 @@
   .copy Next we'll need some important information. Spill it!
   = render partial: "locations/form"
   %button(href="#step3_c" class="continue") Awesome! What's next?
-    
+
 #step3_c.inside.hidden
-  .progress-bar.step3
-  .copy Would you like to highlight your company? It's a great way to get noticed!
-  %button.continue.no No thanks
-  %button.continue.yes Yes please!
+  .input
+    %p Thank you for your listing, to ensure a community of inspired entrepreneurs the StartupShop team approves every post.  We will let you know when your post goes live.  Don't it doesn't take us long at all!
+    %p In the Mean time tell your friends that you are apart of the Kansas City Startup Community.   
+-##step3_c.inside.hidden
+  -#.progress-bar.step3
+  -#.copy Would you like to highlight your company? It's a great way to get noticed!
+  -#%button.continue.no No thanks
+  -#%button.continue.yes Yes please!
   
 :javascript
   $(document).ready(function(){

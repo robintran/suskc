@@ -308,7 +308,7 @@
                     idata.name + '", "e_time": "' + idata.e_time + '", "recurring": "' + idata.recurring + 
                     '", "url": "' + idata.url + '", "description": "' + idata.description + '"}';
                     
-                    item= "<a href='#', data='" + pdata + "', class='event_item'>" + i.data.name + "</a>";
+                    item= "<a href='#', data='" + pdata + "', class='event_item'>" + idata.name + "</a>";
                     events = events + "<li>" + item + "</li>";
                   }else{
                     pdata= '{"pos": {"lat": ' + points[i].lat + ', "lng": ' + points[i].lng + '}, "name": "' + 
@@ -318,7 +318,7 @@
                     idata.facebook + '", "description": "' + idata.description + 
                     '", "logo": "' + idata.logo + '"}';
                     
-                    item= "<a href='#', data='" + pdata + "', class='location_item'>" + i.data.name + "</a>";
+                    item= "<a href='#', data='" + pdata + "', class='location_item'>" + idata.name + "</a>";
                     companies = companies + "<li>" + item + "</li>";
                   }
                 }
