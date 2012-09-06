@@ -22,10 +22,6 @@
   display: none;
 }
 
-$("#fading-image").live("click", function(e){
-  $(this).hide();
-});
-
 .hidden{
   display: none;
 }
