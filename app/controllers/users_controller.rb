@@ -26,14 +26,11 @@ class UsersController < ApplicationController
       @user.confirm_code = confirm_url
       if @user.save
         ConfirmMailer.email_confirm(@user.username, confirm_url).deliver
-        redirect_to home_path, notice: 'A confirm email has been sent to your email address'
       else
         @errors = @user.errors.full_messages
-        render :new
       end
-    else
-      render :new
     end
+    respond_to :js
   end
   
   def my_account

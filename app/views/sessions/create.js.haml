@@ -1,0 +1,4 @@
+- if @errors.blank?
+  location.reload();
+- else
+  $("#popover_login .errors").html("#{escape_javascript(render partial: 'shared/errors')}")

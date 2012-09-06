@@ -1,5 +1,5 @@
-~ form_tag signin_path(role: 'user'), class: 'form' do
-  .input.error
+~ form_tag signin_path(role: 'user'), class: 'form', remote: true do
+  .input.errors
   .input
     .label
       %i.icon-envelope.form-icon

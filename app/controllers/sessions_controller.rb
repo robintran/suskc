@@ -9,16 +9,13 @@ class SessionsController < ApplicationController
     if user
       if user.confirmed?
         session[:user_id] = user.id
-        url = root_url
-        redirect_to url
       else
         @errors = ["Your account has not been confirmed, please check your email to confirm before you can login."]
-        render "new"
       end
     else
-      @errors = ["Invalid email or password"]
-      render "new"
+      @errors = ["Invalid email or password"]     
     end
+    respond_to :js
   end
 
   def destroy
