@@ -7,9 +7,18 @@
   .copy Start by specifying a category for your company. Choose wisely.
   ~ form_tag '', class: 'form' do
     .input
-      %i.icon-list-ul.form-icon
-      Category
-      = select_tag :category, grouped_options_for_select(Location::CATEGORIES), class: 'category-select'
+      .label
+        %i.icon-list-ul.form-icon
+        Category
+      .field.select_field
+        = select_tag :category, options_for_select(Location::CATEGORIES), class: 'category-select', style: "width: 270px;"
+    .input#startup-sub
+      .label
+        %i.icon-list-ul.form-icon
+        Sub-Categories
+      .field.select_field
+        = select_tag :startup_sub, options_for_select(Location::STARTUP_SUBS), class: 'category-select', style: "width: 270px;"
+      
   %button(href="#step2_c" class="continue") Okey! Next step!
 #step2_c.inside.hidden
   .progress-bar.step2
@@ -22,3 +31,14 @@
   .copy Would you like to highlight your company? It's a great way to get noticed!
   %button.continue.no No thanks
   %button.continue.yes Yes please!
+  
+:javascript
+  $(document).ready(function(){
+    $("select#category").change(function(){
+      if($(this).val()=="Startup"){
+        $("#startup-sub").removeClass('hidden');
+      }else{
+        $("#startup-sub").addClass('hidden');
+      }
+    });
+  });

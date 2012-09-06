@@ -40,7 +40,10 @@
       $('.add-title').text("Add your event");
     }
     if(next_step=="#step2_c"){
-      category = $("#step1_c select").val();
+      category = $("#step1_c select#category").val();
+      if(category == "Startup"){
+        category = $("#step1_c select#startup_sub").val();
+      }
       $("#step2_c form").append("<input type='hidden' name='location[category]' value='" + category + "'/>");
       moveToStep(next_step);
     }else if(next_step=="#step3_c"){
