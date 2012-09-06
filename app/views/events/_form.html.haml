@@ -21,7 +21,7 @@
       %i.icon-refresh.form-icon
       Recurring
     .field.select_field
-      = f.select :recurring, options_for_select(["Weekly", "Bi-Weekly", "Monthly", "Yearly"]), include_blank: 'select recurring'
+      = f.select :recurring, options_for_select(["One Time", "Weekly", "Bi-Weekly", "Monthly", "Yearly"])
   .input
     .label
       %i.icon-phone.form-icon
@@ -39,7 +39,7 @@
       %i.icon-globe.form-icon
       URL
     .field
-      = f.text_field :url, class: 'text-input'
+      = f.text_field :url, placeholder: "http://", class: 'text-input'
   .input
     .label
       %i.icon-comment.form-icon
