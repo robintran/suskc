@@ -8,7 +8,7 @@
       .category= render partial: 'category_item', locals: {cat_name: "Startup", icon_class: "icon-upload", c_class: "parent-menu"}
       .sub-category.hidden
         - Location::STARTUP_SUBS.each do |cat|
-          .category= render partial: 'category_item', locals: {cat_name: cat, icon_class: "icon-fire", c_class: "category_item"}
+          .category= render partial: 'category_item', locals: {cat_name: cat, icon_class: "", c_class: "category_item"}
       .category= render partial: 'category_item', locals: {cat_name: "Accelerator", icon_class: "icon-dashboard", c_class: "category_item"}
       .category= render partial: 'category_item', locals: {cat_name: "Coworking", icon_class: "icon-print", c_class: "category_item"}
       .category= render partial: 'category_item', locals: {cat_name: "Investor", icon_class: "icon-money", c_class: "category_item"}
@@ -82,7 +82,7 @@
           %span=link_to 'back', 'close'
 
 = render partial: "events_menus"
-= render partial: "news_feeds/list"
+
 #add_something 
   = render partial: 'add_something'
             

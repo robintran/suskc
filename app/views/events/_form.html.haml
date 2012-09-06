@@ -39,7 +39,7 @@
       %i.icon-globe.form-icon
       URL
     .field
-      = f.text_field :url, placeholder: "http://", class: 'text-input'
+      = f.text_field :url, value: "#{event.url.blank? ? 'http://' : event.url}", class: 'text-input'
   .input
     .label
       %i.icon-comment.form-icon

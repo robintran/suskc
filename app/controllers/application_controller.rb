@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
       unless first_access
         unless current_user
           flash[:alert] = "You can not access restricted area"
-          redirect_to "/signin"
+          redirect_to root_path
         else
           if current_user.role != "admin"
             flash[:alert] = "You can not access restricted area"
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     def authenticate_user
       unless session[:user_id]
         flash[:alert] = "Please login first"
-        redirect_to "/signin"
+        redirect_to root_path
       end
     end
   

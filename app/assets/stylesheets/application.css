@@ -72,3 +72,13 @@
 button, .c-pointer{
   cursor: pointer;
 }
+
+.messages{
+  bottom: 0;
+  position: absolute;
+  opacity: 0.6;
+  background: #39A0B9;
+  width: 100%;
+  color: yellow;
+  padding: 10px;
+}

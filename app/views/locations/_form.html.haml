@@ -30,13 +30,13 @@
       %i.icon-globe.form-icon
       Web
     .field
-      = f.text_field :url, class: 'text-input'
+      = f.text_field :url, value: "#{location.url.blank? ? 'http://' : location.url}", class: 'text-input'
   .input
     .label
       %i.icon-twitter.form-icon
       Twitter
     .field
-      = f.text_field :twitter, class: 'text-input'
+      = f.text_field :twitter, value: "#{location.twitter.blank? ? '@' : location.twitter}", class: 'text-input'
   .input
     .label
       %i.icon-facebook.form-icon
