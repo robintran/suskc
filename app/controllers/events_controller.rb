@@ -3,7 +3,7 @@ class EventsController < ApplicationController
     @event = Event.new params[:event]
     @errors = []
     check_valid_address
-    @event.active = true
+    @event.active = false
     @event.user_id = current_user.id
     @event.save
     

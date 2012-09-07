@@ -9,10 +9,24 @@ class Admin::DashboardController < ApplicationController
     respond_to :js
   end
   
+  def active_event
+    @event = Event.find params[:id]
+    active = !@event.active
+    @event.update_attributes(active: active)
+    respond_to :js
+  end
+  
   def location_filter
     status = params[:status]
     @locations = Location.actived_list if status=='active'
     @locations = Location.unactived_list if status=='unactive'
+    respond_to :js
+  end
+  
+  def event_filter
+    status = params[:status]
+    @events = Event.actived_list if status=='active'
+    @events = Event.unactived_list if status=='unactive'
     respond_to :js
   end
   
@@ -93,6 +107,7 @@ class Admin::DashboardController < ApplicationController
     def init
       @users = User.all
       @locations = Location.all
+      @events = Event.all
       setting_cost = Setting.where(name: 'up_cost').first
       setting_cost = Setting.create(name: 'up_cost', value: 1.00) unless setting_cost
       @upgrade_cost = setting_cost.value
@@ -101,5 +116,7 @@ class Admin::DashboardController < ApplicationController
       
       @actived_locations = Location.actived_list
       @unactived_locations = Location.unactived_list
+      @actived_events = Event.actived_list
+      @unactived_events = Event.unactived_list
     end
 end

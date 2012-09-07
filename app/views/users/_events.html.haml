@@ -30,6 +30,7 @@
         = event.address || "[#{event.company.name}] #{event.company.address}"
       .span3.no-lmargin{class: "#{bg_class}"}
         = event.description
+        &nbsp;
 
 .hidden
   - @events.each do |event|

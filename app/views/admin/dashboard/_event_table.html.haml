@@ -1,0 +1,17 @@
+- bg_class = 'even'
+- @events.each do |event|
+  - bg_class = bg_class == 'odd' ? 'even' : 'odd'
+  .span12.no-lmargin
+    .span2.no-lmargin{class: "#{bg_class}"}
+      = event.name
+    .span3.no-lmargin{class: "#{bg_class}"}
+      = event.description
+      &nbsp;
+    .span3.no-lmargin{class: "#{bg_class}"}
+      = event.e_address
+    .span2.no-lmargin{class: "#{bg_class}"}
+      = event.user.username
+    .span1.no-lmargin{class: "#{bg_class}", id: "act_text_#{event.id}"}
+      = event.active?
+    .span1.no-lmargin{class: "#{bg_class}", id: "act_ctrl_#{event.id}"}
+      = render partial: "active_event", locals: {event: event}

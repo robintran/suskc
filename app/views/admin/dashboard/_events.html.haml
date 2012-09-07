@@ -1,0 +1,33 @@
+.span12.no-lmargin
+  %p
+    %h2 Events
+%br
+%p
+  = link_to 'actived events', admin_event_filter_path(status: 'active'), class: 'waiting', remote: true
+  |
+  = link_to 'unactived events', admin_event_filter_path(status: 'unactive'), class: 'waiting', remote: true
+.span12.no-lmargin.notice= notice
+.span12.no-lmargin.shadow_box{style: "width: 1140px;"}
+  .span12.no-lmargin
+    .span2.no-lmargin.th
+      Name
+    .span3.no-lmargin.th
+      Description
+    .span3.no-lmargin.th
+      Address
+    .span2.no-lmargin.th
+      User
+    .span1.no-lmargin.th
+      Activate
+    .span1.no-lmargin.th
+      &nbsp;
+  #event_table
+    = render partial: 'event_table'
+:javascript
+  $(document).ready(function(){
+  
+    $("a.waiting").live('click', function(){
+      $("#fading-image").show();
+    });
+    
+  });

@@ -65,7 +65,7 @@
     %h2 Locations Summary
 .span9
   .span2.no-lmargin
-    Registered Location
+    Registered Locations
   .span1= @locations.size
 .span9
   .span2.no-lmargin
@@ -74,7 +74,24 @@
 .span9
   .span2.no-lmargin
     Unactived Locations
-  .span1= @unactived_locations.size       
+  .span1= @unactived_locations.size
+  
+.span9.no-lmargin
+  %p
+    %h2 Events Summary
+.span9
+  .span2.no-lmargin
+    Registered Events
+  .span1= @events.size
+.span9
+  .span2.no-lmargin
+    Actived Events
+  .span1= @actived_events.size
+.span9
+  .span2.no-lmargin
+    Unactived Events
+  .span1= @unactived_events.size
+   
 :javascript
   $(document).ready(function(){
     

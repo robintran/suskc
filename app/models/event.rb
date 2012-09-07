@@ -5,8 +5,20 @@ class Event < ParseResource::Base
   validates :e_time, presence: true
   validates :name, presence: true
   
+  def active?
+    return self.active==true ? 'actived' : 'unactived'
+  end
+  
+  def user
+    User.find(self.user_id)
+  end
+  
   def self.actived_list
     where(active: true).sort_by{|e| e.name}
+  end
+  
+  def self.unactived_list
+    where(active: false) | where(active: nil)
   end
   
   def self.search term

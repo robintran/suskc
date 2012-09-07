@@ -4,6 +4,8 @@
   = render partial: "users"
 #tab_3{class: "#{'hidden' if @show_tab != '3'}"}
   = render partial: "locations"
+#tab_4{class: "#{'hidden' if @show_tab != '4'}"}
+  = render partial: "events"
   
 :javascript
   $(document).ready(function(){

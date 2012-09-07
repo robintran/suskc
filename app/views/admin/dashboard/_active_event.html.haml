@@ -1,0 +1,4 @@
+- if event.active
+  = link_to 'Deactive', admin_active_event_path(id: event.id), remote: true, class: 'waiting'
+- else
+  = link_to 'Active', admin_active_event_path(id: event.id), remote: true, class: 'waiting'

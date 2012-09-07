@@ -1,0 +1,3 @@
+$("#act_text_#{@event.id}").html("#{@event.active?}");
+$("#act_ctrl_#{@event.id}").html("#{escape_javascript(render partial: 'active_event', locals: {event: @event})}");
+$("#fading-image").hide();
