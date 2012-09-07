@@ -498,7 +498,7 @@ body {
 	padding-left: 5px;
 }
 
-.category-select {
+.category-select, .select_field select{
 	margin-left: 9px;
 	height: 33px;
 	border-radius: 4px;
@@ -507,6 +507,13 @@ body {
 	font-size: 16px;
 	margin-top:10px;
 }
+
+.select_field select{
+  width: 262px;
+  margin-left: 20px;
+  padding-top: 4px;
+}
+
 
 .form-icon {
 	margin-right: 7px;

@@ -21,7 +21,7 @@
       %i.icon-refresh.form-icon
       Recurring
     .field.select_field
-      = f.select :recurring, options_for_select(["One Time", "Weekly", "Bi-Weekly", "Monthly", "Yearly"])
+      = f.select :recurring, options_for_select(["One Time", "Weekly", "Bi-Weekly", "Monthly", "Yearly"]), class: 'category-select', style: "width: 270px;"
   .input
     .label
       %i.icon-phone.form-icon
@@ -70,4 +70,6 @@
           = f.select :company_id, options_from_collection_for_select(locations, :id, :name, event.company_id), include_blank: 'select company'
 
 :javascript
-  $(".datetime").datetimepicker();
+  $(".datetime").datetimepicker({
+    ampm: true
+  });
