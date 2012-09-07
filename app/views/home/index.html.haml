@@ -406,7 +406,7 @@
     $("#company span.twitter").html(data.twitter);
     $("#company span.facebook").html(data.facebook);
     $("#company .company-description").html(data.description);
-    if(data.url.length < 1){
+    if(data.url.length < 1 || data.url == 'http://'){
       $("#company .info-item.url").addClass('hidden');
     }
     if(data.twitter.length < 1){

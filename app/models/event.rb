@@ -26,9 +26,13 @@ class Event < ParseResource::Base
   
   def datetime
     begin
-      date = DateTime.strptime(self.e_time, "%m/%d/%Y %H:%M")
+      date = DateTime.strptime(self.e_time, "%m/%d/%Y %I:%M %p")
     rescue
-      date = DateTime.strptime(self.e_time, "%m/%d/%Y")
+      begin
+        date = DateTime.strptime(self.e_time, "%m/%d/%Y %H:%M")
+      rescue
+        date = DateTime.strptime(self.e_time, "%m/%d/%Y")
+      end
     end
     return date
   end

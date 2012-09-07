@@ -18,8 +18,8 @@ class Point
     point[:lng] = event.longitude
     icon = "http://maps.google.com/mapfiles/ms/icons/red-pushpin.png"
     point[:options] = {clickable: true, icon: icon}
-    
-    point[:data] = {id: event.id, ptype: "event", name: event.name, e_time: event.e_time, recurring: event.recurring, 
+    e_time = event.datetime.strftime("%m/%d%Y %I:%M %p");
+    point[:data] = {id: event.id, ptype: "event", name: event.name, e_time: e_time, recurring: event.recurring, 
         url: event.url, description: event.description}
     return point
   end
@@ -28,12 +28,12 @@ class Point
     points = []
     unless locations.blank?
       locations.each do |location|
-        points << make_point(location)
+        points << make_point(location) unless(location.latitude.blank? || location.longitude.blank?)
       end
     end
     unless events.blank?
       events.each do |event|
-        points << make_epoint(event)
+        points << make_epoint(event) unless(event.latitude.blank? || event.longitude.blank?)
       end
     end
     return points

@@ -24,14 +24,14 @@ class EventsController < ApplicationController
   
   private
     def check_valid_address
-      if params[:use_company]
+      if params[:use_company] && params[:event][:company_id]
         @event.address = nil
-        company = Location.find @event.company_id
+        company = Location.find params[:event][:company_id]
         @event.latitude = company.latitude
         @event.longitude = company.longitude
-      elsif @event.address
+      elsif params[:event][:address]
         @event.company_id = nil
-        addr = Geokit::Geocoders::GoogleGeocoder.geocode(@event.address)
+        addr = Geokit::Geocoders::GoogleGeocoder.geocode(params[:event][:address])
         if addr.success
           @event.latitude = addr.lat
           @event.longitude = addr.lng

@@ -23,7 +23,7 @@
             .info-item{class: "#{'hidden' if event.email.blank?}"}
               %i.icon-envelope
               %span= event.email
-            .info-item{class: "#{'hidden' if event.url.blank?}"}
+            .info-item{class: "#{'hidden' if(event.url.blank? || event.url=='http://') }"}
               %i.icon-globe
               %span= event.url
           .company-description
@@ -45,7 +45,7 @@
               %strong= event.datetime.day
             %div
               %strong= event.name
-              %small= event.datetime.strftime("%H:%M")
+              %small= event.datetime.strftime("%I:%M %p")
 :javascript
   $("ul.list-events li").click(function(){
     id = $(this).attr("id");

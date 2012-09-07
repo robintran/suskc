@@ -20,10 +20,11 @@
         %i.icon-info-sign.info-icon
       .right.no-lmargin
         .add-company-right.span2.no-lmargin
-          %span.add-icon= image_tag 'add.png'
-          %span.add-company-copy
-            = link_to "Add Something", "add_something"# link_to 'Register', '/signup'
-            %span
+          - if params[:action] != 'my_account'
+            %span.add-icon= image_tag 'add.png'
+            %span.add-company-copy
+              = link_to "Add Something", "add_something"# link_to 'Register', '/signup'
+              %span
         .span.no-lmargin{style: "float: right;"}
           - if current_user           
             .span.no-lmargin{style: "margin: -3px 0 0 25px;"}= link_to "<i class='icon-signout signin-icon'></i>".html_safe, '/signout'
