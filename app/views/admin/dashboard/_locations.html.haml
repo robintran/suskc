@@ -1,4 +1,11 @@
 .span12.no-lmargin
+  %h2 Import Loctions from file
+  ~ form_tag admin_import_locations_path, multipart: true do
+    .span10.no-lmargin
+      .span1 CSV file
+      .span6= file_field_tag :file, size: '13'
+    .span10.no-lmargin= submit_tag "Upload"
+.span12.no-lmargin
   %p
     %h2 Locations
 %br
@@ -6,7 +13,6 @@
   = link_to 'actived locations', admin_location_filter_path(status: 'active'), class: 'waiting', remote: true
   |
   = link_to 'unactived locations', admin_location_filter_path(status: 'unactive'), class: 'waiting', remote: true
-.span12.no-lmargin.notice= notice
 .span12.no-lmargin.shadow_box{style: "width: 1140px;"}
   .span12.no-lmargin
     .span2.no-lmargin.th

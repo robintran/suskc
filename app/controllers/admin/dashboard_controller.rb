@@ -30,6 +30,66 @@ class Admin::DashboardController < ApplicationController
     respond_to :js
   end
   
+  def import_locations
+    success_count = 0
+    fails_count = 0
+    begin
+      require 'csv'
+      uploader = FileUploader.new
+      random = (0...8).map{65.+(rand(25)).chr}.join
+      params[:file].original_filename = "#{random}_#{params[:file].original_filename}" 
+      uploader.store!(params[:file])
+
+      csv_text = File.read(uploader.path)
+      csv = CSV.parse(csv_text, :headers => true)
+      loc_arr = [:name, :description, :address, :phone, :email, :url, :twitter, :facebook, :active, 
+               :paid, :logo, :user_id, :category, :sub_category]
+      loc_hash={}
+      
+      csv.each do |row|
+        14.times do |i|
+          puts row[i]
+        end
+        @location = Location.new
+        @location.name = row[0]
+        @location.description = row[1]
+        @location.address = row[2]
+        @location.phone = row[3]
+        @location.email = row[4]
+        @location.url = row[5]
+        @location.twitter = row[6]
+        @location.facebook = row[7]
+        @location.active = row[8].blank? ? false : (row[8].downcase=='true' ? true : false)
+        @location.paid = row[9].blank? ? false : (row[9].downcase=='true' ? true : false)
+        @location.logo = row[10] unless row[10].blank?
+        
+        user = User.where(username: row[11]).first
+        user = current_user unless user
+        
+        @location.user_id = user.id
+        @location.category = row[12]
+        @location.sub_category = row[13]
+        
+        if(!row[2].blank? && check_valid_address(row[2]))
+          @location.save
+          if @location.errors.blank?
+            success_count += 1
+          else
+            fails_count += 1
+            puts @location.errors.full_messages
+            flash[:alert] = @location.errors.full_messages.first
+          end
+        else
+          fails_count += 1
+        end
+      end
+    rescue Exception => e
+      flash[:alert] = e.message
+    end
+    flash[:notice] = "#{success_count} imported, #{fails_count} fails"
+    redirect_to '/admin'
+  end
+  
   def index
     init
     @user = current_user
@@ -118,5 +178,16 @@ class Admin::DashboardController < ApplicationController
       @unactived_locations = Location.unactived_list
       @actived_events = Event.actived_list
       @unactived_events = Event.unactived_list
+    end
+    
+    def check_valid_address address
+      addr = Geokit::Geocoders::GoogleGeocoder.geocode(address)
+      if addr.success
+        @location.latitude = addr.lat
+        @location.longitude = addr.lng
+        return true
+      else
+        return false
+      end
     end
 end
