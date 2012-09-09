@@ -33,23 +33,20 @@ class Admin::DashboardController < ApplicationController
   def import_locations
     success_count = 0
     fails_count = 0
+    uploader = FileUploader.new
     begin
       require 'csv'
-      uploader = FileUploader.new
+      
       random = (0...8).map{65.+(rand(25)).chr}.join
       params[:file].original_filename = "#{random}_#{params[:file].original_filename}" 
       uploader.store!(params[:file])
 
       csv_text = File.read(uploader.path)
+      csv_text = csv_text.unpack("C*").pack("U*")
+      
       csv = CSV.parse(csv_text, :headers => true)
-      loc_arr = [:name, :description, :address, :phone, :email, :url, :twitter, :facebook, :active, 
-               :paid, :logo, :user_id, :category, :sub_category]
-      loc_hash={}
       
       csv.each do |row|
-        14.times do |i|
-          puts row[i]
-        end
         @location = Location.new
         @location.name = row[0]
         @location.description = row[1]
@@ -70,7 +67,7 @@ class Admin::DashboardController < ApplicationController
         @location.category = row[12]
         @location.sub_category = row[13]
         
-        if(!row[2].blank? && check_valid_address(row[2]))
+        if(check_row(row))
           @location.save
           if @location.errors.blank?
             success_count += 1
@@ -83,9 +80,12 @@ class Admin::DashboardController < ApplicationController
           fails_count += 1
         end
       end
+      uploader.remove!
     rescue Exception => e
       flash[:alert] = e.message
+      uploader.remove!
     end
+    
     flash[:notice] = "#{success_count} imported, #{fails_count} fails"
     redirect_to '/admin'
   end
@@ -189,5 +189,12 @@ class Admin::DashboardController < ApplicationController
       else
         return false
       end
+    end
+    
+    def check_row row
+      return false if (row[0].blank? || row[2].blank? || row[3].blank? || row[4].blank?)
+      return false if (row[0]=='n/a' || row[2]=='n/a' || row[3]=='n/a' || row[4]=='n/a')
+      return false unless check_valid_address(row[2])
+      return true
     end
 end
