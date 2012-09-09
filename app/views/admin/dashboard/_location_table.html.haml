@@ -1,7 +1,7 @@
 - bg_class = 'even'
 - @locations.each do |location|
   - bg_class = bg_class == 'odd' ? 'even' : 'odd'
-  .span12.no-lmargin
+  .span13.no-lmargin{id: "loc_row_#{location.id}"}
     .span2.no-lmargin{class: "#{bg_class}"}
       = location.name
     .span3.no-lmargin{class: "#{bg_class}"}
@@ -15,3 +15,10 @@
       = location.active?
     .span1.no-lmargin{class: "#{bg_class}", id: "act_ctrl_#{location.id}"}
       = render partial: "active_location", locals: {location: location}
+    .span1.no-lmargin{class: "#{bg_class}"}
+      = link_to 'delete', location_path(location), method: 'delete', remote: true, class: "delete"
+
+:javascript
+  $("a.delete").click(function(){
+    $("#fading-image").show();
+  });

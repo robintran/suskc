@@ -32,6 +32,12 @@ class LocationsController < ApplicationController
     respond_to :js 
   end
   
+  def destroy
+    @location = Location.find params[:id]
+    @location.destroy
+    respond_to :js
+  end
+  
   def locations_by_category
     @locations = Location.where(category: params[:category], active: true)
     @icon_class = params[:icon_class]
