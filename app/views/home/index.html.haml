@@ -54,7 +54,7 @@
 #category.left-menu.full.hidden
   .background
     .title
-      %i.icon-save.title-icon
+      %i#cat-tit-icon.icon-save.title-icon
       %span.title-copy Digital Company
       = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
     .inside.inside-full
@@ -124,7 +124,7 @@
   });
   
   function getIconClass(category){
-    icon_class = 'icon-fire';
+    icon_class = '';
     if(category=='Startup'){
       icon_class = 'icon-fire';
     }else if(category=='Investor'){
@@ -171,6 +171,8 @@
     icon_class = getIconClass(category);
     data_obj = {category: category}
     $("#category .title-copy").html(category);
+    $("#category .title i#cat-tit-icon").removeClass();
+    $("#category .title i#cat-tit-icon").addClass("title-icon " + icon_class);
     $.ajax({
       type: "GET",
       url: $url,
@@ -394,6 +396,8 @@
   }
   
   function load_company_menu(data){
+    $("#category .title i#cat-tit-icon").removeClass();
+    $("#category .title i#cat-tit-icon").addClass("title-icon " + getIconClass(data.category));
     $("#category .title-copy").html(data.category);
     $("#category.left-menu").removeClass('hidden');
     $("#company-image img").attr('src', data.logo)
