@@ -72,7 +72,7 @@
       .inside.inside-full
         - @locations.each do |loc|
           - logo = loc.logo.blank? ? "/assets/think-big.png" : loc.logo  
-          - data = {"pos"=> {"lat"=> loc.latitude, "lng"=> loc.longitude}, "name"=> "#{loc.name}", "phone" => "#{loc.phone}", "email"=> "#{loc.email}", "address"=> "#{loc.address}", "id"=> "#{loc.id}", "url"=> "#{loc.url}", "twitter"=> "#{loc.twitter}", "facebook"=> "#{loc.facebook}", "description"=> "#{loc.description}", "logo"=> "#{logo}", "events" => loc.js_events}.to_json
+          - data = {"pos"=> {"lat"=> loc.latitude, "lng"=> loc.longitude}, "name"=> "#{loc.name}", "phone" => "#{loc.phone}", "email"=> "#{loc.email}", "address"=> "#{loc.address}", "id"=> "#{loc.id}", "url"=> "#{loc.url}", "twitter"=> "#{loc.t_user}", "facebook"=> "#{loc.f_user}", "description"=> "#{loc.description}", "logo"=> "#{logo}", "events" => loc.js_events}.to_json
           .category.company
             = link_to "<i class='icon-map-marker'></i>".html_safe, '#', data: data, class: 'location_item'
             %span.title=link_to loc.name, '#', data: data, class: 'location_item'
@@ -405,10 +405,16 @@
     $("#company .address").html(data.address);
     $("#company .city").html("Kansas");
     $("#company span.phone").html(data.phone);
-    $("#company span.email").html(data.email);
-    $("#company span.url").html(data.url);
-    $("#company span.twitter").html(data.twitter);
-    $("#company span.facebook").html(data.facebook);
+    $("#company span.email").html("<a href='mailto:" + data.email + "'>" + data.email + "</a>");
+    url = data.url;
+    
+    if(url.indexOf("http") == -1){
+      url = "http://" + url;
+    }
+  
+    $("#company span.url").html("<a href='" + url + "'>" + data.url + "</a>");
+    $("#company span.twitter").html("<a href='http://twitter.com/" + data.twitter + "'>@" + data.twitter + "</a>");
+    $("#company span.facebook").html("<a href='http://www.facebook.com/" + data.facebook + "'>/" + data.facebook + "</a>");
     $("#company .company-description").html(data.description);
     if(data.url.length < 1 || data.url == 'http://'){
       $("#company .info-item.url").addClass('hidden');

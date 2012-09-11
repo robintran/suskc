@@ -29,6 +29,19 @@ class Location < ParseResource::Base
     return events_arr
   end
   
+  def t_user
+    t_name = ''
+    if self.twitter
+      t_name = self.twitter.split('/').last
+      t_name = t_name.split('@').last
+    end
+    t_name
+  end
+  
+  def f_user
+    self.facebook.split('/').last if self.facebook
+  end
+  
   def user
     User.find(self.user_id)
   end

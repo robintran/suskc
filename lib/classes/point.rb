@@ -5,7 +5,7 @@ class Point
     point[:lng] = location.longitude
     logo = location.logo 
     logo = "/assets/think-big.png" if logo.blank?
-    point[:data] = {id: location.id, name: location.name, email: location.email, address: location.address, phone: location.phone, url: location.url, twitter: location.twitter, facebook: location.facebook, description: location.description, logo: logo, events: location.js_events.to_json, category: location.category}
+    point[:data] = {id: location.id, name: location.name, email: location.email, address: location.address, phone: location.phone, url: location.url, twitter: location.t_user, facebook: location.f_user, description: location.description, logo: logo, events: location.js_events.to_json, category: location.category}
     
     icon = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" if location.paid
     point[:options] = {clickable: true, icon: icon}
