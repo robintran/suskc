@@ -41,8 +41,7 @@ class Admin::DashboardController < ApplicationController
       params[:file].original_filename = "#{random}_#{params[:file].original_filename}" 
       uploader.store!(params[:file])
 
-      csv_text = File.read(uploader.path)
-      csv_text = csv_text.unpack("C*").pack("U*")
+      csv_text = File.read(uploader.path, { encoding: "UTF-8" })
       
       csv = CSV.parse(csv_text, :headers => true)
       
