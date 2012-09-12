@@ -15,6 +15,9 @@ StartupShopKC::Application.routes.draw do
   get 'locations_by_category' => 'locations#locations_by_category'
   match 'confirm_email/:code' => 'users#confirm_email'
   
+  match 'auth/:provider/callback', to: 'sessions#provider'
+  match 'auth/failure', to: redirect('/')
+
   resources :users
   resources :locations
   resources :events

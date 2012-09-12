@@ -5,10 +5,10 @@
         News Feed
     .inside.inside-full
       %ul.list-news-feed
-        %li
-          = link_to image_tag("ava.png"), "#"
-          %div
-            = link_to "Blake Miller", "#"
-            Come join us tonight for
-            = "#Event at Company"
-            %span.time 23m
+        - @news_feeds.each do |feed|
+          %li
+            = link_to image_tag(feed.user.profile_image_url), "http://twitter.com/#{feed.user.screen_name}", target: '_blank'
+            %div
+              = link_to feed.user.name, "http://twitter.com/#{feed.user.screen_name}", target: '_blank'
+              = feed.text
+            %span.time= time_ago_in_words(feed.created_at).gsub(' hour', 'h').gsub('about ', '').gsub(' minute', 'm')

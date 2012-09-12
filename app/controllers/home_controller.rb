@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   def index
     @locations = Location.actived_list
     @events = Event.actived_list
+    @news_feeds = Twitter.user_timeline("mytest1221") + Twitter.user_timeline('railstutorial')
   end
     
   def search

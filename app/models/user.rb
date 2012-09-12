@@ -15,6 +15,6 @@ class User < ParseUser
   
   def locations
     Location.where(user_id: self.id)
-  end
-  
+  end  
+
 end

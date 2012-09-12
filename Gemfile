@@ -10,6 +10,7 @@ gem 'parse_resource'
 gem 'rails', '3.2.3'
 gem 'rmagick'
 gem 'stripe'
+gem 'twitter'
 gem 'twitter-bootstrap-rails'
 
 group :assets do
