@@ -50,7 +50,13 @@ class Event < ParseResource::Base
   end
   
   def e_address
-    company ? company.address : address
+    addr = company ? company.address : address
+    if addr.blank? && latitude && longitude
+      geo = Geokit::Geocoders::GoogleGeocoder.reverse_geocode("#{latitude},#{longitude}")
+      addr = geo.full_address
+      self.update_attributes(address: addr)
+    end
+    addr
   end
   
 end

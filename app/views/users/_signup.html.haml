@@ -18,6 +18,6 @@
       %i.icon-key.form-icon
       Password Comfirmation
     .field
-      = f.password_field :password_confirmation, class: 'text-input required'
+      = password_field_tag :password_confirmation, '', class: 'text-input required'
   .input
     %button(href="#signup" class="continue") Submit
