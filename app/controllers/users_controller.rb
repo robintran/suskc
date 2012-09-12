@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_filter :authenticate_user, only: [:my_account]
   
   def confirm_email
-    user = User.where(confirm_code: params[:code]).first
+    confirm_url = "http://#{request.host_with_port}/confirm_email/#{params[:code]}"
+    user = User.where(confirm_code: confirm_url).first
     if user
       user.update_attributes(confirm_code: 'confirmed')
       redirect_to '/', notice: 'Your email has been confirm successfully'
