@@ -19,12 +19,6 @@
         .left-logo= link_to image_tag('logo.png'), '/'
         %i.icon-info-sign.info-icon
       .right.no-lmargin
-        .add-company-right.span2.no-lmargin
-          - if params[:action] != 'my_account'
-            %span.add-icon= image_tag 'add.png'
-            %span.add-company-copy
-              = link_to "Add Something", "add_something"# link_to 'Register', '/signup'
-              %span
         .span.no-lmargin{style: "float: right;"}
           - if current_user           
             .span.no-lmargin{style: "margin: -3px 0 0 25px;"}= link_to "<i class='icon-signout signin-icon'></i>".html_safe, '/signout'
@@ -32,6 +26,13 @@
           - else          
             .span.no-lmargin{style: "margin: -3px 0 0 25px;"}= link_to "<i class='icon-signin signin-icon'></i>".html_safe, "login_popup"
             .span1.no-lmargin{style: "margin: 20px 0 0 5px; text-align: left;"}= link_to "Sign In", "login_popup"
+        .add-company-right.span3.no-lmargin
+          - if params[:action] != 'my_account'
+            %span.add-icon= image_tag 'add.png'
+            %span.add-company-copy
+              = link_to "Add Something", "add_something"
+            %span
+              = link_to 'Tweet', 'https://twitter.com/share', class: 'twitter-share-button', "data-text" => 'I support #KCTech', "data-via" => 'startupshopkc', "data-lang" => 'en'
       .search-input
         ~ form_tag search_path do
           = text_field_tag :term, '', class: 'search'
@@ -42,4 +43,4 @@
       = yield
     #fading-image
       = image_tag('loading.gif')
-    = render partial: "shared/messages"
+    = render partial: "shared/messages"  

@@ -99,7 +99,7 @@ body {
 }
 
 .add-company-right {
-	float: left;
+	float: right;
 	margin-top: 20px;
 	padding-right: 10px;
 }
@@ -114,7 +114,6 @@ body {
 }
 
 .top-bar .right {
-	width: 352px;
 	float: right;
 	margin-left: 50px;
 }
