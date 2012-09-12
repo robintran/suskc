@@ -1,10 +1,10 @@
 #step0_c.inside.hidden
   .progress-bar.step0
-  .copy Adding your company to StartupShopKC is extremely easy. Simply follow the 4 step process. You can also highlight your company to blah blah blah
+  .copy Follow these easy steps to add your Company to StartupShopKC.
   %button(href="#step1_c" class="continue") I'm ready. let's begin!   
 #step1_c.inside.hidden
   .progress-bar.step1
-  .copy Start by specifying a category for your company. Choose wisely.
+  .copy What Category does your company fall into?
   ~ form_tag '', class: 'form' do
     .input
       .label
@@ -22,7 +22,7 @@
   %button(href="#step2_c" class="continue") Okey! Next step!
 #step2_c.inside.hidden
   .progress-bar.step2
-  .copy Next we'll need some important information. Spill it!
+  .copy Who Are you and where are you located?
   = render partial: "locations/form"
   %button(href="#step3_c" class="continue") Awesome! What's next?
 
