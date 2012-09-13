@@ -5,3 +5,8 @@
     = link_to "<i class='#{icon_class}'></i>".html_safe, "#", data: data, class: "location_item"
     %span.title= link_to loc.name, "#", data: data, class: "location_item"
     = link_to "<i class='icon-arrow-right arrow-icon'></i>".html_safe, "#", data: data, class: "location_item"
+    .info
+      .address
+        = loc.address
+      .city
+        = loc.email
