@@ -577,7 +577,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e06797', end
 	margin-left: 20px;
 }
 
-.popover {-webkit-box-shadow:  0px 5px 5px 0px #bababa; box-shadow:  0px 5px 5px 0px #bababa; position:absolute; width:205px; background-color:#fff; position:absolute; top: -180px; left:-105px; line-height:normal; border:#a19d98 1px solid; border-radius:6px; -webkit-border-radius:6px; font-size:14px;}
+.popover {-webkit-box-shadow:  0px 5px 5px 0px #bababa; box-shadow:  0px 5px 5px 0px #bababa; position:absolute; width:205px; background-color:#fff; position:absolute; bottom: 50px; left:-105px; line-height:normal; border:#a19d98 1px solid; border-radius:6px; -webkit-border-radius:6px; font-size:14px;}
 	.popover p {margin:0; }
 	.pop-content {padding:5px 10px; position:relative}	
 	.pop-content .arr {background:url(../assets/arr-popup.png) top left no-repeat; width:33px; height:19px; position:absolute; bottom:-17px; left:40%;  }

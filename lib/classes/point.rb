@@ -19,7 +19,7 @@ class Point
     icon = "http://maps.google.com/mapfiles/ms/icons/red-pushpin.png"
     point[:options] = {clickable: true, icon: icon}
     e_time = event.datetime.strftime("%m/%d%Y %I:%M %p");
-    point[:data] = {id: event.id, ptype: "event", name: event.name, e_time: e_time, recurring: event.recurring, 
+    point[:data] = {id: event.id, ptype: "event", name: event.name, address: event.e_address,e_time: e_time, recurring: event.recurring, 
         url: event.url, description: event.description}
     return point
   end

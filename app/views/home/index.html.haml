@@ -209,6 +209,7 @@
     $(this).addClass('active');
     data = JSON.parse($(this).attr("data"));
     pos = data.pos;
+    icon_class = getIconClass(data.category);
     latLng = new google.maps.LatLng(pos.lat, pos.lng);
     content1 = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + data.email + "<br/>" + data.address + "</div></div>";
     content = "<div class='popover'><div class='pop-content'><div class='item-pop head-title-pop'><i class='category_item " + icon_class + "'></i><span class='title'>" + data.name + "</span></div><div class='item-pop'><i class='icon-map-marker'></i><span class='title'>" + data.address + "</span></div><div class='item-pop'><i class='icon-globe company-info-icon'></i><span>" + data.url + "</span></div><span class='arr'></span></div></div>";
@@ -352,7 +353,9 @@
               info = '';
               if(data.ptype=="event"){
                 info = data.e_time;
-                content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + info + "</div></div>";
+                content1 = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + info + "</div></div>";
+                content = "<div class='popover'><div class='pop-content'><div class='item-pop head-title-pop'><i class='category_item icon-pushpin'></i><span class='title'>" + data.name + "</span></div><div class='item-pop'><i class='icon-map-marker'></i><span class='title'>" + data.address + "</span></div><div class='item-pop'><i class='icon-time company-info-icon'></i><span>" + data.e_time + "</span></div><span class='arr'></span></div></div>";
+                content1 = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + info + "</div></div>";
                 $(".left-menu.full").addClass('hidden');
                 $("#events").removeClass('hidden');
                 $("div[id*=event-info_]").addClass('hidden');

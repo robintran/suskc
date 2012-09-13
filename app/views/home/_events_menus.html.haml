@@ -54,7 +54,8 @@
     data = JSON.parse($(this).attr("data"));
     pos = data.pos;
     latLng = new google.maps.LatLng(pos.lat, pos.lng);
-    content = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + data.e_time + "<br/>" + data.address + "</div></div>";
+    content1 = "<div class='marker_info'><div class='right close'><a href='#'>x</a></div><div class='info'><h3>" + data.name + "</h3>" + data.e_time + "<br/>" + data.address + "</div></div>";
+    content = "<div class='popover'><div class='pop-content'><div class='item-pop head-title-pop'><i class='category_item icon-pushpin'></i><span class='title'>" + data.name + "</span></div><div class='item-pop'><i class='icon-map-marker'></i><span class='title'>" + data.address + "</span></div><div class='item-pop'><i class='icon-time company-info-icon'></i><span>" + data.e_time + "</span></div><span class='arr'></span></div></div>";
     make_overlay(latLng, content, '');      
     $("#mymap").gmap3({action: 'setCenter', args:[latLng]});
     $("#mymap").gmap3('get').setZoom(16);
