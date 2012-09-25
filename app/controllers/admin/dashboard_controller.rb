@@ -127,10 +127,42 @@ class Admin::DashboardController < ApplicationController
     end
   end
   
+  def remove_twitter
+    @name = params[:name]
+    t_accounts = Setting.where(name: 'twitters').first
+    t_arr = t_accounts.svalue.split(',')
+    t_arr -= [@name]
+    t_accounts.update_attributes(svalue: t_arr.join(','))
+    
+    respond_to :js
+  end
+  
   def update_cost
     @cost = params[:cost]
     setting_cost = Setting.where(name: 'up_cost').first
     setting_cost.update_attributes(value: @cost)
+    respond_to :js
+  end
+  
+  def update_twitter
+    @name = params[:name]
+    t_accounts = Setting.where(name: 'twitters').first
+    t_arr = t_accounts.svalue.split(',')
+    @errors =[]
+    if t_arr.include?(@name)
+      @errors << "name already in list"
+    else
+     begin
+      Twitter.user_timeline(@name)
+     rescue
+      @errors << "Twitter name invalid"
+     end
+    end
+    if @errors.blank?
+      t_arr << @name
+      t_accounts.update_attributes(svalue: t_arr.join(','))
+    end
+    
     respond_to :js
   end
   
@@ -170,6 +202,9 @@ class Admin::DashboardController < ApplicationController
       setting_cost = Setting.where(name: 'up_cost').first
       setting_cost = Setting.create(name: 'up_cost', value: 1.00) unless setting_cost
       @upgrade_cost = setting_cost.value
+      t_accounts = Setting.where(name: 'twitters').first
+      t_accounts = Setting.create(name: 'twitters', svalue: '') unless t_accounts
+      @t_accounts = t_accounts.svalue.split(',')
       @registed_users = User.where(role: 'user')
       @confirmed_users = User.where(role: 'user', confirm_code: 'confirmed')
       

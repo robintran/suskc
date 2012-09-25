@@ -1,0 +1,7 @@
+- if @errors.any?
+  $('#add_twitter .errors').html("#{escape_javascript(render partial: 'shared/errors')}");
+- else
+  $('#add_twitter .errors').html('');
+  $('#no_account').html('');
+  $('#twitter_names').append("#{escape_javascript(render partial: 'twitter_row', locals: {name: @name})}");
+$("#fading-image").hide();

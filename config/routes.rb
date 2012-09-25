@@ -31,7 +31,9 @@ StartupShopKC::Application.routes.draw do
     get 'location_filter' => 'dashboard#location_filter'
     get 'active_event' => 'dashboard#active_event'
     get 'event_filter' => 'dashboard#event_filter'
+    get 'remove_twitter' => 'dashboard#remove_twitter'
     post 'update_cost' => 'dashboard#update_cost'
+    post 'update_twitter' => 'dashboard#update_twitter'
     post 'import_locations' => 'dashboard#import_locations', as: 'import_locations'
     match "/" => "dashboard#index"
     root :to => "admin/dashboard#index"

@@ -1,3 +1,3 @@
 class Setting < ParseResource::Base
-  fields :name, :value
+  fields :name, :value, :svalue
 end

@@ -3,47 +3,67 @@
   %p
     %h2 Settings
 .span9
-  .span9.no-lmargin
-    .span1.no-lmargin
-      Email
-    .span7.no-lmargin
-      = current_user.username
-  .span9.no-lmargin
-    .span1.no-lmargin
-      Password
-    .span7.no-lmargin
-      ********
-  .span9.no-lmargin{style: "margin-top: 10px;"}
-    %p= link_to 'edit', '#edit_account', class: 'show_form'
-  #edit_account.span9.no-lmargin{class: "#{@display_form==true ? '' : 'hidden'}"}
-    ~ form_for @user, url: admin_update_user_path(id: @user.id) do |f|
-      .errors.span12{style: "margin-bottom: 20px"}
-        = render partial: "shared/errors"
-      .field.span12
-        .span1
-          %label Email
-        .span4= f.email_field :username
-      .field.span12
-        .span1
-          %label New Password
-        .span4= f.password_field :password
-      .field.span12
-        .span1
-          %label Password Confirmation
-        .span4= password_field_tag :password_confirmation
-      .field.span12{style: "margin-bottom: 20px;"}
-        .span1= submit_tag 'Update'
-.span9
-  .span2.no-lmargin
-    Upgrade location cost
-  #cost_value.span1.no-lmargin
-    = number_to_currency(@upgrade_cost)
-  .span1.no-lmargin
-    = link_to 'edit', '#edit_cost', class: 'show_form'
-#edit_cost.hidden.span9
-  ~ form_tag admin_update_cost_path, remote: true do
-    = text_field_tag :cost
-    = submit_tag 'save'
+  .span4.no-lmargin
+    .span4.no-lmargin
+      .span1.no-lmargin
+        Email
+      .span3.no-lmargin
+        = current_user.username
+    .span4.no-lmargin
+      .span1.no-lmargin
+        Password
+      .span3.no-lmargin
+        ********
+    .span4.no-lmargin{style: "margin-top: 10px;"}
+      %p= link_to 'edit', '#edit_account', class: 'show_form'
+    #edit_account.span4.no-lmargin{class: "#{@display_form==true ? '' : 'hidden'}"}
+      ~ form_for @user, url: admin_update_user_path(id: @user.id) do |f|
+        .errors.span3.no-lmargin{style: "margin-bottom: 20px"}
+          = render partial: "shared/errors"
+        .field.span4.no-lmargin
+          .span1.no-lmargin
+            %label Email
+          .span3.no-lmargin= f.email_field :username
+        .field.span4.no-lmargin
+          .span1.no-lmargin
+            %label New Password
+          .span3.no-lmargin= f.password_field :password
+        .field.span4.no-lmargin
+          .span1.no-lmargin
+            %label Password Confirmation
+          .span4.no-lmargin= password_field_tag :password_confirmation
+        .field.span4.no-lmargin{style: "margin-bottom: 20px;"}
+          .span1= submit_tag 'Update'
+    .span4.no-lmargin
+      .span2.no-lmargin
+        Upgrade location cost
+      #cost_value.span1.no-lmargin
+        = number_to_currency(@upgrade_cost)
+      .span1.no-lmargin
+        = link_to 'edit', '#edit_cost', class: 'show_form'
+    #edit_cost.hidden.span4.no-lmargin
+      ~ form_tag admin_update_cost_path, remote: true do
+        = text_field_tag :cost
+        = submit_tag 'save'
+  .span4.no-lmargin
+    .span4.no-lmargin
+      .span4.no-lmargin
+        %strong Twitter feed accounts
+      #twitter_names.span4.no-lmargin
+        - if @t_accounts.size == 0
+          #no_account.span4 There is no twitter accounts is added
+        - @t_accounts.each do |name|
+          = render partial: 'twitter_row', locals: {name: name}
+    #add_twitter.span4.no-lmargin
+      .errors.span3.no-lmargin{style: "margin-bottom: 20px"}
+      ~ form_tag admin_update_twitter_path, remote: true do
+        .span4.no-lmargin
+          %strong Add more account
+        .span2.no-lmargin
+          %label Twitter name
+        .span2.no-lmargin= text_field_tag :name
+        .span2.no-lmargin &nbsp
+        .span1.no-lmargin= submit_tag 'add'
 .span9.no-lmargin
   %p
     %h2 Users Summary
@@ -108,4 +128,7 @@
       return false;
     });
     
+    $("form").submit(function(){
+      $("#fading-image").show();
+    });
   });
