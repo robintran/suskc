@@ -1,9 +1,9 @@
-#main-menu.left-menu
+#main-menu.left-menu.left-haft-top
   .background
     .title
       %i.icon-list-ul.title-icon
       %span.title-copy Categories
-    .inside
+    .inside.inside-full
       .category= render partial: 'category_item', locals: {cat_name: "Events", icon_class: "icon-pushpin", c_class: "event_item"}
       .category= render partial: 'category_item', locals: {cat_name: "Startup", icon_class: "icon-upload", c_class: "parent-menu"}
       .sub-category.hidden

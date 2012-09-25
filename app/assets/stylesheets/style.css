@@ -135,7 +135,8 @@ body {
 }
 .right-menu {float:right}
 .right-full {position:absolute; bottom: 15px;  position: absolute;    top: 75px; right:30px}
-
+.left-haft-top {position:absolute; position: absolute;  height: 42%;}
+.left-haft-bottom {position:absolute; bottom: 3px;  position: absolute;  top: 55%; height: 42%;}
 .title-copy {
 	font-family:Lobster, Georgia italic, serif;
 	color:white;
