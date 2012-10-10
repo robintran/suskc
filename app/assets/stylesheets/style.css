@@ -135,8 +135,32 @@ body {
 }
 .right-menu {float:right}
 .right-full {position:absolute; bottom: 15px;  position: absolute;    top: 75px; right:30px}
-.left-haft-top {position:absolute; position: absolute;  height: 42%;}
-.left-haft-bottom {position:absolute; bottom: 3px;  position: absolute;  top: 55%; height: 42%;}
+.left-haft-top {
+  position: absolute;
+  height: 42%;
+  float: none;
+  height: auto;
+  top: 75px;
+  bottom: 45%;
+  border: none;
+  margin-left: 0px;
+  border-radius: 0;
+  border-top-right-radius: 5px;
+}
+
+.left-haft-bottom {
+  position: absolute;
+  bottom: 3px;
+  position: absolute;
+  top: 55%;
+  height: auto;
+  border: none;
+  margin-left: 0;
+  border-radius: 0;
+  bottom: 20px;
+  box-shadow: none;
+  border-bottom-right-radius: 5px;
+}
 .title-copy {
 	font-family:Lobster, Georgia italic, serif;
 	color:white;
@@ -219,12 +243,14 @@ body {
 }
 
 .info-icon {
-	color:white;
-	float: right;
-	margin-top: 20px;
-	font-siZe: 25px;
-	color: rgba(255, 255, 255, 0.65);
-	margin-right: 6px;
+	color: white;
+  float: right;
+  margin-top: 16px;
+  font-siZe: 25px;
+  color: rgba(255, 255, 255, 0.65);
+  margin-right: 6px;
+  text-decoration: none;
+  border-bottom: 0;
 }
 
 .signin-icon {
