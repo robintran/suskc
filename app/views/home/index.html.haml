@@ -15,6 +15,7 @@
       .category= render partial: 'category_item', locals: {cat_name: "Education", icon_class: "icon-book", c_class: "category_item"}
       .category= render partial: 'category_item', locals: {cat_name: "Service Providers", icon_class: "icon-wrench", c_class: "category_item"}
       .category= render partial: 'category_item', locals: {cat_name: "Community", icon_class: "icon-signal", c_class: "category_item"}
+= render partial: "news_feeds/list"
 
 #company.left-menu.full.slide-out.hidden
   .background
@@ -82,7 +83,7 @@
           %span=link_to 'back', 'close'
 
 = render partial: "events_menus"
-= render partial: "news_feeds/list"
+
 #add_something 
   = render partial: 'add_something'
             
