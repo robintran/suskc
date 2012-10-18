@@ -2,13 +2,7 @@ class HomeController < ApplicationController
   def index
     @locations = Location.actived_list
     @events = Event.actived_list
-    @news_feeds = []
-    @t_accounts = []
-    t_accounts = Setting.where(name: 'twitters').first 
-    @t_accounts = t_accounts.svalue.split(',') if t_accounts
-    @t_accounts.each do |name|
-      @news_feeds += Twitter.user_timeline(name)
-    end
+    init_news_feed
   end
     
   def search
@@ -17,6 +11,7 @@ class HomeController < ApplicationController
       unless term.blank?
         @locations = Location.search(term)
         @events = Event.search(term)
+        init_news_feed
         render :index
       else
         redirect_to root_path
@@ -36,4 +31,14 @@ class HomeController < ApplicationController
     end
   end
 
+  private
+    def init_news_feed
+      @news_feeds = []
+      @t_accounts = []
+      t_accounts = Setting.where(name: 'twitters').first 
+      @t_accounts = t_accounts.svalue.split(',') if t_accounts
+      @t_accounts.each do |name|
+        @news_feeds += Twitter.user_timeline(name)
+      end
+    end
 end

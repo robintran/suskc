@@ -87,9 +87,11 @@
           - logo = loc.logo.blank? ? "/assets/think-big.png" : loc.logo  
           - data = {"pos"=> {"lat"=> loc.latitude, "lng"=> loc.longitude}, "name"=> "#{loc.name}", "phone" => "#{loc.phone}", "email"=> "#{loc.email}", "address"=> "#{loc.address}", "id"=> "#{loc.id}", "url"=> "#{loc.url}", "twitter"=> "#{loc.t_user}", "facebook"=> "#{loc.f_user}", "description"=> "#{loc.description}", "logo"=> "#{logo}", "events" => loc.js_events}.to_json
           .category.company
-            = link_to "<i class='icon-map-marker'></i>".html_safe, '#', data: data, class: 'location_item'
-            %span.title=link_to loc.name, '#', data: data, class: 'location_item'
-            = link_to "<i class='icon-arrow-right arrow-icon'></i>".html_safe, '#', data: data, class: 'location_item'
+            .left-icon
+              = link_to "<i class='icon-map-marker'></i>".html_safe, '#', data: data, class: 'location_item'
+            .info-part
+              %span.title=link_to loc.name, '#', data: data, class: 'location_item'
+              = link_to "<i class='icon-arrow-right arrow-icon'></i>".html_safe, '#', data: data, class: 'location_item'
         .back
           = link_to "<i class='icon-arrow-left back-icon'></i>".html_safe, "close"
           %span=link_to 'back', 'close'

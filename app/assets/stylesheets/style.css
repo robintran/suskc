@@ -285,6 +285,7 @@ body {
 
 .category.company{
   float: left;
+  width: 232px;
 }
 
 .category.company .title{
@@ -326,6 +327,7 @@ body {
 	padding-top:15px;
 	margin-left: 98px;
 	color: #999;
+	float: left;
 }
 
 .back span {
