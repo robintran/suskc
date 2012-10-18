@@ -283,10 +283,27 @@ body {
 	margin-right: 10px;
 }
 
+.category.company{
+  float: left;
+}
+
+.category.company .title{
+  margin-left: 0;
+}
+
+.left-icon{
+  float: left;
+  width: 22px;
+}
+
+.info-part{
+  float: left;
+  width: 198px;
+}
+
 .inside .company .info {
 	font-size: 12px;
 	color: #666;
-	margin-left: 22px;
 	margin-top: 1px;
 }
 
@@ -340,12 +357,14 @@ body {
 }
 
 .single-company-info {
-	padding-left: 18px;
+	padding-left: 15px;
 	padding-top: 15px;
 	border-top: 1px solid #ddd;
 	padding-right: 7px;
 	padding-bottom: 19px;
 	border-bottom: 1px solid #ddd;
+	width: 232px;
+	float: left;
 }
 
 .left-location-icon {
@@ -363,14 +382,11 @@ body {
 	font-size:13px;
 }
 
-.content .slide-out .location{
-	margin-left: 24px;
-}
-
 .info-item {
 	color:#666;
 	font-size:13px;
 	margin-top:5px;
+	float: left;
 }
 
 .company-info-icon {
@@ -394,7 +410,9 @@ body {
 	font-size:13px;
 	color:#444;
 	padding: 19px;
+	padding-left: 15px;
 	padding-right: 12px;
+	float: left;
 }
 
 /* POPOVER */

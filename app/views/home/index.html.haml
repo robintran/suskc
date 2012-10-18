@@ -26,26 +26,38 @@
         #company-image
           = image_tag 'think-big.png'
         .single-company-info
-          %i.icon-map-marker.left-location-icon
-          %span#company_name.title Think Big Partners
-          .info.location
-            .address Kansas
-            .city Kansas
+          .left-icon
+            %i.icon-map-marker.left-location-icon
+          .info-part
+            %span#company_name.title Think Big Partners
+            .info.location
+              .address Kansas
+              .city Kansas
           .info-item
-            %i.icon-phone.company-info-icon.phone-icon
-            %span.phone
+            .left-icon
+              %i.icon-phone.company-info-icon.phone-icon
+            .info-part
+              %span.phone
           .info-item
-            %i.icon-envelope.company-info-icon.email-icon
-            %span.email
+            .left-icon
+              %i.icon-envelope.company-info-icon.email-icon
+            .info-part
+              %span.email
           .info-item.url
-            %i.icon-globe.company-info-icon
-            %span.url startupshopkc.com
+            .left-icon
+              %i.icon-globe.company-info-icon
+            .info-part
+              %span.url startupshopkc.com
           .info-item.twitter
-            %i.icon-twitter.company-info-icon.twitter-iconn
-            %span.twitter @suskc
+            .left-icon
+              %i.icon-twitter.company-info-icon.twitter-iconn
+            .info-part
+              %span.twitter @suskc
           .info-item.facebook
-            %i.icon-facebook-sign.company-info-icon
-            %span.facebook /suskc
+            .left-icon
+              %i.icon-facebook-sign.company-info-icon
+            .info-part
+              %span.facebook /suskc
         .company-description
           Think Big Partners is an early-stage business incubator, startup accelerator and mentorship-based
           collaborative network that takes ideas, opportunities and entrepreneurs and makes them big.
@@ -185,12 +197,12 @@
         for(i=0; i<list.length; i++){
           id = list[i].data.id;
           data= '{"pos": {"lat": ' + list[i].lat + ', "lng": ' + list[i].lng + '}, "name": "' + list[i].data.name + '", "phone": "' + list[i].data.phone+ '", "email": "' + list[i].data.email + '", "address": "' + list[i].data.address + '", "id": "' + list[i].data.id + '", "url": "' + list[i].data.url + '", "twitter": "' + list[i].data.twitter + '", "facebook": "' + list[i].data.facebook + '", "description": "' + list[i].data.description+ '", "logo": "' + list[i].data.logo + '", "events": ' + list[i].data.events + ', "category": "' + list[i].data.category + '"}';
-          inside_content="<div class='category company'><a href='#', data='" + data + 
+          inside_content="<div class='category company'><div class='left-icon'><a href='#', data='" + data + 
           "', class='location_item'><i class='" + icon_class + 
-          "'></i></a><span class='title'><a href='#', data='" + data + "', class='location_item'>" +
+          "'></i></a></div><div class='info-part'><span class='title'><a href='#', data='" + data + "', class='location_item'>" +
           list[i].data.name + "</a></span><a href='#', data='" + data + 
           "', class='location_item'><i class='icon-arrow-right arrow-icon'></i></a><div class='info'><div class='address'>" + 
-          list[i].data.address + "</div><div class='city'>" + list[i].data.email + "</div></div></div>";
+          list[i].data.address + "</div><div class='city'>" + list[i].data.email + "</div></div></div></div>";
 
           $("#category .inside #companies").append(inside_content);
         }
