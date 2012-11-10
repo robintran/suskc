@@ -1,6 +1,5 @@
 - event ||= Event.new
-~ form_for event, remote: true, html: {class: 'form', :multipart => true} do |f|
-  .input#errors
+~ form_for event, remote: true, html: {class: 'form', :multipart => true} do |f|  
   .input
     .label
       %i.icon-flag.form-icon
@@ -46,6 +45,7 @@
       Description
     .field
       = f.text_area :description, class: 'text-input'
+  .input.errors
   .input
     .label
       %i.icon-map-marker.form-icon

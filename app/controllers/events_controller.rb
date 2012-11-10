@@ -5,7 +5,9 @@ class EventsController < ApplicationController
     check_valid_address
     @event.active = false
     @event.user_id = current_user.id
-    @event.save
+    if @errors.blank?
+      @event.save
+    end
     
     respond_to :js
   end
@@ -38,6 +40,8 @@ class EventsController < ApplicationController
         else
           @errors << "invalid address"
         end
+      else
+        @errors << "address can't be blank"
       end
     end
 end
