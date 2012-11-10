@@ -10,7 +10,7 @@
     .span3.no-lmargin{class: "#{bg_class}"}
       = event.e_address
     .span2.no-lmargin{class: "#{bg_class}"}
-      = event.user.username
+      = event.user.username if event.user
     .span1.no-lmargin{class: "#{bg_class}", id: "act_text_#{event.id}"}
       = event.active?
     .span1.no-lmargin{class: "#{bg_class}", id: "act_ctrl_#{event.id}"}
