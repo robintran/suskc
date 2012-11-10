@@ -4,8 +4,8 @@ if Rails.env.production?
     :port           =>  587,
     :domain         => 'baci.lindsaar.net',
     :authentication => 'plain',
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    :password       => ENV['SENDGRID_PASSWORD'],
+    :user_name      => 'mytest1221@gmail.com',
+    :password       => '11qqaazz',
     :enable_starttls_auto => true 
   }
 else
