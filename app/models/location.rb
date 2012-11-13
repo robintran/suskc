@@ -31,9 +31,9 @@ class Location < ParseResource::Base
   
   def t_user
     t_name = ''
-    if self.twitter
+    unless self.twitter.blank?
       t_name = self.twitter.split('/').last
-      t_name = t_name.split('@').last
+      t_name = t_name ? t_name.split('@').last : ""
     end
     t_name
   end
