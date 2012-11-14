@@ -39,7 +39,7 @@ class Location < ParseResource::Base
   end
   
   def f_user
-    self.facebook.split('/').last if self.facebook
+    self.facebook.blank? ? '' : self.facebook.split('/').last 
   end
   
   def user

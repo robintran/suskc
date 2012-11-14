@@ -43,17 +43,17 @@
               %i.icon-envelope.company-info-icon.email-icon
             .info-part
               %span.email
-          .info-item.url
+          .info-item.url.hidden
             .left-icon
               %i.icon-globe.company-info-icon
             .info-part
               %span.url startupshopkc.com
-          .info-item.twitter
+          .info-item.twitter.hidden
             .left-icon
               %i.icon-twitter.company-info-icon.twitter-iconn
             .info-part
               %span.twitter @suskc
-          .info-item.facebook
+          .info-item.facebook.hidden
             .left-icon
               %i.icon-facebook-sign.company-info-icon
             .info-part
@@ -420,7 +420,7 @@
     $("#category .title i#cat-tit-icon").addClass("title-icon " + getIconClass(data.category));
     $("#category .title-copy").html(data.category);
     $("#category.left-menu").removeClass('hidden');
-    $("#company-image img").attr('src', data.logo)
+    $("#company-image img").attr('src', data.logo);
     $("#company #company_name").html(data.name);
     $("#company .address").html(data.address);
     $("#company .city").html("Kansas");
@@ -436,13 +436,19 @@
     $("#company span.twitter").html("<a href='http://twitter.com/" + data.twitter + "'>@" + data.twitter + "</a>");
     $("#company span.facebook").html("<a href='http://www.facebook.com/" + data.facebook + "'>/" + data.facebook + "</a>");
     $("#company .company-description").html(data.description);
-    if(data.url.length < 1 || data.url == 'http://'){
+    if(data.url.length > 1 && data.url != 'http://' && data.url != 'null'){
+      $("#company .info-item.url").removeClass('hidden');
+    }else{
       $("#company .info-item.url").addClass('hidden');
     }
-    if(data.twitter.length < 1){
+    if(data.twitter.length > 1 && data.twitter!="null"){
+      $("#company .info-item.twitter").removeClass('hidden');
+    }else{
       $("#company .info-item.twitter").addClass('hidden');
     }
-    if(data.facebook.length < 1){
+    if(data.facebook.length > 1 && data.facebook!="null"){
+      $("#company .info-item.facebook").removeClass('hidden');
+    }else{
       $("#company .info-item.facebook").addClass('hidden');
     }
     $("#company #com_events").html('');
