@@ -1,0 +1,8 @@
+#popover
+	#popover_login.background
+		.title
+			%span.add-title Message
+			= link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
+		.inside
+			- flash.each do |name, msg|
+				= content_tag :div, msg, :id => "flash_#{name}"

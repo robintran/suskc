@@ -8,5 +8,5 @@
 
 categories = ["Advertising", "BioTech", "eCommerce", "Enterprise", "Games", "Mobile", "Security", "Social", "Other", "Accelerator", "Coworking", "Investor", "Education", "Service Providers", "Community"]
 
-admin = User.where(username: 'admin@suskc.com').first
-admin = User.create(username: 'admin@suskc.com', password: '111111') unless admin
+# admin = User.where(username: 'admin@suskc.com').first
+# admin = User.create(username: 'admin@suskc.com', password: '111111') unless admin

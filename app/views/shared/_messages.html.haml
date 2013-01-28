@@ -1,7 +1,5 @@
 .messages{class: "#{flash.blank? ? 'hidden' : ''}"}
-  = link_to "<i class='icon-remove-sign title-close-icon'></i>".html_safe, "close"
-  - flash.each do |name, msg|
-    = content_tag :div, msg, :id => "flash_#{name}"
+  = render partial: 'home/messages'
 
 :javascript
   $(".messages a[href=close]").click(function(e){

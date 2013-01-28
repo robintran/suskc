@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       @user.confirm_code = confirm_url
       if @user.save
         ConfirmMailer.email_confirm(@user.username, confirm_url).deliver
-        flash[:notice] = 'Thank you for registerd. A confirmation email was send to you.'
+        flash[:notice] = 'Thank you for registering. A confirmation email was send to you.'
       else
         @errors = @user.errors.full_messages
       end

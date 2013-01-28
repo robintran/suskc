@@ -538,7 +538,7 @@
       },
       init:{
         mapTypeId : google.maps.MapTypeId.ROADMAP,
-        center:[46.578498,2.457275],
+        center:[17.385044,78.486671],
         zoom: 2
       },
       classes:{

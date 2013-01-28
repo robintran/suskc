@@ -1,7 +1,10 @@
-class Location < ParseResource::Base
+class Location < ActiveRecord::Base
   belongs_to :user
-  fields :name, :description, :address, :phone, :email, :url, :twitter, :facebook, :latitude, :longitude,
-         :active, :paid, :logo, :user_id, :category, :sub_category
+  # fields :name, :description, :address, :phone, :email, :url, :twitter, :facebook, 
+  # :latitude, :longitude,
+         # :active, :paid, :logo, :user_id, :category, :sub_category
+  attr_accessible :name, :description, :address, :phone, :email, :url, :twitter, :facebook, 
+               :latitude, :longitude, :active, :paid, :logo, :user_id, :category, :sub_category
 
   validates :address, presence: true
   validates :email, presence: true

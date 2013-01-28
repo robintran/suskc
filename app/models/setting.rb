@@ -1,3 +1,3 @@
-class Setting < ParseResource::Base
-  fields :name, :value, :svalue
+class Setting < ActiveRecord::Base
+  attr_accessible :name, :value, :svalue
 end

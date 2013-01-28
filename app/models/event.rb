@@ -1,6 +1,10 @@
-class Event < ParseResource::Base
-  fields :address, :active, :company_id, :email, :name, :e_time, :recurring, :url, :description, 
-          :latitude, :longitude, :user_id, :phone
+class Event < ActiveRecord::Base
+  # fields :address, :active, :company_id, :email, :name, :e_time, :recurring, :url,
+  # :description, 
+          # :latitude, :longitude, :user_id, :phone
+  # require 'date'
+  attr_accessible :address, :active, :company_id, :email, :name, :e_time, :recurring, :url,
+                :description, :latitude, :longitude, :user_id, :phone
   
   validates :e_time, presence: true
   validates :name, presence: true

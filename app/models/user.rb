@@ -1,5 +1,9 @@
-class User < ParseUser
-  fields :role, :confirm_code, :customer_id
+class User < ActiveRecord::Base
+  # fields :role, :confirm_code, :customer_id
+  attr_accessible :username, :password, :password_confirmation, :role, :confirm_code, :customer_id
+  has_secure_password
+  
+
   
   def admin?
     return self.role=='admin'
